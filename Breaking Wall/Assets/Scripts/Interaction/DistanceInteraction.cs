@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EventInteraction : InputComponent
+public class DistanceInteraction : MonoBehaviour
 {
+
     [Range(0, 20)]
     public float range;
 
@@ -43,8 +44,7 @@ public class EventInteraction : InputComponent
 
     }
 
-
-    public override void setPlayerControls()
+    private void Update()
     {
         triggerEvent();
     }
@@ -65,22 +65,20 @@ public class EventInteraction : InputComponent
                 {
                     if (myRenderer != null)
                     {
-
                         myRenderer.enabled = false;
-
                     }
 
                     if (myCollider != null)
                     {
-
                         myCollider.enabled = false;
                     }
+
                 }
 
 
             }
-        }
 
+        }
 
     }
 
