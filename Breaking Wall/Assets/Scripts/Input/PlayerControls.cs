@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Input/InputMaster.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Input/PlayerControls.inputactions'
 
 using System;
 using System.Collections;
@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @InputMaster : IInputActionCollection, IDisposable
+public class @PlayerControls : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @InputMaster()
+    public @PlayerControls()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""InputMaster"",
+    ""name"": ""PlayerControls"",
     ""maps"": [
         {
             ""name"": ""DefaultActionMap"",
@@ -268,8 +268,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_DefaultActionMap_Dive;
     public struct DefaultActionMapActions
     {
-        private @InputMaster m_Wrapper;
-        public DefaultActionMapActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        private @PlayerControls m_Wrapper;
+        public DefaultActionMapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_DefaultActionMap_Jump;
         public InputAction @Movement => m_Wrapper.m_DefaultActionMap_Movement;
         public InputAction @Dive => m_Wrapper.m_DefaultActionMap_Dive;
