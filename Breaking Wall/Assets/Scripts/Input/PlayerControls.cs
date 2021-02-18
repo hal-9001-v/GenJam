@@ -41,6 +41,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Hit"",
+                    ""type"": ""Button"",
+                    ""id"": ""2090ab44-95ff-458a-81dd-75f760d86244"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -179,7 +187,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""685b61eb-3b89-48c3-9af5-97ca7c5385e2"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -195,6 +203,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c88a3c6-3fa5-4d26-9abb-4b5ba2bc3162"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb133722-8d87-4e57-8875-32a4f1a690b0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -214,6 +244,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_DefaultActionMap_Jump = m_DefaultActionMap.FindAction("Jump", throwIfNotFound: true);
         m_DefaultActionMap_Movement = m_DefaultActionMap.FindAction("Movement", throwIfNotFound: true);
         m_DefaultActionMap_Dive = m_DefaultActionMap.FindAction("Dive", throwIfNotFound: true);
+        m_DefaultActionMap_Hit = m_DefaultActionMap.FindAction("Hit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -266,6 +297,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_DefaultActionMap_Jump;
     private readonly InputAction m_DefaultActionMap_Movement;
     private readonly InputAction m_DefaultActionMap_Dive;
+    private readonly InputAction m_DefaultActionMap_Hit;
     public struct DefaultActionMapActions
     {
         private @PlayerControls m_Wrapper;
@@ -273,6 +305,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_DefaultActionMap_Jump;
         public InputAction @Movement => m_Wrapper.m_DefaultActionMap_Movement;
         public InputAction @Dive => m_Wrapper.m_DefaultActionMap_Dive;
+        public InputAction @Hit => m_Wrapper.m_DefaultActionMap_Hit;
         public InputActionMap Get() { return m_Wrapper.m_DefaultActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -291,6 +324,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Dive.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnDive;
                 @Dive.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnDive;
                 @Dive.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnDive;
+                @Hit.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnHit;
+                @Hit.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnHit;
+                @Hit.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnHit;
             }
             m_Wrapper.m_DefaultActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -304,6 +340,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Dive.started += instance.OnDive;
                 @Dive.performed += instance.OnDive;
                 @Dive.canceled += instance.OnDive;
+                @Hit.started += instance.OnHit;
+                @Hit.performed += instance.OnHit;
+                @Hit.canceled += instance.OnHit;
             }
         }
     }
@@ -322,5 +361,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnDive(InputAction.CallbackContext context);
+        void OnHit(InputAction.CallbackContext context);
     }
 }

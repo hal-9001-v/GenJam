@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     PlayerControls myPlayerControls; //Player Input Action Asset
     private Rigidbody myRb; //My Rigidbody
     private PlayerStats ps; //My player stats
-
+    private GameObject myBolso; //Meele hit
+    public Light controlLight;
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
 
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private int currentState; 
     private bool moving; //Is moving?
-
+    private bool hitting; 
     //Player Stats
     private float movementSpeed; //Actual Movement Speed
     private float airMovementSpeed; //Movement  Speed When airborne
@@ -39,7 +40,8 @@ public class PlayerController : MonoBehaviour
         myPlayerControls = new PlayerControls();
         if(myRb == null) myRb = GetComponent<Rigidbody>();
         if (ps == null) ps = FindObjectOfType<PlayerStats>();
-
+        if (myBolso == null) myBolso = GameObject.Find("Bolso");
+        myBolso.GetComponent<Collider>().gameObject.SetActive(false);
         //Variable Initialization
         movementSpeed = 10f;
         groundMovementSpeed = 10f;
@@ -130,6 +132,7 @@ void Start()
         //If not grounded and was in grounded state, jump.
         if (grounded) { 
             currentState = (int)State.GROUNDED;
+            if(!hitting) controlLight.color = Color.white;
             //Debug.Log("¡Entering Grounded State!");
         }
         else if (currentState == (int)State.GROUNDED) {
@@ -150,6 +153,7 @@ void Start()
             movementSpeed = airMovementSpeed;
             myRb.velocity = new Vector3(myRb.velocity.x, jumpForce, myRb.velocity.z);
             currentState = (int)State.JUMPING;
+            controlLight.color = Color.green;
             //Debug.Log("¡Entering Jump State!");
             isGrounded = false;
         }
@@ -162,12 +166,13 @@ void Start()
         if (currentState == (int)State.JUMPING) {
             StartCoroutine(DiveRoutine());
             currentState = (int)State.DIVING;
+            controlLight.color = Color.red;
             //Debug.Log("¡Entering Diving State!");
         }
 
     }
 
-    public IEnumerator DiveRoutine() {
+    private IEnumerator DiveRoutine() {
         //Stop in the air, then lunge forward.
         myRb.velocity = new Vector3(myRb.velocity.x*0.1f, 0, myRb.velocity.z*0.1f);
         yield return new WaitForSeconds(0.15f);
@@ -175,6 +180,34 @@ void Start()
 
     }
 
+    private void Hit() {
+
+        //HitAnim
+        if (currentState == (int)State.GROUNDED) {
+            Debug.Log("Hit");
+            StartCoroutine(HitCourutine());
+        }
+
+    }
+
+
+    private IEnumerator HitCourutine() {
+
+        if (!hitting)
+        {
+            hitting = true;
+            controlLight.color = Color.blue;
+            movementSpeed = airMovementSpeed * 0.5f;
+            myBolso.GetComponent<Collider>().gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(0.5f);
+
+            myBolso.GetComponent<Collider>().gameObject.SetActive(false);
+            movementSpeed = groundMovementSpeed;
+            controlLight.color = Color.white;
+            hitting = false;
+        }
+    }
 
     //Enable player controls
     private void OnEnable()
@@ -197,7 +230,9 @@ void Start()
         pc.DefaultActionMap.Jump.performed += ctx => Jump();
 
         pc.DefaultActionMap.Dive.performed += ctx => Dive();
-        
+
+        pc.DefaultActionMap.Hit.performed += ctx => Hit();
+
 
     }
 
