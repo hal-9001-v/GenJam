@@ -62,7 +62,7 @@ public class EnemyCocinero : MonoBehaviour
         groundMovementSpeed = 5f;
         airMovementSpeed = groundMovementSpeed / 2;
         jumpForce = 5f;
-        hp = 10;
+        hp = 2;
         inmunity = 0.2f;
 
     }
@@ -249,13 +249,13 @@ public class EnemyCocinero : MonoBehaviour
         hp--;
         Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
         myRb.velocity = new Vector3 (-direction.x*10,3, -direction.z*10);
+        if (hp <= 0) Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Bolso")
         {
-
             if (!takeDmg)
             {
                 TakeDamage();
