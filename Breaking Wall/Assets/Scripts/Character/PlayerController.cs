@@ -7,16 +7,25 @@ public class PlayerController : MonoBehaviour
 {
 
     //GOs
-    PlayerControls myPlayerControls;
-    private Rigidbody myRb;
-     
+    PlayerControls myPlayerControls; //Player Input Action Asset
+    private Rigidbody myRb; //My Rigidbody
+    private PlayerStats ps; //My player stats
+
     //MovementVals
-    private Vector2 moveInput;
-    
+    private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
+
     //ControlVars
-    private bool jump;
-    public bool isGrounded;
-    public int currentState;
+    private bool isGrounded;
+    private int currentState; 
+    private bool moving; //Is moving?
+
+    //Player Stats
+    private float movementSpeed; //Actual Movement Speed
+    private float airMovementSpeed; //Movement  Speed When airborne
+    private float groundMovementSpeed; //Movement speed when on ground, also launching speed
+    private float jumpForce; //pretty self explanatory, really
+    private int hp; //Life points
+    private int level; //Actual level (scene)
     //State
     public enum State
     {
@@ -26,16 +35,44 @@ public class PlayerController : MonoBehaviour
     }
     
     private void Awake() {
-        
+        //Gos
         myPlayerControls = new PlayerControls();
-        myRb = GetComponent<Rigidbody>();
-        
+        if(myRb == null) myRb = GetComponent<Rigidbody>();
+        if (ps == null) ps = FindObjectOfType<PlayerStats>();
+
+        //Variable Initialization
+        movementSpeed = 10f;
+        groundMovementSpeed = 10f;
+        airMovementSpeed = groundMovementSpeed / 2;
+        jumpForce = 5f;
+        hp = 10;
+
+
+        //playerStats business
+        hp = ps.hp;
+        level = ps.level;
+    }
+
+    //PlayerStatsUpdate
+    private void UpdatePlayerStats()
+    {
+        ps.level = level;
+        ps.hp = hp;
+    }
+
+    //Load pertinent level
+    private void nextLevel()
+    {
+        level++;
+        UpdatePlayerStats();
+        Debug.Log("Loading Scene correspondiente");
+
     }
 
     
-    
-    // Start is called before the first frame update
-    void Start()
+
+// Start is called before the first frame update
+void Start()
     {
         setPlayerControls(myPlayerControls);
     }
@@ -44,52 +81,102 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CheckGrounded(isGrounded);
+        UpdateMovement(moveInput);
     }
 
+
+    //Check if player grounded
     private void OnTriggerStay(Collider other)
     {
 
-        Debug.Log(other.name);
         if (other.tag == "Ground")
         {
             isGrounded = true;
-            Debug.Log("Grounded");
         }
         
     }
+
+    //Check when player leaves ground
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log(other.name);
         if (other.tag == "Ground")
         {
             isGrounded = false;
-            Debug.Log("Not Grounded");
         }
      
     }
 
-    private void CheckGrounded(bool grounded) {
+    private void UpdateMovement(Vector2 M) {
 
-        if (grounded) { currentState = (int)State.GROUNDED; } else currentState = (int)State.JUMPING;
+
+        //If not diving, velocity is calculated normally
+        if (currentState != (int)State.DIVING)
+        {
+            myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
+
+            //If moving, calculate rotation lerping current rotation with previous.
+            if (moving)
+            {
+               Quaternion prevRotation = transform.rotation;
+               Quaternion actualRot = Quaternion.LookRotation(myRb.velocity);
+               transform.rotation =Quaternion.Euler(transform.rotation.x,Vector3.Lerp(prevRotation.eulerAngles, actualRot.eulerAngles, 0.5f).y, transform.rotation.z);
+                
+            }
+        }
+    }
+
+    private void CheckGrounded(bool grounded) {
+        //If grounded -> grounded state
+        //If not grounded and was in grounded state, jump.
+        if (grounded) { 
+            currentState = (int)State.GROUNDED;
+            //Debug.Log("¡Entering Grounded State!");
+        }
+        else if (currentState == (int)State.GROUNDED) {
+            movementSpeed = groundMovementSpeed;
+            currentState = (int)State.JUMPING;
+           // Debug.Log("¡Entering Jump State!");
+        }
 
 
     }
 
     private void Jump(){
 
-        Debug.Log("Jumped!");
-        if(currentState == (int) State.GROUNDED) myRb.velocity = new Vector3(0, 14, 0);
-        currentState = (int)State.JUMPING;
-        isGrounded = false;
+        //If grounded -> Jump and enter jump state.
+
+        if (currentState == (int)State.GROUNDED)
+        {
+            movementSpeed = airMovementSpeed;
+            myRb.velocity = new Vector3(myRb.velocity.x, jumpForce, myRb.velocity.z);
+            currentState = (int)State.JUMPING;
+            //Debug.Log("¡Entering Jump State!");
+            isGrounded = false;
+        }
 
     }
 
     private void Dive(){
 
-        Debug.Log("Dove!");
+        //If jumping -> Dive and enter dive state
+        if (currentState == (int)State.JUMPING) {
+            StartCoroutine(DiveRoutine());
+            currentState = (int)State.DIVING;
+            //Debug.Log("¡Entering Diving State!");
+        }
 
     }
 
+    public IEnumerator DiveRoutine() {
+        //Stop in the air, then lunge forward.
+        myRb.velocity = new Vector3(myRb.velocity.x*0.1f, 0, myRb.velocity.z*0.1f);
+        yield return new WaitForSeconds(0.15f);
+        myRb.velocity = new Vector3(transform.forward.x*2, transform.forward.y - 0.4f, transform.forward.z*2) * groundMovementSpeed;
+
+    }
+
+
+    //Enable player controls
     private void OnEnable()
     {
         myPlayerControls.Enable();
@@ -102,10 +189,10 @@ public class PlayerController : MonoBehaviour
 
     
    public void setPlayerControls(PlayerControls pc){
+        //Callback contexts to bind player actions.
+        pc.DefaultActionMap.Movement.performed += ctx => { moveInput = ctx.ReadValue<Vector2>(); moving = true; };
 
-        pc.DefaultActionMap.Movement.performed += ctx => ctx.ReadValue<Vector2>();
-
-        pc.DefaultActionMap.Movement.canceled += ctx => ctx.ReadValue<Vector2>();
+        pc.DefaultActionMap.Movement.canceled += ctx => { moveInput = Vector2.zero; moving = false; };
         
         pc.DefaultActionMap.Jump.performed += ctx => Jump();
 
