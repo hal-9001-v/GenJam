@@ -130,12 +130,22 @@ public class PlayerController : MonoBehaviour
         {
             if (cfTransform != null)
             {
-                var aux = cfTransform.rotation.eulerAngles;
+                cfTransform.rotation *= Quaternion.AngleAxis(aimInput.y * verticalSens, Vector3.right);
+                cfTransform.rotation *= Quaternion.AngleAxis(aimInput.x * verticalSens, Vector3.up);
 
-                aux.x += aimInput.y * verticalSens;
-                aux.y += aimInput.x * horizontalSens;
+                var aux = cfTransform.localEulerAngles;
+                aux.z = 0;
 
-                aux.x = Mathf.Clamp(aux.x, clampingMin, clampingMax);
+                if (aux.x > 180 && aux.x < 340)
+                {
+                    aux.x = 340;
+                }
+                else if (aux.x < 180 && aux.x > 40)
+                {
+                    aux.x = 40;
+                }
+                //aux.x = Mathf.Clamp(aux.x, clampingMin, clampingMax);
+
 
                 cfTransform.rotation = Quaternion.Euler(aux);
             }

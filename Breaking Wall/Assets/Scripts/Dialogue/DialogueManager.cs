@@ -134,8 +134,10 @@ public class DialogueManager : InputComponent
 
     void hide()
     {
-        image.enabled = false;
-        dialogueText.enabled = false;
+        if (image != null)
+            image.enabled = false;
+        if (dialogueText != null)
+            dialogueText.enabled = false;
 
     }
 
@@ -155,8 +157,10 @@ public class DialogueManager : InputComponent
 
     void show()
     {
-        image.enabled = true;
-        dialogueText.enabled = true;
+        if (image != null)
+            image.enabled = true;
+        if (dialogueText != null)
+            dialogueText.enabled = true;
 
     }
 
