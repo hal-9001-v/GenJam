@@ -43,17 +43,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Interaction"",
+                    ""name"": ""Hit"",
                     ""type"": ""Button"",
-                    ""id"": ""0613e7a7-453f-4399-9c9b-15f7cb1ab879"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Aim"",
-                    ""type"": ""Button"",
-                    ""id"": ""2320e8c9-6890-4c8c-b1a3-41cba2037f59"",
+                    ""id"": ""2090ab44-95ff-458a-81dd-75f760d86244"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -99,7 +91,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""GameCS"",
+                    ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -110,7 +102,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""GameCS"",
+                    ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -121,7 +113,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""GameCS"",
+                    ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -132,7 +124,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""GameCS"",
+                    ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -195,7 +187,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""685b61eb-3b89-48c3-9af5-97ca7c5385e2"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -216,69 +208,25 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""66164904-de27-42c0-bd36-25ec31c6a267"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""id"": ""2c88a3c6-3fa5-4d26-9abb-4b5ba2bc3162"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""GameCS"",
-                    ""action"": ""Interaction"",
+                    ""groups"": """",
+                    ""action"": ""Hit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""e9d78eff-5821-4a97-9c0d-df5fe179e84d"",
-                    ""path"": ""2DVector"",
+                    ""name"": """",
+                    ""id"": ""fb133722-8d87-4e57-8875-32a4f1a690b0"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Aim"",
-                    ""isComposite"": true,
+                    ""action"": ""Hit"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""6808b930-7487-49da-98a6-5d94193f08eb"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""238e711b-de9c-4307-bc16-b6801644961d"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""20cdd120-90e1-4e50-9f72-86fe4471dce3"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""f4b62926-97be-4627-b8b9-a4d656b06455"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -296,8 +244,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_DefaultActionMap_Jump = m_DefaultActionMap.FindAction("Jump", throwIfNotFound: true);
         m_DefaultActionMap_Movement = m_DefaultActionMap.FindAction("Movement", throwIfNotFound: true);
         m_DefaultActionMap_Dive = m_DefaultActionMap.FindAction("Dive", throwIfNotFound: true);
-        m_DefaultActionMap_Interaction = m_DefaultActionMap.FindAction("Interaction", throwIfNotFound: true);
-        m_DefaultActionMap_Aim = m_DefaultActionMap.FindAction("Aim", throwIfNotFound: true);
+        m_DefaultActionMap_Hit = m_DefaultActionMap.FindAction("Hit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -350,8 +297,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_DefaultActionMap_Jump;
     private readonly InputAction m_DefaultActionMap_Movement;
     private readonly InputAction m_DefaultActionMap_Dive;
-    private readonly InputAction m_DefaultActionMap_Interaction;
-    private readonly InputAction m_DefaultActionMap_Aim;
+    private readonly InputAction m_DefaultActionMap_Hit;
     public struct DefaultActionMapActions
     {
         private @PlayerControls m_Wrapper;
@@ -359,8 +305,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_DefaultActionMap_Jump;
         public InputAction @Movement => m_Wrapper.m_DefaultActionMap_Movement;
         public InputAction @Dive => m_Wrapper.m_DefaultActionMap_Dive;
-        public InputAction @Interaction => m_Wrapper.m_DefaultActionMap_Interaction;
-        public InputAction @Aim => m_Wrapper.m_DefaultActionMap_Aim;
+        public InputAction @Hit => m_Wrapper.m_DefaultActionMap_Hit;
         public InputActionMap Get() { return m_Wrapper.m_DefaultActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -379,12 +324,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Dive.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnDive;
                 @Dive.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnDive;
                 @Dive.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnDive;
-                @Interaction.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnInteraction;
-                @Interaction.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnInteraction;
-                @Interaction.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnInteraction;
-                @Aim.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnAim;
-                @Aim.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnAim;
-                @Aim.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnAim;
+                @Hit.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnHit;
+                @Hit.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnHit;
+                @Hit.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnHit;
             }
             m_Wrapper.m_DefaultActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -398,12 +340,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Dive.started += instance.OnDive;
                 @Dive.performed += instance.OnDive;
                 @Dive.canceled += instance.OnDive;
-                @Interaction.started += instance.OnInteraction;
-                @Interaction.performed += instance.OnInteraction;
-                @Interaction.canceled += instance.OnInteraction;
-                @Aim.started += instance.OnAim;
-                @Aim.performed += instance.OnAim;
-                @Aim.canceled += instance.OnAim;
+                @Hit.started += instance.OnHit;
+                @Hit.performed += instance.OnHit;
+                @Hit.canceled += instance.OnHit;
             }
         }
     }
@@ -422,7 +361,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
         void OnDive(InputAction.CallbackContext context);
-        void OnInteraction(InputAction.CallbackContext context);
-        void OnAim(InputAction.CallbackContext context);
+        void OnHit(InputAction.CallbackContext context);
     }
 }
