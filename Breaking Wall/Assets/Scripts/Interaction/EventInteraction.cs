@@ -44,9 +44,11 @@ public class EventInteraction : InputComponent
     }
 
 
-    public override void setPlayerControls()
+    public override void setPlayerControls(PlayerControls pc)
     {
-        triggerEvent();
+
+        pc.DefaultActionMap.Interaction.performed += ctx => triggerEvent();
+
     }
 
     private void triggerEvent()

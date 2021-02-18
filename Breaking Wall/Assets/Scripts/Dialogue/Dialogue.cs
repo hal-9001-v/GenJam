@@ -23,6 +23,10 @@ public class Dialogue : MonoBehaviour
     public UnityEvent atStartEvent;
     public UnityEvent atEndEvent;
 
+    [Space(5)]
+    public Transform talkingPivot;
+    public bool playOnStart;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,9 @@ public class Dialogue : MonoBehaviour
         {
             Debug.LogWarning("No Dialogue Manager in scene");
         }
+
+        if (playOnStart)
+            trigger();
     }
 
     public void trigger()

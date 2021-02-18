@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class InputComponent : MonoBehaviour
 {
-    public abstract void setPlayerControls();
+    public abstract void setPlayerControls(PlayerControls inputs);
+
         
     
 }

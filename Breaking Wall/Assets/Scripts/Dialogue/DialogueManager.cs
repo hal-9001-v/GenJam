@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Objects")]
     public TextMeshProUGUI dialogueText;
     public Image image;
+    public Transform boxTransform;
 
     static DialogueManager instance;
     AudioSource source;
@@ -42,6 +43,12 @@ public class DialogueManager : MonoBehaviour
             {
                 Debug.LogWarning("No image in DialogueManager!");
             }
+
+            if (boxTransform == null) {
+                Debug.LogWarning("No Box Transform in DialogueManager!");
+            }
+
+            hide();
         }
         else
         {
@@ -65,6 +72,10 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator TypeText(Dialogue dialogue)
     {
+
+        if (boxTransform != null && dialogue.talkingPivot != null) {
+            boxTransform.position = Camera.main.WorldToScreenPoint(dialogue.talkingPivot.position);
+        }
         //Get every Sentence
         foreach (string s in dialogue.texts)
         {
