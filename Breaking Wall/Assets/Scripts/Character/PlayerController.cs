@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour
         myDiveHit.GetComponent<Collider>().gameObject.SetActive(true);
 
         yield return new WaitForSeconds(0.15f);
-        myRb.velocity = new Vector3(transform.forward.x * 2, transform.forward.y - 0.4f, transform.forward.z * 2) * groundMovementSpeed;
+        myRb.velocity = new Vector3(bodyTransform.forward.x * 2, bodyTransform.forward.y - 0.4f, bodyTransform.forward.z * 2) * groundMovementSpeed;
 
     }
 
@@ -305,7 +305,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Bolso")
+        if (col.gameObject.tag == "Cucho" || col.gameObject.tag == "Micro")
         {
 
             if (!takeDmg)
@@ -314,6 +314,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(Inmunity());
             }
         }
+
     }
 
     private void TakeDamage(Collider col)

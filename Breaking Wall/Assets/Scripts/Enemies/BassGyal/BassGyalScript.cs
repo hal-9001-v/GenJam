@@ -17,6 +17,8 @@ public class BassGyalScript : MonoBehaviour
     public int currentCombatState;
     private bool hitting;
     private bool takeDmg;
+    public bool shield = true;
+    public int shieldHP;
 
     //Player Stats
     private float movementSpeed; //Actual Movement Speed
@@ -30,10 +32,13 @@ public class BassGyalScript : MonoBehaviour
     //AI Components
     private float distanceToPlayer;
     private PlayerController myPlayer;
+    private MicroScript myMicro;
     private Vector3 currentPos;
     private Vector3 currentPlayerPos;
     private bool busy;
     private bool jattacking;
+    private bool canShoot;
+    
     //State
     public enum State
     {
@@ -56,15 +61,17 @@ public class BassGyalScript : MonoBehaviour
         myCucho.GetComponent<Collider>().gameObject.SetActive(false);
 
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
-
+        if (myMicro == null) myMicro = FindObjectOfType<MicroScript>();
+        myMicro.gameObject.SetActive(false);
         //Variable Initialization
-        movementSpeed = 10f;
+        movementSpeed = 20f;
         groundMovementSpeed = 5f;
         airMovementSpeed = groundMovementSpeed / 2;
-        jumpForce = 5f;
-        hp = 10;
+        jumpForce = 10f;
+        hp = 4;
         inmunity = 0.2f;
-
+        canShoot = true;
+        shieldHP = 3;
     }
 
 
@@ -108,12 +115,12 @@ public class BassGyalScript : MonoBehaviour
 
     private void UpdateMovement(Vector2 M)
     {
-
+        
         if (!(currentCombatState == (int)CombatState.HIT) && !busy)
         {
             myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
             Quaternion prevRotation = transform.rotation;
-            Quaternion currentRot = Quaternion.LookRotation((myPlayer.transform.position - transform.position).normalized);
+            Quaternion currentRot = Quaternion.LookRotation((currentPlayerPos - transform.position).normalized);
             transform.rotation = new Quaternion(transform.rotation.x, Quaternion.Slerp(prevRotation, currentRot, 0.4f).y, transform.rotation.z, Quaternion.Slerp(prevRotation, currentRot, 0.4f).w);
         }
     }
@@ -180,26 +187,39 @@ public class BassGyalScript : MonoBehaviour
 
     public void ManageAI()
     {
-
+        if (hp <= 0) Destroy(gameObject);
+        if (shieldHP <= 0) shield = false;
         currentPos = gameObject.transform.position;
-        currentPlayerPos = myPlayer.transform.position;
-        distanceToPlayer = Vector3.Distance(currentPlayerPos, currentPos);
+
+        if (canShoot) currentPlayerPos = myPlayer.transform.position;
+        else currentPlayerPos = myMicro.transform.position;
+        distanceToPlayer = Vector3.Distance(myPlayer.transform.position, currentPos);
 
 
         Vector3 direction = currentPlayerPos - currentPos;
 
-        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 50.0)
+        if (distanceToPlayer > 5.0 && !busy && distanceToPlayer < 50.0)
         {
             if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
-        }
-        else if (distanceToPlayer > 4.0 && distanceToPlayer < 10.0)
-        {
+            
+            int i = Random.Range(1, 500);
+            if (i == 3) {
 
-            if (!(currentCombatState == (int)CombatState.HIT) && !busy) StartCoroutine(Idle(direction));
-            moveInput = Vector2.zero;
+                if (canShoot) StartCoroutine(Shoot());
+
+            }
+            if (i == 432)
+            {
+                {
+                    if (!jattacking) StartCoroutine(JumpAttack(direction));
+
+                }
+            }
+
 
         }
-        else if (distanceToPlayer < 4.0)
+
+        else if (distanceToPlayer < 5.0)
         {
 
             if (!jattacking) StartCoroutine(JumpAttack(direction));
@@ -209,22 +229,31 @@ public class BassGyalScript : MonoBehaviour
 
     }
 
-    private IEnumerator Idle(Vector3 direction)
+    private IEnumerator Shoot()
     {
-
+        canShoot = false;
+        Vector3 playerDirection = currentPlayerPos = myPlayer.transform.position - gameObject.transform.position;
         busy = true;
-        int i = Random.Range(1, 8);
-        float x = Random.Range(0, 0.5f);
-        yield return new WaitForSeconds(x);
-        if (i == 1) moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
-        else moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
-        yield return new WaitForSeconds(0.2f);
+        moveInput = Vector2.zero;
+        yield return new WaitForSeconds(2f);
+        myMicro.gameObject.SetActive(true);
+        myMicro.transform.parent = null;
+        myMicro.GetComponent<Rigidbody>().velocity = playerDirection.normalized * distanceToPlayer;
         busy = false;
-        yield return new WaitForSeconds(x);
-        busy = true;
-        yield return new WaitForSeconds(0.2f);
-        busy = false;
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Micro") {
+            
+            
+            myMicro.transform.parent = gameObject.transform;
+            myMicro.transform.localPosition= new Vector3 (0,0,1);
+            myMicro.transform.localRotation = Quaternion.identity;
+            canShoot = true;
+            myMicro.gameObject.SetActive(false);
+
+        }
     }
 
     private IEnumerator JumpAttack(Vector3 direction)
@@ -233,7 +262,7 @@ public class BassGyalScript : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
         Jump();
         moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         Hit();
         busy = true;
         moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
@@ -247,11 +276,15 @@ public class BassGyalScript : MonoBehaviour
 
     private void TakeDamage()
     {
-        busy = true;
-        currentCombatState = (int)CombatState.HIT;
-        hp--;
-        Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
-        myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
+        if (!shield)
+        {
+            busy = true;
+            currentCombatState = (int)CombatState.HIT;
+            hp--;
+            Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
+            myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
+        }
+        
     }
 
     private void OnTriggerEnter(Collider col)
