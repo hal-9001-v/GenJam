@@ -17,7 +17,7 @@ public class EnemyCocinero : MonoBehaviour
     public int currentCombatState;
     private bool hitting;
     private bool takeDmg;
-
+    
     //Player Stats
     private float movementSpeed; //Actual Movement Speed
     private float airMovementSpeed; //Movement  Speed When airborne
@@ -33,7 +33,7 @@ public class EnemyCocinero : MonoBehaviour
     private Vector3 currentPos;
     private Vector3 currentPlayerPos;
     private bool busy;
-
+    private bool jattacking;
     //State
     public enum State
     {
@@ -109,7 +109,7 @@ public class EnemyCocinero : MonoBehaviour
     private void UpdateMovement(Vector2 M)
     {
 
-        if (!(currentCombatState == (int)CombatState.HIT))
+        if (!(currentCombatState == (int)CombatState.HIT)&& !busy )
         {
             myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
             Quaternion prevRotation = transform.rotation;
@@ -155,11 +155,11 @@ public class EnemyCocinero : MonoBehaviour
 
     private void Hit()
     { 
-        StartCoroutine(HitCourutine());
+        StartCoroutine(HitCoroutine());
     }
 
 
-    private IEnumerator HitCourutine()
+    private IEnumerator HitCoroutine()
     {
 
         if (!hitting)
@@ -168,7 +168,7 @@ public class EnemyCocinero : MonoBehaviour
             movementSpeed = airMovementSpeed * 0.5f;
             myCucho.GetComponent<Collider>().gameObject.SetActive(true);
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.6f);
 
             myCucho.GetComponent<Collider>().gameObject.SetActive(false);
             movementSpeed = groundMovementSpeed;
@@ -188,29 +188,56 @@ public class EnemyCocinero : MonoBehaviour
 
         Vector3 direction = currentPlayerPos - currentPos;
 
-        if (distanceToPlayer > 5.0 && !busy )
+        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 50.0)
         {
-            if (!(currentCombatState == (int)CombatState.HIT))  moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
+            if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
         }
-        else {            
+        else if (distanceToPlayer > 4.0 && distanceToPlayer < 10.0)
+        {
+
+            if (!(currentCombatState == (int)CombatState.HIT) && !busy) StartCoroutine(Idle(direction));
             moveInput = Vector2.zero;
-           if(!busy) StartCoroutine(JumpAttack(direction));
+
+        }
+        else if (distanceToPlayer < 4.0) {
+
+            if(!jattacking) StartCoroutine(JumpAttack(direction));
+
+
         }
 
     }
 
+    private IEnumerator Idle(Vector3 direction) {
+
+        busy = true;
+        int i = Random.Range(1, 8);
+        float x = Random.Range(0, 0.5f);
+        yield return new WaitForSeconds(x);
+        if (i == 1) moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        else moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
+        yield return new WaitForSeconds(0.2f);
+        busy = false;
+        yield return new WaitForSeconds(x);
+        busy = true;
+        yield return new WaitForSeconds(0.2f);
+        busy = false;
+
+    }
 
     private IEnumerator JumpAttack(Vector3 direction)
     {
-
+        jattacking = true;
         yield return new WaitForSeconds(Random.Range(0.1f,0.4f));
         Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 5;
+        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) *2;
         yield return new WaitForSeconds(0.5f);
         Hit();
         busy = true;
+        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
         yield return new WaitForSeconds(2f);
         busy = false;
+        jattacking = false;
 
     }
 

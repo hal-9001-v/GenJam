@@ -11,7 +11,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody myRb; //My Rigidbody
     private PlayerStats ps; //My player stats
     private GameObject myBolso; //Meele hit
+    private GameObject myDiveHit; //Meele hit
     public Light controlLight;
+
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
 
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private bool moving; //Is moving?
     private bool hitting;
     private bool takeDmg;
+
     //Player Stats
     private float movementSpeed; //Actual Movement Speed
     private float airMovementSpeed; //Movement  Speed When airborne
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public int hp; //Life points
     private int level; //Actual level (scene)
     private float inmunity;
+
     //State
     public enum State
     {
@@ -47,11 +51,15 @@ public class PlayerController : MonoBehaviour
 
     private void Awake() {
         //Gos
-        if(myPlayerControls == null) myPlayerControls = new PlayerControls();
-        if(myRb == null) myRb = GetComponent<Rigidbody>();
+        if (myPlayerControls == null) myPlayerControls = new PlayerControls();
+        if (myRb == null) myRb = GetComponent<Rigidbody>();
         if (ps == null) ps = FindObjectOfType<PlayerStats>();
         if (myBolso == null) myBolso = GameObject.Find("Bolso");
+        if (myDiveHit == null) myDiveHit = GameObject.Find("DiveHit");
+
         myBolso.GetComponent<Collider>().gameObject.SetActive(false);
+        myDiveHit.GetComponent<Collider>().gameObject.SetActive(false);
+
         //Variable Initialization
         movementSpeed = 10f;
         groundMovementSpeed = 10f;
@@ -121,7 +129,6 @@ void Start()
 
     private void UpdateMovement(Vector2 M) {
 
-
         //If not diving, velocity is calculated normally
         if (currentState != (int)State.DIVING)
         {
@@ -133,7 +140,7 @@ void Start()
                Quaternion prevRotation = transform.rotation;
                Quaternion actualRot = Quaternion.LookRotation(myRb.velocity);
                transform.rotation =Quaternion.Euler(transform.rotation.x,Vector3.Lerp(prevRotation.eulerAngles, actualRot.eulerAngles, 0.5f).y, transform.rotation.z);
-                
+               
             }
         }
     }
@@ -141,7 +148,8 @@ void Start()
     private void CheckGrounded(bool grounded) {
         //If grounded -> grounded state
         //If not grounded and was in grounded state, jump.
-        if (grounded) { 
+        if (grounded) {
+            myDiveHit.GetComponent<Collider>().gameObject.SetActive(false);
             currentState = (int)State.GROUNDED;
             if (!hitting) movementSpeed = groundMovementSpeed;
             //Debug.Log("¡Entering Grounded State!");
@@ -152,13 +160,12 @@ void Start()
            // Debug.Log("¡Entering Jump State!");
         }
 
-
     }
 
     private void Jump(){
 
         //If grounded -> Jump and enter jump state.
-
+        
         if (currentState == (int)State.GROUNDED && !hitting)
         {
             movementSpeed = airMovementSpeed;
@@ -168,9 +175,9 @@ void Start()
             //Debug.Log("¡Entering Jump State!");
             isGrounded = false;
         }
-
+    
     }
-
+    
     private void Dive(){
 
         //If jumping -> Dive and enter dive state
@@ -179,13 +186,16 @@ void Start()
             currentState = (int)State.DIVING;
             controlLight.color = Color.red;
             //Debug.Log("¡Entering Diving State!");
+        
         }
+
 
     }
 
     private IEnumerator DiveRoutine() {
         //Stop in the air, then lunge forward.
         myRb.velocity = new Vector3(myRb.velocity.x*0.1f, 0, myRb.velocity.z*0.1f);
+        myDiveHit.GetComponent<Collider>().gameObject.SetActive(true);
         yield return new WaitForSeconds(0.15f);
         myRb.velocity = new Vector3(transform.forward.x*2, transform.forward.y - 0.4f, transform.forward.z*2) * groundMovementSpeed;
 
@@ -236,12 +246,14 @@ void Start()
 
         currentCombatState = (int)CombatState.HIT;
         hp--;
-        myRb.velocity = Vector3.up * 10;
+        Vector3 direction = (transform.position - col.transform.position).normalized;
+        myRb.velocity = new Vector3(direction.x * 10, 3, direction.z);
 
     }
 
     private IEnumerator Inmunity() {
-
+        
+        currentCombatState = (int)CombatState.HIT;
         takeDmg = true;
         yield return new WaitForSeconds(inmunity);
         takeDmg = false;
