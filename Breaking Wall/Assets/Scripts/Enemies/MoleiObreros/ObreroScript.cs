@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FanScript : MonoBehaviour
+public class ObreroScript : MonoBehaviour
 {
     //GOs
     private Rigidbody myRb; //My Rigidbody
-    public GameObject myCucho; //Meele hit
-
+    public BrickScript myBrick; 
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
 
@@ -15,14 +14,12 @@ public class FanScript : MonoBehaviour
     private bool isGrounded;
     public int currentState;
     public int currentCombatState;
-    private bool hitting;
     private bool takeDmg;
-
+    private bool canShoot;
     //Player Stats
     private float movementSpeed; //Actual Movement Speed
     private float airMovementSpeed; //Movement  Speed When airborne
     private float groundMovementSpeed; //Movement speed when on ground, also launching speed
-    private float jumpForce; //pretty self explanatory, really
     public int hp; //Life points
     private float inmunity;
 
@@ -55,15 +52,14 @@ public class FanScript : MonoBehaviour
         if (myRb == null) myRb = GetComponent<Rigidbody>();
 
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
-
+        if (myBrick != null) myBrick.gameObject.SetActive(false);
         //Variable Initialization
         movementSpeed = 10f;
         groundMovementSpeed = 5f;
         airMovementSpeed = groundMovementSpeed / 2;
-        jumpForce = 5f;
         hp = 2;
         inmunity = 0.2f;
-
+        canShoot = true;
     }
 
 
@@ -112,7 +108,7 @@ public class FanScript : MonoBehaviour
         {
             myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
             Quaternion prevRotation = transform.rotation;
-            Quaternion currentRot = Quaternion.LookRotation((myPlayer.transform.position - transform.position).normalized);
+            Quaternion currentRot = Quaternion.LookRotation((currentPlayerPos - transform.position).normalized);
             transform.rotation = new Quaternion(transform.rotation.x, Quaternion.Slerp(prevRotation, currentRot, 0.4f).y, transform.rotation.z, Quaternion.Slerp(prevRotation, currentRot, 0.4f).w);
         }
     }
@@ -134,87 +130,78 @@ public class FanScript : MonoBehaviour
 
     }
 
-    private void Jump()
-    {
-
-        //If grounded -> Jump and enter jump state.
-
-        if (currentState == (int)State.GROUNDED)
-        {
-            movementSpeed = airMovementSpeed;
-            myRb.velocity = new Vector3(myRb.velocity.x, jumpForce, myRb.velocity.z);
-            currentState = (int)State.JUMPING;
-            //Debug.Log("¡Entering Jump State!");
-            isGrounded = false;
-        }
-
-    }
-
-
-
-    private void Hit()
-    {
-        StartCoroutine(HitCoroutine());
-    }
-
-
-    private IEnumerator HitCoroutine()
-    {
-
-        if (!hitting)
-        {
-            hitting = true;
-            movementSpeed = airMovementSpeed * 0.5f;
-            myCucho.GetComponent<Collider>().gameObject.SetActive(true);
-
-            yield return new WaitForSeconds(0.6f);
-
-            myCucho.GetComponent<Collider>().gameObject.SetActive(false);
-            movementSpeed = groundMovementSpeed;
-            hitting = false;
-
-        }
-    }
 
 
     public void ManageAI()
     {
+        if (hp <= 0) Destroy(gameObject);
 
         currentPos = gameObject.transform.position;
-        currentPlayerPos = myPlayer.transform.position;
-        distanceToPlayer = Vector3.Distance(currentPlayerPos, currentPos);
-
+        if (canShoot) {
+            currentPlayerPos = myPlayer.transform.position;
+            movementSpeed = 10;
+        }
+        else {
+            currentPlayerPos = myBrick.transform.position;
+            movementSpeed = 15;                
+             }
 
         Vector3 direction = currentPlayerPos - currentPos;
+        distanceToPlayer = Vector3.Distance(currentPlayerPos, currentPos);
 
-        if (distanceToPlayer > 5 && !busy && distanceToPlayer < 50.0 && !jattacking)
+        /////////////////////////////////////////////////////////////////////////
+        
+        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 200.0)
+        {
+            if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
+            int i = Random.Range(1, 500);
+            if (i == 3)
+            {
+                if (canShoot) StartCoroutine(Shoot());
+            }
+        }
+        else if (distanceToPlayer == 10.0) {
+            moveInput = Vector2.zero; 
+        }
+        else if (distanceToPlayer < 10.0)
+        {
+            if (!(currentCombatState == (int)CombatState.HIT) && canShoot) moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
+        else if (distanceToPlayer < 50 && !canShoot)
         {
             if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
         }
-        
-        else if (distanceToPlayer <5.0)
-        {
-            int i = Random.Range(1, 500);
-            if (!jattacking )StartCoroutine(BackOff(direction));
-            if (i == 2) {
-                moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 5; 
-                
-            }
-
-        }
-
     }
 
-    private IEnumerator BackOff(Vector3 direction)
+
+    private IEnumerator Shoot()
     {
-        jattacking = true;
-        yield return new WaitForSeconds(0.2f);
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
-        yield return new WaitForSeconds(0.2f);
-        jattacking = false;
-
+        canShoot = false;
+        Vector3 playerDirection = myPlayer.transform.position - gameObject.transform.position;
+        busy = true;
+        moveInput = Vector2.zero;
+        myBrick.gameObject.SetActive(true);
+        myBrick.transform.parent = null;
+        myBrick.GetComponent<Rigidbody>().velocity = playerDirection.normalized * distanceToPlayer*2;
+        yield return new WaitForSeconds(2f);
+        busy = false;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Micro")
+        {
+            myBrick.transform.parent = gameObject.transform;
+            myBrick.transform.localPosition = new Vector3(0, 0, 1);
+            myBrick.transform.localRotation = Quaternion.identity;
+            StartCoroutine(ShootTimer());
+            myBrick.gameObject.SetActive(false);
+        }
+    }
+    private IEnumerator ShootTimer() {
+        yield return new WaitForSeconds(2f);
+        canShoot = true;
+    }
 
 
 
