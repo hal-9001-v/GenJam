@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1628093279882704502}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 903344327}
   m_Layer: 0
   m_Name: PlayerController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,6 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7258afeb7dc77fc4cb9acc2248e5b07a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlLight: {fileID: 0}
+  hp: 0
 --- !u!54 &7384703244464228927
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -168,7 +170,7 @@ GameObject:
   - component: {fileID: 9195396325532204839}
   - component: {fileID: 2482513093302185493}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Amongus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,7 +263,7 @@ GameObject:
   - component: {fileID: 1310106380681609190}
   - component: {fileID: 1956696748474627000}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

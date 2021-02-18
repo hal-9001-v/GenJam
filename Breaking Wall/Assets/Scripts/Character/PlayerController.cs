@@ -17,27 +17,37 @@ public class PlayerController : MonoBehaviour
 
     //ControlVars
     private bool isGrounded;
-    private int currentState; 
+    private int currentState;
+    public int currentCombatState;
     private bool moving; //Is moving?
-    private bool hitting; 
+    private bool hitting;
+    private bool takeDmg;
     //Player Stats
     private float movementSpeed; //Actual Movement Speed
     private float airMovementSpeed; //Movement  Speed When airborne
     private float groundMovementSpeed; //Movement speed when on ground, also launching speed
     private float jumpForce; //pretty self explanatory, really
-    private int hp; //Life points
+    public int hp; //Life points
     private int level; //Actual level (scene)
+    private float inmunity;
     //State
     public enum State
     {
         GROUNDED = 0,
         JUMPING = 1,
         DIVING = 2,
+
     }
-    
+    public enum CombatState
+    {
+        HITTING = 0,
+        HIT = 1,
+
+    }
+
     private void Awake() {
         //Gos
-        myPlayerControls = new PlayerControls();
+        if(myPlayerControls == null) myPlayerControls = new PlayerControls();
         if(myRb == null) myRb = GetComponent<Rigidbody>();
         if (ps == null) ps = FindObjectOfType<PlayerStats>();
         if (myBolso == null) myBolso = GameObject.Find("Bolso");
@@ -48,6 +58,7 @@ public class PlayerController : MonoBehaviour
         airMovementSpeed = groundMovementSpeed / 2;
         jumpForce = 5f;
         hp = 10;
+        inmunity = 0.5f;
 
 
         //playerStats business
@@ -114,7 +125,7 @@ void Start()
         //If not diving, velocity is calculated normally
         if (currentState != (int)State.DIVING)
         {
-            myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
+            if (!(currentCombatState == (int)CombatState.HIT)) myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
 
             //If moving, calculate rotation lerping current rotation with previous.
             if (moving)
@@ -132,11 +143,11 @@ void Start()
         //If not grounded and was in grounded state, jump.
         if (grounded) { 
             currentState = (int)State.GROUNDED;
-            if(!hitting) controlLight.color = Color.white;
+            if (!hitting) movementSpeed = groundMovementSpeed;
             //Debug.Log("¡Entering Grounded State!");
         }
         else if (currentState == (int)State.GROUNDED) {
-            movementSpeed = groundMovementSpeed;
+           if(!hitting) movementSpeed = airMovementSpeed;
             currentState = (int)State.JUMPING;
            // Debug.Log("¡Entering Jump State!");
         }
@@ -148,7 +159,7 @@ void Start()
 
         //If grounded -> Jump and enter jump state.
 
-        if (currentState == (int)State.GROUNDED)
+        if (currentState == (int)State.GROUNDED && !hitting)
         {
             movementSpeed = airMovementSpeed;
             myRb.velocity = new Vector3(myRb.velocity.x, jumpForce, myRb.velocity.z);
@@ -184,7 +195,6 @@ void Start()
 
         //HitAnim
         if (currentState == (int)State.GROUNDED) {
-            Debug.Log("Hit");
             StartCoroutine(HitCourutine());
         }
 
@@ -207,6 +217,37 @@ void Start()
             controlLight.color = Color.white;
             hitting = false;
         }
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Bolso") {
+
+            if (!takeDmg)
+            {
+                TakeDamage(col);
+                StartCoroutine(Inmunity());
+            }
+        }
+    }
+
+    private void TakeDamage(Collider col)
+    {
+
+        currentCombatState = (int)CombatState.HIT;
+        hp--;
+        myRb.velocity = Vector3.up * 10;
+
+    }
+
+    private IEnumerator Inmunity() {
+
+        takeDmg = true;
+        yield return new WaitForSeconds(inmunity);
+        takeDmg = false;
+        yield return new WaitForSeconds(1.5f);
+        currentCombatState = (int)CombatState.HITTING;
+
     }
 
     //Enable player controls
