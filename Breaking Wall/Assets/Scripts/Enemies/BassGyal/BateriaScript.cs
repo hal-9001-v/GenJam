@@ -31,7 +31,7 @@ public class BateriaScript : MonoBehaviour
         {
 
             myBadGyal.shieldHP--;
-            smolBattery.SetActive(false);
+           Destroy(gameObject);
 
         }
     }

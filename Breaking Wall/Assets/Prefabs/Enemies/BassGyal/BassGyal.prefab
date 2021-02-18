@@ -305,6 +305,8 @@ MonoBehaviour:
   myCucho: {fileID: 2407819119492241467}
   currentState: 0
   currentCombatState: 0
+  shield: 1
+  shieldHP: 0
   hp: 0
 --- !u!136 &1150923514665184331
 CapsuleCollider:
