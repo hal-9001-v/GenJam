@@ -182,12 +182,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8001918155035869053}
-  - component: {fileID: 1792787564}
   - component: {fileID: 1150923514665184331}
   - component: {fileID: 1792787563}
   - component: {fileID: 6926098047382979758}
   m_Layer: 0
-  m_Name: EnemyCocinero
+  m_Name: BassGyal
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 7916888225324655281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.5304542, y: -12.109713, z: 35.39532}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 6804959351236476223}
   - {fileID: 8403424601424646381}
@@ -210,22 +209,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1792787564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7916888225324655281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 688b61d268118e449b9ec7b4bc98c5ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myCucho: {fileID: 2407819119492241467}
-  currentState: 0
-  currentCombatState: 0
-  hp: 0
 --- !u!136 &1150923514665184331
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -394,12 +377,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63d8dcd1e14b3e3419183ba338667d3b, type: 3}
---- !u!1 &2407819119492241467 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 145653371400721204, guid: 63d8dcd1e14b3e3419183ba338667d3b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2553325773580077839}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6223573465506467875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8444723554277677868, guid: 63d8dcd1e14b3e3419183ba338667d3b,

@@ -247,7 +247,7 @@ void Start()
         currentCombatState = (int)CombatState.HIT;
         hp--;
         Vector3 direction = (transform.position - col.transform.position).normalized;
-        myRb.velocity = new Vector3(direction.x * 10, 3, direction.z);
+        myRb.velocity = new Vector3(direction.x * 10, 3, direction.z*10);
 
     }
 
