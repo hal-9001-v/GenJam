@@ -266,9 +266,11 @@ public class PlayerController : MonoBehaviour
         //Stop in the air, then lunge forward.
         myRb.velocity = new Vector3(myRb.velocity.x * 0.1f, 0, myRb.velocity.z * 0.1f);
         myDiveHit.GetComponent<Collider>().gameObject.SetActive(true);
-
+        takeDmg = true;
         yield return new WaitForSeconds(0.15f);
         myRb.velocity = new Vector3(bodyTransform.forward.x * 2, bodyTransform.forward.y - 0.4f, bodyTransform.forward.z * 2) * groundMovementSpeed;
+        yield return new WaitForSeconds(0.3f);
+        takeDmg = false;
 
     }
 

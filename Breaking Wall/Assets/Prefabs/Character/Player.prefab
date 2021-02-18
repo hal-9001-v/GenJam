@@ -116,7 +116,7 @@ MonoBehaviour:
   bodyTransform: {fileID: 1115024182838203722}
   verticalSens: 0.25
   horizontalSens: 0.25
-  clampingMin: 10
+  clampingMin: 0
   clampingMax: 70
   currentCombatState: 0
   hp: 0
