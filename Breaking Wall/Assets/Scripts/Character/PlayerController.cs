@@ -14,8 +14,18 @@ public class PlayerController : MonoBehaviour
     private GameObject myDiveHit; //Meele hit
     public Light controlLight;
 
+    public Transform cfTransform;
+    public Transform bodyTransform;
+
+    public float verticalSens = 0.25f;
+    public float horizontalSens = 0.25f;
+
+    public float clampingMin = 10;
+    public float clampingMax = 70;
+
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
+    Vector2 aimInput;
 
     //ControlVars
     private bool isGrounded;
@@ -49,7 +59,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void Awake() {
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+
         //Gos
         if (myPlayerControls == null) myPlayerControls = new PlayerControls();
         if (myRb == null) myRb = GetComponent<Rigidbody>();
@@ -72,6 +85,11 @@ public class PlayerController : MonoBehaviour
         //playerStats business
         hp = ps.hp;
         level = ps.level;
+
+        foreach (InputComponent ic in FindObjectsOfType<InputComponent>())
+        {
+            ic.setPlayerControls(myPlayerControls);
+        }
     }
 
     //PlayerStatsUpdate
@@ -90,10 +108,10 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    
 
-// Start is called before the first frame update
-void Start()
+
+    // Start is called before the first frame update
+    void Start()
     {
         setPlayerControls(myPlayerControls);
     }
@@ -103,8 +121,28 @@ void Start()
     {
         CheckGrounded(isGrounded);
         UpdateMovement(moveInput);
+        updateCamera();
     }
 
+    void updateCamera()
+    {
+        if (aimInput != Vector2.zero)
+        {
+            if (cfTransform != null)
+            {
+                var aux = cfTransform.rotation.eulerAngles;
+
+                aux.x += aimInput.y * verticalSens;
+                aux.y += aimInput.x * horizontalSens;
+
+                aux.x = Mathf.Clamp(aux.x, clampingMin, clampingMax);
+
+                cfTransform.rotation = Quaternion.Euler(aux);
+            }
+
+            aimInput = Vector2.zero;
+        }
+    }
 
     //Check if player grounded
     private void OnTriggerStay(Collider other)
@@ -114,7 +152,7 @@ void Start()
         {
             isGrounded = true;
         }
-        
+
     }
 
     //Check when player leaves ground
@@ -124,48 +162,76 @@ void Start()
         {
             isGrounded = false;
         }
-     
+
     }
 
-    private void UpdateMovement(Vector2 M) {
+    private void UpdateMovement(Vector2 M)
+    {
 
         //If not diving, velocity is calculated normally
         if (currentState != (int)State.DIVING)
         {
-            if (!(currentCombatState == (int)CombatState.HIT)) myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
+            if (!(currentCombatState == (int)CombatState.HIT))
+            {
+                Vector3 v = new Vector3();
+                v += Camera.main.transform.forward * movementSpeed * M.y;
+
+                v += Camera.main.transform.right * movementSpeed * M.x;
+
+                v.y = myRb.velocity.y;
+
+                myRb.velocity = v;
+
+            }
+
+            //myRb.velocity = new Vector3(M.x * movementSpeed * A, myRb.velocity.y, M.y * movementSpeed);
+
 
             //If moving, calculate rotation lerping current rotation with previous.
             if (moving)
             {
-               Quaternion prevRotation = transform.rotation;
-               Quaternion actualRot = Quaternion.LookRotation(myRb.velocity);
-               transform.rotation =Quaternion.Euler(transform.rotation.x,Vector3.Lerp(prevRotation.eulerAngles, actualRot.eulerAngles, 0.5f).y, transform.rotation.z);
-               
+                /*
+                               Quaternion prevRotation = transform.rotation;
+                               Quaternion actualRot = Quaternion.LookRotation(myRb.velocity);
+                               transform.rotation =Quaternion.Euler(transform.rotation.x,Vector3.Lerp(prevRotation.eulerAngles, actualRot.eulerAngles, 0.5f).y, transform.rotation.z);
+                */
+
+                Quaternion prevRotation = bodyTransform.transform.rotation;
+                Quaternion actualRot = Quaternion.LookRotation(myRb.velocity);
+                bodyTransform.transform.rotation = Quaternion.Euler(bodyTransform.transform.rotation.x, Vector3.Lerp(prevRotation.eulerAngles, actualRot.eulerAngles, 0.5f).y, bodyTransform.rotation.z);
+
+
             }
         }
     }
 
-    private void CheckGrounded(bool grounded) {
+    private void CheckGrounded(bool grounded)
+    {
         //If grounded -> grounded state
         //If not grounded and was in grounded state, jump.
-        if (grounded) {
+
+        if (grounded)
+        {
             myDiveHit.GetComponent<Collider>().gameObject.SetActive(false);
+
             currentState = (int)State.GROUNDED;
             if (!hitting) movementSpeed = groundMovementSpeed;
             //Debug.Log("¡Entering Grounded State!");
         }
-        else if (currentState == (int)State.GROUNDED) {
-           if(!hitting) movementSpeed = airMovementSpeed;
+        else if (currentState == (int)State.GROUNDED)
+        {
+            if (!hitting) movementSpeed = airMovementSpeed;
             currentState = (int)State.JUMPING;
-           // Debug.Log("¡Entering Jump State!");
+            // Debug.Log("¡Entering Jump State!");
         }
 
     }
 
-    private void Jump(){
+    private void Jump()
+    {
 
         //If grounded -> Jump and enter jump state.
-        
+
         if (currentState == (int)State.GROUNDED && !hitting)
         {
             movementSpeed = airMovementSpeed;
@@ -175,43 +241,51 @@ void Start()
             //Debug.Log("¡Entering Jump State!");
             isGrounded = false;
         }
-    
+
     }
-    
-    private void Dive(){
+
+    private void Dive()
+    {
+
 
         //If jumping -> Dive and enter dive state
-        if (currentState == (int)State.JUMPING) {
+        if (currentState == (int)State.JUMPING)
+        {
             StartCoroutine(DiveRoutine());
             currentState = (int)State.DIVING;
             controlLight.color = Color.red;
             //Debug.Log("¡Entering Diving State!");
-        
+
         }
 
 
     }
 
-    private IEnumerator DiveRoutine() {
+    private IEnumerator DiveRoutine()
+    {
         //Stop in the air, then lunge forward.
-        myRb.velocity = new Vector3(myRb.velocity.x*0.1f, 0, myRb.velocity.z*0.1f);
+        myRb.velocity = new Vector3(myRb.velocity.x * 0.1f, 0, myRb.velocity.z * 0.1f);
         myDiveHit.GetComponent<Collider>().gameObject.SetActive(true);
+
         yield return new WaitForSeconds(0.15f);
-        myRb.velocity = new Vector3(transform.forward.x*2, transform.forward.y - 0.4f, transform.forward.z*2) * groundMovementSpeed;
+        myRb.velocity = new Vector3(transform.forward.x * 2, transform.forward.y - 0.4f, transform.forward.z * 2) * groundMovementSpeed;
 
     }
 
-    private void Hit() {
+    private void Hit()
+    {
 
         //HitAnim
-        if (currentState == (int)State.GROUNDED) {
+        if (currentState == (int)State.GROUNDED)
+        {
             StartCoroutine(HitCourutine());
         }
 
     }
 
 
-    private IEnumerator HitCourutine() {
+    private IEnumerator HitCourutine()
+    {
 
         if (!hitting)
         {
@@ -231,7 +305,8 @@ void Start()
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Bolso") {
+        if (col.gameObject.tag == "Bolso")
+        {
 
             if (!takeDmg)
             {
@@ -247,12 +322,12 @@ void Start()
         currentCombatState = (int)CombatState.HIT;
         hp--;
         Vector3 direction = (transform.position - col.transform.position).normalized;
-        myRb.velocity = new Vector3(direction.x * 10, 3, direction.z*10);
+        myRb.velocity = new Vector3(direction.x * 10, 3, direction.z * 10);
 
     }
 
-    private IEnumerator Inmunity() {
-        
+    private IEnumerator Inmunity()
+    {
         currentCombatState = (int)CombatState.HIT;
         takeDmg = true;
         yield return new WaitForSeconds(inmunity);
@@ -267,24 +342,27 @@ void Start()
     {
         myPlayerControls.Enable();
     }
-    
+
     private void OnDisable()
     {
         myPlayerControls.Disable();
     }
 
-    
-   public void setPlayerControls(PlayerControls pc){
+
+    public void setPlayerControls(PlayerControls pc)
+    {
         //Callback contexts to bind player actions.
         pc.DefaultActionMap.Movement.performed += ctx => { moveInput = ctx.ReadValue<Vector2>(); moving = true; };
 
         pc.DefaultActionMap.Movement.canceled += ctx => { moveInput = Vector2.zero; moving = false; };
-        
+
         pc.DefaultActionMap.Jump.performed += ctx => Jump();
 
         pc.DefaultActionMap.Dive.performed += ctx => Dive();
 
         pc.DefaultActionMap.Hit.performed += ctx => Hit();
+
+        pc.DefaultActionMap.Aim.performed += ctx => aimInput = ctx.ReadValue<Vector2>();
 
 
     }
