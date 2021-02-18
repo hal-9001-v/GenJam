@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : InputComponent
 {
     [Header("Objects")]
     public TextMeshProUGUI dialogueText;
@@ -25,10 +25,12 @@ public class DialogueManager : MonoBehaviour
 
     bool busy;
 
+    bool interactionPressed;
+
 
     void Awake()
     {
-        
+
         if (instance == null)
         {
             instance = this;
@@ -44,7 +46,8 @@ public class DialogueManager : MonoBehaviour
                 Debug.LogWarning("No image in DialogueManager!");
             }
 
-            if (boxTransform == null) {
+            if (boxTransform == null)
+            {
                 Debug.LogWarning("No Box Transform in DialogueManager!");
             }
 
@@ -73,7 +76,8 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeText(Dialogue dialogue)
     {
 
-        if (boxTransform != null && dialogue.talkingPivot != null) {
+        if (boxTransform != null && dialogue.talkingPivot != null)
+        {
             boxTransform.position = Camera.main.WorldToScreenPoint(dialogue.talkingPivot.position);
         }
         //Get every Sentence
@@ -91,9 +95,26 @@ public class DialogueManager : MonoBehaviour
                 playSound();
 
                 yield return new WaitForSeconds(dialogue.typeDelay);
+
+                if (interactionPressed)
+                {
+                    dialogueText.text = characters.ArrayToString();
+                    interactionPressed = false;
+
+                    goto endOfLine;
+                }
             }
 
+        endOfLine:
             //Wait for input to end sentence
+            while (!interactionPressed)
+            {
+                yield return null;
+            }
+
+            interactionPressed = false;
+
+
 
         }
 
@@ -118,12 +139,13 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    void playSound() {
+    void playSound()
+    {
 
         if (!source.isPlaying && typingSound != null)
         {
             source.clip = typingSound;
-            
+
             source.pitch = pitch;
             source.volume = volume;
 
@@ -136,5 +158,10 @@ public class DialogueManager : MonoBehaviour
         image.enabled = true;
         dialogueText.enabled = true;
 
+    }
+
+    public override void setPlayerControls(PlayerControls inputs)
+    {
+        inputs.DefaultActionMap.Interaction.performed += ctx => interactionPressed = true;
     }
 }

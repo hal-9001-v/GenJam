@@ -49,6 +49,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3a225ea-c215-4739-99d8-00a9a93db0fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Value"",
+                    ""id"": ""e72a8f33-4430-4643-9a18-e004461e5e40"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -227,6 +243,39 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Hit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30d8c7a6-534f-4235-99c3-a85b877a8415"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GameCS"",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8283380d-2294-4d04-a229-32963d46ba2b"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GameCS"",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""290e5d33-8efb-43f8-adf5-aab213d5c1bc"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -245,6 +294,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_DefaultActionMap_Movement = m_DefaultActionMap.FindAction("Movement", throwIfNotFound: true);
         m_DefaultActionMap_Dive = m_DefaultActionMap.FindAction("Dive", throwIfNotFound: true);
         m_DefaultActionMap_Hit = m_DefaultActionMap.FindAction("Hit", throwIfNotFound: true);
+        m_DefaultActionMap_Interaction = m_DefaultActionMap.FindAction("Interaction", throwIfNotFound: true);
+        m_DefaultActionMap_Aim = m_DefaultActionMap.FindAction("Aim", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -298,6 +349,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_DefaultActionMap_Movement;
     private readonly InputAction m_DefaultActionMap_Dive;
     private readonly InputAction m_DefaultActionMap_Hit;
+    private readonly InputAction m_DefaultActionMap_Interaction;
+    private readonly InputAction m_DefaultActionMap_Aim;
     public struct DefaultActionMapActions
     {
         private @PlayerControls m_Wrapper;
@@ -306,6 +359,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_DefaultActionMap_Movement;
         public InputAction @Dive => m_Wrapper.m_DefaultActionMap_Dive;
         public InputAction @Hit => m_Wrapper.m_DefaultActionMap_Hit;
+        public InputAction @Interaction => m_Wrapper.m_DefaultActionMap_Interaction;
+        public InputAction @Aim => m_Wrapper.m_DefaultActionMap_Aim;
         public InputActionMap Get() { return m_Wrapper.m_DefaultActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -327,6 +382,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Hit.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnHit;
                 @Hit.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnHit;
                 @Hit.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnHit;
+                @Interaction.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnInteraction;
+                @Interaction.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnInteraction;
+                @Interaction.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnInteraction;
+                @Aim.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnAim;
             }
             m_Wrapper.m_DefaultActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -343,6 +404,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Hit.started += instance.OnHit;
                 @Hit.performed += instance.OnHit;
                 @Hit.canceled += instance.OnHit;
+                @Interaction.started += instance.OnInteraction;
+                @Interaction.performed += instance.OnInteraction;
+                @Interaction.canceled += instance.OnInteraction;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
             }
         }
     }
@@ -362,5 +429,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnDive(InputAction.CallbackContext context);
         void OnHit(InputAction.CallbackContext context);
+        void OnInteraction(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
     }
 }
