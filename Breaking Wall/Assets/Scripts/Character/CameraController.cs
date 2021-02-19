@@ -8,6 +8,8 @@ public class CameraController : InputComponent
     public Transform cfTransform;
     Vector2 aim;
 
+    float lerpFactor = 10;
+
     private void Awake()
     {
         if (instance == null)
@@ -46,11 +48,19 @@ public class CameraController : InputComponent
         {
             if (cfTransform != null)
             {
-                cfTransform.rotation *= Quaternion.AngleAxis(aim.y * verticalSens, Vector3.right);
-                cfTransform.rotation *= Quaternion.AngleAxis(aim.x * verticalSens, Vector3.up);
+                Quaternion nextRotation = cfTransform.rotation;
+                nextRotation *= Quaternion.AngleAxis(aim.y * verticalSens, Vector3.right);
+                nextRotation *= Quaternion.AngleAxis(aim.x * verticalSens, Vector3.up);
 
-                var aux = cfTransform.localEulerAngles;
+
+
+
+                cfTransform.rotation = Quaternion.Lerp(cfTransform.rotation, nextRotation, Time.deltaTime * lerpFactor);
+
+
+                var aux = cfTransform.eulerAngles;
                 aux.z = 0;
+                //                aux.z = 0;
 
                 if (aux.x > 180 && aux.x < 340)
                 {
@@ -60,10 +70,13 @@ public class CameraController : InputComponent
                 {
                     aux.x = 40;
                 }
+
                 //aux.x = Mathf.Clamp(aux.x, clampingMin, clampingMax);
 
+                cfTransform.eulerAngles = aux;
 
-                cfTransform.rotation = Quaternion.Euler(aux);
+
+
             }
 
             aim = Vector2.zero;

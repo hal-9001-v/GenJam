@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyTransform: {fileID: 1115024182838203722}
+  followTransform: {fileID: 773305721380887259}
   currentCombatState: 0
   hp: 0
 --- !u!114 &2233467809486111231

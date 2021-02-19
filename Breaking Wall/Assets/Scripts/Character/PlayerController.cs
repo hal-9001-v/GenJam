@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private GameObject myDiveHit; //Meele hit
 
     public Transform bodyTransform;
+    public Transform followTransform;
 
 
     //MovementVals
@@ -116,7 +117,7 @@ public class PlayerController : MonoBehaviour
         UpdateMovement(moveInput);
     }
 
-   
+
 
     //Check if player grounded
     private void OnTriggerStay(Collider other)
@@ -155,15 +156,17 @@ public class PlayerController : MonoBehaviour
     private void UpdateMovement(Vector2 M)
     {
 
+        const float lerpFactor = 5;
         //If not diving, velocity is calculated normally
         if (currentState != (int)State.DIVING)
         {
             if (!(currentCombatState == (int)CombatState.HIT))
             {
                 Vector3 v = new Vector3();
-                v += Camera.main.transform.forward * movementSpeed * M.y;
 
-                v += Camera.main.transform.right * movementSpeed * M.x;
+                v += followTransform.forward * movementSpeed * M.y;
+                v += followTransform.right * movementSpeed * M.x;
+
 
                 v.y = myRb.velocity.y;
 
@@ -185,7 +188,8 @@ public class PlayerController : MonoBehaviour
 
                 Quaternion prevRotation = bodyTransform.transform.rotation;
                 Quaternion actualRot = Quaternion.LookRotation(myRb.velocity);
-                bodyTransform.transform.rotation = Quaternion.Euler(bodyTransform.transform.rotation.x, Vector3.Lerp(prevRotation.eulerAngles, actualRot.eulerAngles, 0.5f).y, bodyTransform.rotation.z);
+
+                bodyTransform.transform.rotation = Quaternion.Lerp(prevRotation, actualRot, Time.deltaTime * lerpFactor);
 
 
             }
