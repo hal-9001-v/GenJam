@@ -54,6 +54,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "PadAim",
+                    "type": "Value",
+                    "id": "390976d3-bc97-4d27-b8ad-e3938a01a44d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "88325cb2-bce7-405c-8bf5-07f339b79495",
@@ -267,18 +275,7 @@
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "82eacd7a-9035-4dfb-afd5-9542f8c3b825",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "groups": "GameCS",
                     "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -313,6 +310,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "23ae0178-3c19-4122-b9c8-9ac0c3a26183",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GameCS",
+                    "action": "PadAim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 5, y: 5, z: 5}
+  Damping: {x: 1, y: 20, z: 1}
   ShoulderOffset: {x: 0, y: 2, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 0.5
@@ -227,6 +227,8 @@ MonoBehaviour:
   cfTransform: {fileID: 773305721380887259}
   verticalSens: 0.2
   horizontalSens: 0.2
+  padVerticalSens: 1.72
+  padHorizontalSens: 1.86
 --- !u!54 &7384703244464228927
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -334,7 +336,7 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_StandbyUpdate: 2
+  m_StandbyUpdate: 1
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 773305721380887259}
   m_Lens:
@@ -345,7 +347,7 @@ MonoBehaviour:
     Dutch: 0
     LensShift: {x: 0, y: 0}
   m_Transitions:
-    m_BlendHint: 0
+    m_BlendHint: 1
     m_InheritPosition: 0
     m_OnCameraLive:
       m_PersistentCalls:

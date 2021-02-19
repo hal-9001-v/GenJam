@@ -31,9 +31,30 @@ public class CameraController : InputComponent
     [Range(0.1f, 2)]
     public float horizontalSens;
 
+    [Header("GamePad Sensibility")]
+    [Range(1, 100)]
+    public float padVerticalSens;
+
+    [Range(1, 100)]
+    public float padHorizontalSens;
+
+
     public override void setPlayerControls(PlayerControls inputs)
     {
-        inputs.DefaultActionMap.Aim.performed += ctx => aim = ctx.ReadValue<Vector2>();
+        inputs.DefaultActionMap.Aim.performed += ctx => {
+            aim = ctx.ReadValue<Vector2>();
+
+            aim.x *= horizontalSens;
+            aim.y *= verticalSens;
+        };
+
+        inputs.DefaultActionMap.PadAim.performed += ctx =>
+        {
+            aim = ctx.ReadValue<Vector2>();
+            
+            aim.x *= padHorizontalSens;
+            aim.y *= padVerticalSens;
+        };
 
     }
 
