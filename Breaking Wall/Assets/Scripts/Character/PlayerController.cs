@@ -190,23 +190,18 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            //myRb.velocity = new Vector3(M.x * movementSpeed * A, myRb.velocity.y, M.y * movementSpeed);
-
-
             //If moving, calculate rotation lerping current rotation with previous.
             if (moving)
             {
-                /*
-                               Quaternion prevRotation = transform.rotation;
-                               Quaternion actualRot = Quaternion.LookRotation(myRb.velocity);
-                               transform.rotation =Quaternion.Euler(transform.rotation.x,Vector3.Lerp(prevRotation.eulerAngles, actualRot.eulerAngles, 0.5f).y, transform.rotation.z);
-                */
 
                 Quaternion prevRotation = bodyTransform.transform.rotation;
                 Quaternion actualRot = Quaternion.LookRotation(myRb.velocity);
 
-                bodyTransform.transform.rotation = Quaternion.Lerp(prevRotation, actualRot, Time.deltaTime * lerpFactor);
+                var rot =  Quaternion.Lerp(prevRotation, actualRot, Time.deltaTime * lerpFactor).eulerAngles;
 
+                rot.z = 0;
+                rot.x = 0;
+                bodyTransform.transform.eulerAngles = rot;
             }
         }
     }
@@ -235,7 +230,6 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-
         //If grounded -> Jump and enter jump state.
 
         if (currentState == (int)State.GROUNDED && !hitting)
