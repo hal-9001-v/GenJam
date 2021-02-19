@@ -163,10 +163,26 @@ public class PlayerController : MonoBehaviour
             if (!(currentCombatState == (int)CombatState.HIT))
             {
                 Vector3 v = new Vector3();
+                Vector3 v2 = new Vector3();
 
-                v += followTransform.forward * movementSpeed * M.y;
-                v += followTransform.right * movementSpeed * M.x;
+                //v += followTransform.forward * movementSpeed * M.y;
+                //v += followTransform.right * movementSpeed * M.x;
 
+                v2 = followTransform.forward;
+                v2.y = 0;
+
+                v2.Normalize();
+                v2 *= movementSpeed * M.y;
+
+                v += v2;
+
+                v2 = followTransform.right;
+                v2.y = 0;
+
+                v2.Normalize();
+                v2 *= movementSpeed * M.x;
+
+                v += v2;
 
                 v.y = myRb.velocity.y;
 
@@ -190,7 +206,6 @@ public class PlayerController : MonoBehaviour
                 Quaternion actualRot = Quaternion.LookRotation(myRb.velocity);
 
                 bodyTransform.transform.rotation = Quaternion.Lerp(prevRotation, actualRot, Time.deltaTime * lerpFactor);
-
 
             }
         }
