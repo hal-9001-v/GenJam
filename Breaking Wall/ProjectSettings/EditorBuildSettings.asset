@@ -6,14 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: cbfe36cfddfde964d9dfce63a355d5dd
+    path: Assets/Scenes/MenuScene.unity
+    guid: b1fada7e90d28d546a4d16f70add5aa3
   - enabled: 1
     path: Assets/Scenes/Loading Scene.unity
     guid: f218a95cddb396949ae5f3cb7d142c63
   - enabled: 1
     path: Assets/Scenes/PrivateFolder/Dialogue.unity
     guid: d268fe349ac48b643843b14be38f09c3
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: bdc51862c36f31d4992ac1b07e6634fd
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1314ea1c2f034b14c9f92283a3ce757b,
       type: 2}

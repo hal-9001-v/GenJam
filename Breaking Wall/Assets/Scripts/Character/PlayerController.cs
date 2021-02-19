@@ -14,18 +14,11 @@ public class PlayerController : MonoBehaviour
     private GameObject myDiveHit; //Meele hit
     public Light controlLight;
 
-    public Transform cfTransform;
     public Transform bodyTransform;
 
-    public float verticalSens = 0.25f;
-    public float horizontalSens = 0.25f;
-
-    public float clampingMin = 10;
-    public float clampingMax = 70;
 
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
-    Vector2 aimInput;
 
     //ControlVars
     private bool isGrounded;
@@ -121,38 +114,9 @@ public class PlayerController : MonoBehaviour
     {
         CheckGrounded(isGrounded);
         UpdateMovement(moveInput);
-        updateCamera();
     }
 
-    void updateCamera()
-    {
-        if (aimInput != Vector2.zero)
-        {
-            if (cfTransform != null)
-            {
-                cfTransform.rotation *= Quaternion.AngleAxis(aimInput.y * verticalSens, Vector3.right);
-                cfTransform.rotation *= Quaternion.AngleAxis(aimInput.x * verticalSens, Vector3.up);
-
-                var aux = cfTransform.localEulerAngles;
-                aux.z = 0;
-
-                if (aux.x > 180 && aux.x < 340)
-                {
-                    aux.x = 340;
-                }
-                else if (aux.x < 180 && aux.x > 40)
-                {
-                    aux.x = 40;
-                }
-                //aux.x = Mathf.Clamp(aux.x, clampingMin, clampingMax);
-
-
-                cfTransform.rotation = Quaternion.Euler(aux);
-            }
-
-            aimInput = Vector2.zero;
-        }
-    }
+   
 
     //Check if player grounded
     private void OnTriggerStay(Collider other)
@@ -371,8 +335,6 @@ public class PlayerController : MonoBehaviour
         pc.DefaultActionMap.Dive.performed += ctx => Dive();
 
         pc.DefaultActionMap.Hit.performed += ctx => Hit();
-
-        pc.DefaultActionMap.Aim.performed += ctx => aimInput = ctx.ReadValue<Vector2>();
 
 
     }

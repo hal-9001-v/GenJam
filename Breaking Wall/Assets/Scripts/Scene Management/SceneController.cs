@@ -16,6 +16,9 @@ public class SceneController : MonoBehaviour
     const string goToBlackTrigger = "Go Black";
     const string goToWhiteTrigger = "Go White";
 
+    [Header("Debugging")]
+    public int levelCounter = 0;
+
     private void Awake()
     {
         if (instance == null)
@@ -39,11 +42,14 @@ public class SceneController : MonoBehaviour
             if (rootDestroy != null)
                 Destroy(rootDestroy);
 
-                gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 
-
+    private void Start()
+    {
+        enableInteraction();
+    }
 
     public void loadSceneAsynch(int index)
     {
@@ -76,7 +82,7 @@ public class SceneController : MonoBehaviour
     IEnumerator SceneLoader(int index)
     {
         screenAnimator.SetTrigger(goToBlackTrigger);
-        
+
         yield return new WaitForSeconds(fadeTime);
 
         SceneManager.LoadScene(loadingSceneIndex);
@@ -93,6 +99,24 @@ public class SceneController : MonoBehaviour
 
         screenAnimator.SetTrigger(goToWhiteTrigger);
 
+        enableInteraction();
+    }
+
+    void enableInteraction()
+    {
+        InteractionEnabler interactionEnabler = FindObjectOfType<InteractionEnabler>();
+
+        if (interactionEnabler != null)
+        {
+            interactionEnabler.setLevel(levelCounter);
+            levelCounter++;
+        }
+
+    }
+
+    public void exit()
+    {
+        Application.Quit();
     }
 
 }

@@ -25,6 +25,7 @@ public class DistanceInteraction : MonoBehaviour
 
     bool done;
 
+    public bool readyForInteraction;
 
     private void Awake()
     {

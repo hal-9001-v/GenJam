@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EventInteraction : InputComponent
+[RequireComponent(typeof(Collider))]
+public class CollisionInteraction : MonoBehaviour
 {
-    [Range(0, 20)]
-    public float range;
 
-    public Color gizmosColor;
-
-    static Transform playerTransform;
 
     public UnityEvent events;
 
@@ -22,75 +18,59 @@ public class EventInteraction : InputComponent
 
     public bool hideWhenDone;
 
-    public bool readyForInteraction = true;
-
     bool done;
+
+    public bool readyForInteraction = true;
 
 
     private void Awake()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        if (player != null)
-        {
-            playerTransform = player.transform;
-        }
-        else
-        {
-            Debug.LogWarning("No player in Scene!");
-        }
-
         myRenderer = GetComponent<Renderer>();
         myCollider = GetComponent<Collider>();
-
-    }
-
-    public override void setPlayerControls(PlayerControls pc)
-    {
-
-        pc.DefaultActionMap.Interaction.performed += ctx => triggerEvent();
-
-    }
-
-    private void triggerEvent()
-    {
-        if (playerTransform != null && readyForInteraction)
+        if (myCollider != null)
         {
-            if (Vector3.Distance(playerTransform.position, transform.position) <= range)
+            myCollider.isTrigger = true;
+        }
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (readyForInteraction)
+        {
+            if (other.tag == "Player")
             {
-                //Debug.Log("Interaction");
+                Debug.Log("HEY YOU");
                 if (done && onlyOnce)
+                {
                     return;
+                }
 
                 events.Invoke();
                 done = true;
+
+                if (myCollider != null && onlyOnce)
+                    myCollider.enabled = false;
 
                 if (hideWhenDone)
                 {
                     if (myRenderer != null)
                     {
-
                         myRenderer.enabled = false;
-
                     }
 
                     if (myCollider != null)
                     {
-
                         myCollider.enabled = false;
                     }
-                }
 
+                }
 
             }
         }
-
-
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = gizmosColor;
-        Gizmos.DrawWireSphere(transform.position, range);
-    }
+
 }

@@ -69,6 +69,8 @@ public class DialogueManager : InputComponent
             busy = true;
             StartCoroutine(TypeText(dialogue));
 
+            CameraController.LockCamera();
+
         }
 
     }
@@ -80,6 +82,8 @@ public class DialogueManager : InputComponent
         {
             boxTransform.position = Camera.main.WorldToScreenPoint(dialogue.talkingPivot.position);
         }
+
+        interactionPressed = false;
         //Get every Sentence
         foreach (string s in dialogue.texts)
         {
@@ -126,6 +130,7 @@ public class DialogueManager : InputComponent
         else
         {
             hide();
+            CameraController.FreeCamera();
             busy = false;
         }
 
@@ -166,6 +171,14 @@ public class DialogueManager : InputComponent
 
     public override void setPlayerControls(PlayerControls inputs)
     {
-        inputs.DefaultActionMap.Interaction.performed += ctx => interactionPressed = true;
+        inputs.DefaultActionMap.Interaction.performed += ctx =>
+        {
+            interactionPressed = true;
+        };
+
+        inputs.DefaultActionMap.Interaction.canceled += ctx => interactionPressed = false;
+
     }
+
+    
 }
