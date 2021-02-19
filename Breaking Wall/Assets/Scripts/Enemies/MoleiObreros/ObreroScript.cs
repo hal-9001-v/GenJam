@@ -151,19 +151,19 @@ public class ObreroScript : MonoBehaviour
 
         /////////////////////////////////////////////////////////////////////////
         
-        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 200.0)
+        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 200.0&&canShoot)
         {
             if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
-            int i = Random.Range(1, 500);
+            int i = Random.Range(1, 200);
             if (i == 3)
             {
                 if (canShoot) StartCoroutine(Shoot());
             }
         }
-        else if (distanceToPlayer == 10.0) {
+        else if (distanceToPlayer == 10.0 &&canShoot) {
             moveInput = Vector2.zero; 
         }
-        else if (distanceToPlayer < 10.0)
+        else if (distanceToPlayer < 10.0 && canShoot)
         {
             if (!(currentCombatState == (int)CombatState.HIT) && canShoot) moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
         }
