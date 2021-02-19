@@ -91,7 +91,7 @@ MonoBehaviour:
   CameraDistance: 10
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   IgnoreTag: 
   CameraRadius: 0.2
 --- !u!1 &1628093279882704504
