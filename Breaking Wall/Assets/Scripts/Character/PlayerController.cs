@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
             if (!(currentCombatState == (int)CombatState.HIT))
             {
                 Vector3 v = new Vector3();
-                Vector3 v2 = new Vector3();
+                Vector3 v2;
 
                 //v += followTransform.forward * movementSpeed * M.y;
                 //v += followTransform.right * movementSpeed * M.x;
