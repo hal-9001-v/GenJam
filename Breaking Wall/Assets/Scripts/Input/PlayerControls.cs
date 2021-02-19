@@ -65,6 +65,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""88325cb2-bce7-405c-8bf5-07f339b79495"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -287,6 +295,39 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f19a7abe-bba6-4fc1-bb96-d44e0067cb05"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GameCS"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""665068bb-69a1-4319-a969-c35212be903c"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GameCS"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93155050-6b9e-47a5-be14-e726ee55e724"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -307,6 +348,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_DefaultActionMap_Hit = m_DefaultActionMap.FindAction("Hit", throwIfNotFound: true);
         m_DefaultActionMap_Interaction = m_DefaultActionMap.FindAction("Interaction", throwIfNotFound: true);
         m_DefaultActionMap_Aim = m_DefaultActionMap.FindAction("Aim", throwIfNotFound: true);
+        m_DefaultActionMap_Pause = m_DefaultActionMap.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -362,6 +404,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_DefaultActionMap_Hit;
     private readonly InputAction m_DefaultActionMap_Interaction;
     private readonly InputAction m_DefaultActionMap_Aim;
+    private readonly InputAction m_DefaultActionMap_Pause;
     public struct DefaultActionMapActions
     {
         private @PlayerControls m_Wrapper;
@@ -372,6 +415,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Hit => m_Wrapper.m_DefaultActionMap_Hit;
         public InputAction @Interaction => m_Wrapper.m_DefaultActionMap_Interaction;
         public InputAction @Aim => m_Wrapper.m_DefaultActionMap_Aim;
+        public InputAction @Pause => m_Wrapper.m_DefaultActionMap_Pause;
         public InputActionMap Get() { return m_Wrapper.m_DefaultActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -399,6 +443,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Aim.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnAim;
                 @Aim.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnAim;
                 @Aim.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnAim;
+                @Pause.started -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_DefaultActionMapActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_DefaultActionMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -421,6 +468,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Aim.started += instance.OnAim;
                 @Aim.performed += instance.OnAim;
                 @Aim.canceled += instance.OnAim;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -442,5 +492,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnHit(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

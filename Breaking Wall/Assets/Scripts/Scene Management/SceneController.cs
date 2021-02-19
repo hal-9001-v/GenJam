@@ -11,6 +11,7 @@ public class SceneController : MonoBehaviour
     const float fadeTime = 2;
 
     const int loadingSceneIndex = 1;
+    const int restartSceneIndex = 4;
 
     public Animator screenAnimator;
     const string goToBlackTrigger = "Go Black";
@@ -97,6 +98,7 @@ public class SceneController : MonoBehaviour
             yield return null;
         }
 
+        Debug.Log("Loading Done!");
         screenAnimator.SetTrigger(goToWhiteTrigger);
 
         enableInteraction();
@@ -117,6 +119,16 @@ public class SceneController : MonoBehaviour
     public void exit()
     {
         Application.Quit();
+    }
+
+    public void restartGame() {
+        if (instance == this)
+        {
+            loadSceneAsynch(restartSceneIndex);
+        }
+        else {
+            instance.restartGame();
+        }
     }
 
 }

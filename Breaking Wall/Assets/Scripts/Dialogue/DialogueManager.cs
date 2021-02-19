@@ -53,25 +53,28 @@ public class DialogueManager : InputComponent
 
             hide();
         }
-        else
-        {
-            Debug.LogWarning("Deleting " + name + " because " + instance.name + " is singleton");
-            Destroy(this);
-
-        }
     }
 
     public void startDialogue(Dialogue dialogue)
     {
-        if (!busy)
+
+        if (instance == this)
         {
-            show();
-            busy = true;
-            StartCoroutine(TypeText(dialogue));
+            if (!busy)
+            {
 
-            CameraController.LockCamera();
+                show();
+                busy = true;
+                StartCoroutine(TypeText(dialogue));
 
+                CameraController.LockCamera();
+
+            }
         }
+        else {
+            instance.startDialogue(dialogue);
+        }
+        
 
     }
 

@@ -47,6 +47,15 @@ public class Dialogue : MonoBehaviour
         {
             myDM.startDialogue(this);
         }
+        else {
+            myDM = FindObjectOfType<DialogueManager>();
+
+            if (myDM != null)
+                myDM.startDialogue(this);
+            else {
+                Debug.LogWarning("No dialogue Manager in Scene");
+            }
+        }
     }
 
 

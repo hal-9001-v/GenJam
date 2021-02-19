@@ -33,7 +33,7 @@ public class CameraController : InputComponent
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         updateCamera();
     }
