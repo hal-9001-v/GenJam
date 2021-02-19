@@ -225,10 +225,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cfTransform: {fileID: 773305721380887259}
-  verticalSens: 0.2
-  horizontalSens: 0.2
-  padVerticalSens: 1.72
-  padHorizontalSens: 1.86
+  verticalSens: 0.5
+  horizontalSens: 0.5
+  padVerticalSens: 50
+  padHorizontalSens: 50
 --- !u!54 &7384703244464228927
 Rigidbody:
   m_ObjectHideFlags: 0
