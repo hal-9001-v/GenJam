@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     //GOs
     PlayerControls myPlayerControls; //Player Input Action Asset
     private Rigidbody myRb; //My Rigidbody
-    private PlayerStats ps; //My player stats
+    //private PlayerStats ps; //My player stats
     private GameObject myBolso; //Meele hit
     private GameObject myDiveHit; //Meele hit
 
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private float groundMovementSpeed; //Movement speed when on ground, also launching speed
     private float jumpForce; //pretty self explanatory, really
     public int hp; //Life points
-    private int level; //Actual level (scene)
+    //private int level; //Actual level (scene)
     private float inmunity;
 
     //State
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         //Gos
         if (myPlayerControls == null) myPlayerControls = new PlayerControls();
         if (myRb == null) myRb = GetComponent<Rigidbody>();
-        if (ps == null) ps = FindObjectOfType<PlayerStats>();
+        //if (ps == null) ps = FindObjectOfType<PlayerStats>();
         if (myBolso == null) myBolso = GameObject.Find("Bolso");
         if (myDiveHit == null) myDiveHit = GameObject.Find("DiveHit");
 
@@ -73,29 +73,30 @@ public class PlayerController : MonoBehaviour
         hp = 10;
         inmunity = 0.5f;
 
-
+        /*
         //playerStats business
         hp = ps.hp;
         level = ps.level;
-
+        */
         foreach (InputComponent ic in FindObjectsOfType<InputComponent>())
         {
             ic.setPlayerControls(myPlayerControls);
         }
     }
 
+    /*
     //PlayerStatsUpdate
     private void UpdatePlayerStats()
     {
         ps.level = level;
         ps.hp = hp;
     }
-
+    */
     //Load pertinent level
     private void nextLevel()
     {
-        level++;
-        UpdatePlayerStats();
+        //level++;
+        //UpdatePlayerStats();
         Debug.Log("Loading Scene correspondiente");
 
     }

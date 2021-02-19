@@ -1379,8 +1379,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 5
-  m_FrequencyGain: 0.003
+  m_AmplitudeGain: 7
+  m_FrequencyGain: 0.002
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1236172181 stripped
 GameObject:
@@ -1793,8 +1793,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 462660471}
-        m_MethodName: loadSceneAsynch
-        m_Mode: 3
+        m_MethodName: loadNextScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2322,6 +2322,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 0.9622642
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107528647393065316, guid: d6f8678569253dd4783afa4752297084,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107528647393065316, guid: d6f8678569253dd4783afa4752297084,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107528647393065316, guid: d6f8678569253dd4783afa4752297084,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107528647393065316, guid: d6f8678569253dd4783afa4752297084,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6381624600748456556, guid: d6f8678569253dd4783afa4752297084,
         type: 3}

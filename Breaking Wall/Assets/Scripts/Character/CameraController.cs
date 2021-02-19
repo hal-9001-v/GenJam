@@ -11,11 +11,13 @@ public class CameraController : InputComponent
     private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+        }
         else
         {
             Destroy(this);
-            Debug.LogWarning("More than one Camera Controller in Scene");
+            Debug.LogWarning("More than one Camera Controller in Scene : " + name + " and " + instance.name);
         }
 
     }

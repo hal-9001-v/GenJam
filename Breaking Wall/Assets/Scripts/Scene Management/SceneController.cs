@@ -71,7 +71,12 @@ public class SceneController : MonoBehaviour
     {
         if (instance == this)
         {
-            loadSceneAsynch(SceneManager.GetActiveScene().buildIndex + 1);
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+            if (nextSceneIndex == loadingSceneIndex) {
+                nextSceneIndex++;
+            }
+            loadSceneAsynch(nextSceneIndex);
         }
         else
         {
