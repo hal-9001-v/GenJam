@@ -73,15 +73,10 @@ public class CameraController : InputComponent
                 nextRotation *= Quaternion.AngleAxis(aim.y * verticalSens, Vector3.right);
                 nextRotation *= Quaternion.AngleAxis(aim.x * verticalSens, Vector3.up);
 
-
-
-
                 cfTransform.rotation = Quaternion.Lerp(cfTransform.rotation, nextRotation, Time.deltaTime * lerpFactor);
-
 
                 var aux = cfTransform.eulerAngles;
                 aux.z = 0;
-                //                aux.z = 0;
 
                 if (aux.x > 180 && aux.x < 340)
                 {
@@ -95,8 +90,6 @@ public class CameraController : InputComponent
                 //aux.x = Mathf.Clamp(aux.x, clampingMin, clampingMax);
 
                 cfTransform.eulerAngles = aux;
-
-
 
             }
 
