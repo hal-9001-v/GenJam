@@ -19,7 +19,7 @@ public class PlatformScripts : MonoBehaviour
         // Store the starting position & rotation of the object
         posOffset = transform.position;
         amplitude = Random.Range(1, 4);
-        frequency = Random.Range(0.5f, 2f);
+        frequency = Random.Range(0.5f, 0.6f);
         degreesPerSecond = 0;
     }
 

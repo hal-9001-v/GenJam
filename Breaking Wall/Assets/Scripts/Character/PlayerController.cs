@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     private PlayerStats ps; //My player stats
     private GameObject myBolso; //Meele hit
     private GameObject myDiveHit; //Meele hit
-    public Light controlLight;
 
     public Transform cfTransform;
     public Transform bodyTransform;
@@ -77,7 +76,7 @@ public class PlayerController : MonoBehaviour
         movementSpeed = 10f;
         groundMovementSpeed = 10f;
         airMovementSpeed = groundMovementSpeed / 2;
-        jumpForce = 5f;
+        jumpForce = 6f;
         hp = 10;
         inmunity = 0.5f;
 
@@ -153,6 +152,13 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         }
 
+
+        if (other.tag == "Platform")
+        {
+            isGrounded = true;
+            gameObject.transform.parent = other.transform;
+        }
+
     }
 
     //Check when player leaves ground
@@ -161,6 +167,12 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Ground")
         {
             isGrounded = false;
+        }
+
+        if (other.tag == "Platform")
+        {
+            isGrounded = false;
+            gameObject.transform.parent = null;
         }
 
     }
@@ -237,7 +249,6 @@ public class PlayerController : MonoBehaviour
             movementSpeed = airMovementSpeed;
             myRb.velocity = new Vector3(myRb.velocity.x, jumpForce, myRb.velocity.z);
             currentState = (int)State.JUMPING;
-            controlLight.color = Color.green;
             //Debug.Log("¡Entering Jump State!");
             isGrounded = false;
         }
@@ -253,7 +264,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(DiveRoutine());
             currentState = (int)State.DIVING;
-            controlLight.color = Color.red;
             //Debug.Log("¡Entering Diving State!");
 
         }
@@ -292,7 +302,6 @@ public class PlayerController : MonoBehaviour
         if (!hitting)
         {
             hitting = true;
-            controlLight.color = Color.blue;
             movementSpeed = airMovementSpeed * 0.5f;
             myBolso.GetComponent<Collider>().gameObject.SetActive(true);
 
@@ -300,7 +309,6 @@ public class PlayerController : MonoBehaviour
 
             myBolso.GetComponent<Collider>().gameObject.SetActive(false);
             movementSpeed = groundMovementSpeed;
-            controlLight.color = Color.white;
             hitting = false;
         }
     }

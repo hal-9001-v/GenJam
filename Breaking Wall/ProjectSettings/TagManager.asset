@@ -11,6 +11,8 @@ TagManager:
   - Micro
   - Cucho
   - Brick
+  - Platform
+  - Globos
   layers:
   - Default
   - TransparentFX
