@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     private PlayerStats ps; //My player stats
     private GameObject myBolso; //Meele hit
     private GameObject myDiveHit; //Meele hit
-    public Light controlLight;
 
     public Transform bodyTransform;
 
@@ -70,7 +69,7 @@ public class PlayerController : MonoBehaviour
         movementSpeed = 10f;
         groundMovementSpeed = 10f;
         airMovementSpeed = groundMovementSpeed / 2;
-        jumpForce = 5f;
+        jumpForce = 6f;
         hp = 10;
         inmunity = 0.5f;
 
@@ -127,6 +126,13 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         }
 
+
+        if (other.tag == "Platform")
+        {
+            isGrounded = true;
+            gameObject.transform.parent = other.transform;
+        }
+
     }
 
     //Check when player leaves ground
@@ -135,6 +141,12 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Ground")
         {
             isGrounded = false;
+        }
+
+        if (other.tag == "Platform")
+        {
+            isGrounded = false;
+            gameObject.transform.parent = null;
         }
 
     }
@@ -211,7 +223,6 @@ public class PlayerController : MonoBehaviour
             movementSpeed = airMovementSpeed;
             myRb.velocity = new Vector3(myRb.velocity.x, jumpForce, myRb.velocity.z);
             currentState = (int)State.JUMPING;
-            controlLight.color = Color.green;
             //Debug.Log("¡Entering Jump State!");
             isGrounded = false;
         }
@@ -227,7 +238,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(DiveRoutine());
             currentState = (int)State.DIVING;
-            controlLight.color = Color.red;
             //Debug.Log("¡Entering Diving State!");
 
         }
@@ -240,9 +250,11 @@ public class PlayerController : MonoBehaviour
         //Stop in the air, then lunge forward.
         myRb.velocity = new Vector3(myRb.velocity.x * 0.1f, 0, myRb.velocity.z * 0.1f);
         myDiveHit.GetComponent<Collider>().gameObject.SetActive(true);
-
+        takeDmg = true;
         yield return new WaitForSeconds(0.15f);
-        myRb.velocity = new Vector3(transform.forward.x * 2, transform.forward.y - 0.4f, transform.forward.z * 2) * groundMovementSpeed;
+        myRb.velocity = new Vector3(bodyTransform.forward.x * 2, bodyTransform.forward.y - 0.4f, bodyTransform.forward.z * 2) * groundMovementSpeed;
+        yield return new WaitForSeconds(0.3f);
+        takeDmg = false;
 
     }
 
@@ -264,7 +276,6 @@ public class PlayerController : MonoBehaviour
         if (!hitting)
         {
             hitting = true;
-            controlLight.color = Color.blue;
             movementSpeed = airMovementSpeed * 0.5f;
             myBolso.GetComponent<Collider>().gameObject.SetActive(true);
 
@@ -272,14 +283,13 @@ public class PlayerController : MonoBehaviour
 
             myBolso.GetComponent<Collider>().gameObject.SetActive(false);
             movementSpeed = groundMovementSpeed;
-            controlLight.color = Color.white;
             hitting = false;
         }
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Bolso")
+        if (col.gameObject.tag == "Cucho" || col.gameObject.tag == "Micro")
         {
 
             if (!takeDmg)
@@ -288,6 +298,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(Inmunity());
             }
         }
+
     }
 
     private void TakeDamage(Collider col)

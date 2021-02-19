@@ -8,6 +8,11 @@ TagManager:
   - Bolso
   - Enemy
   - Bateria
+  - Micro
+  - Cucho
+  - Brick
+  - Platform
+  - Globos
   layers:
   - Default
   - TransparentFX
