@@ -18,13 +18,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Build Scenes/Lobby.unity
     guid: bdc51862c36f31d4992ac1b07e6634fd
   - enabled: 1
-    path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal.unity
+    path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal1.unity
     guid: 282afacbb68ff4147931cb56fd16fa37
   - enabled: 1
-    path: Assets/Scenes/Build Scenes/Bosses/Walldalucia.unity
+    path: Assets/Scenes/Build Scenes/Bosses/Walldalucia1.unity
     guid: ea9196af0a63366429c964ad73211852
   - enabled: 1
-    path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus.unity
+    path: Assets/Scenes/Build Scenes/Bosses/boss basic.unity
     guid: 432683226768ff240b5ef88ed1ea0867
   - enabled: 1
     path: Assets/Scenes/Build Scenes/Restart Scene.unity
