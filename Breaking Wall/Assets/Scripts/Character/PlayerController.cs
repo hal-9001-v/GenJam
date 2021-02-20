@@ -27,7 +27,10 @@ public class PlayerController : MonoBehaviour
     private bool moving; //Is moving?
     private bool hitting;
     private bool takeDmg;
-
+    public bool hasVirote;
+    public bool ballestaLoaded;
+    private bool canArrowInteract;
+    private bool canBallestaInteract;
     //Player Stats
     private float movementSpeed; //Actual Movement Speed
     private float airMovementSpeed; //Movement  Speed When airborne
@@ -73,7 +76,10 @@ public class PlayerController : MonoBehaviour
         jumpForce = 6f;
         hp = 10;
         inmunity = 0.5f;
-
+        hasVirote = false;
+        ballestaLoaded = false;
+        canBallestaInteract = false;
+        canArrowInteract = false;
         /*
         //playerStats business
         hp = ps.hp;
@@ -135,6 +141,20 @@ public class PlayerController : MonoBehaviour
             gameObject.transform.parent = other.transform;
         }
 
+        
+        if (other.tag == "Arrows") {
+
+            canArrowInteract = true;
+
+        }
+
+        if (other.tag == "Ballesta")
+        {
+
+            canBallestaInteract = true;
+
+
+        }
     }
 
     //Check when player leaves ground
@@ -150,7 +170,14 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
             gameObject.transform.parent = null;
         }
-
+        if (other.tag == "Arrows")
+        {
+            canArrowInteract = false;
+        }
+        if (other.tag == "Ballesta")
+        {
+            canBallestaInteract = false;
+        }
     }
 
     private void UpdateMovement(Vector2 M)
@@ -347,6 +374,19 @@ public class PlayerController : MonoBehaviour
         myPlayerControls.Disable();
     }
 
+    public void Interact() {
+
+        if (canArrowInteract && !hasVirote) {
+
+            hasVirote = true;
+        }
+
+        if (canBallestaInteract && !ballestaLoaded && hasVirote)
+        {
+          ballestaLoaded = true;
+        }
+
+    }
 
     public void setPlayerControls(PlayerControls pc)
     {
@@ -361,6 +401,7 @@ public class PlayerController : MonoBehaviour
 
         pc.DefaultActionMap.Hit.performed += ctx => Hit();
 
+        pc.DefaultActionMap.Interaction.performed += ctx => Interact();
 
     }
 

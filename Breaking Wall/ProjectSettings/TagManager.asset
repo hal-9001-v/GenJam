@@ -13,6 +13,9 @@ TagManager:
   - Brick
   - Platform
   - Globos
+  - Tick
+  - Ballesta
+  - Arrows
   layers:
   - Default
   - TransparentFX
