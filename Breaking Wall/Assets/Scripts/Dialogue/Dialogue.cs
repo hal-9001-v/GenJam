@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Timeline;
 
 public class Dialogue : MonoBehaviour
 {
+
+    [Header("Dialogue")]
+    public string speakerName;
     [TextArea(5, 10)]
     public string[] texts;
     DialogueManager myDM;
@@ -25,7 +29,7 @@ public class Dialogue : MonoBehaviour
 
     [Space(5)]
     public Transform talkingPivot;
-    public bool playOnStart;
+    public bool playOnStart;    
 
     // Start is called before the first frame update
     void Start()
