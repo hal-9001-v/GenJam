@@ -38,7 +38,8 @@ public class BassGyalScript : MonoBehaviour
     private bool busy;
     private bool jattacking;
     private bool canShoot;
-    
+    private HUDRenderer myHudRenderer;
+
     //State
     public enum State
     {
@@ -59,14 +60,14 @@ public class BassGyalScript : MonoBehaviour
         //Gos
         if (myRb == null) myRb = GetComponent<Rigidbody>();
         myCucho.GetComponent<Collider>().gameObject.SetActive(false);
-
+        if (myHudRenderer == null) myHudRenderer = FindObjectOfType<HUDRenderer>();
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
         if (myMicro == null) myMicro = FindObjectOfType<MicroScript>();
         myMicro.gameObject.SetActive(false);
         //Variable Initialization
-        movementSpeed = 20f;
-        groundMovementSpeed = 5f;
-        airMovementSpeed = groundMovementSpeed / 2;
+        movementSpeed = 10f;
+        groundMovementSpeed = 10f;
+        airMovementSpeed = groundMovementSpeed / 4;
         jumpForce = 10f;
         hp = 4;
         inmunity = 0.2f;
@@ -80,6 +81,8 @@ public class BassGyalScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myHudRenderer.InitBossHudHealth(hp);
+
     }
 
     // Update is called once per frame
@@ -187,12 +190,18 @@ public class BassGyalScript : MonoBehaviour
 
     public void ManageAI()
     {
-        if (hp <= 0) Destroy(gameObject);
         if (shieldHP <= 0) shield = false;
         currentPos = gameObject.transform.position;
 
-        if (canShoot) currentPlayerPos = myPlayer.transform.position;
-        else currentPlayerPos = myMicro.transform.position;
+        if (canShoot) { 
+            currentPlayerPos = myPlayer.transform.position;
+            movementSpeed = 10;
+        }
+        else
+        {
+            currentPlayerPos = myMicro.transform.position;
+            movementSpeed = 15;
+        }
         distanceToPlayer = Vector3.Distance(myPlayer.transform.position, currentPos);
 
 
@@ -238,7 +247,8 @@ public class BassGyalScript : MonoBehaviour
         yield return new WaitForSeconds(2f);
         myMicro.gameObject.SetActive(true);
         myMicro.transform.parent = null;
-        myMicro.GetComponent<Rigidbody>().velocity = playerDirection.normalized * distanceToPlayer;
+        myMicro.GetComponent<Rigidbody>().velocity = playerDirection.normalized * distanceToPlayer*1.5f;
+        yield return new WaitForSeconds(2f);
         busy = false;
     }
 
@@ -281,10 +291,24 @@ public class BassGyalScript : MonoBehaviour
             busy = true;
             currentCombatState = (int)CombatState.HIT;
             hp--;
+            if (hp <= 0) {
+
+                StartCoroutine(Die());
+
+            }
+            myHudRenderer.SetBossHudHealth(hp);
             Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
             myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
         }
-        
+
+    }
+    private IEnumerator Die()
+    {
+
+        yield return new WaitForSeconds(inmunity + 0.2f);
+
+        Destroy(gameObject); //Die
+
     }
 
     private void OnTriggerEnter(Collider col)

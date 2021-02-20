@@ -43,7 +43,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab50be57a4a80ec4f9b61ebbab5bb945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundAudioClipArryay: []
+  soundAudioClipArryay:
+  - sound: 0
+    audioClip: {fileID: 8300000, guid: 49e61766b441b4d4897612c956080703, type: 3}
+  - sound: 1
+    audioClip: {fileID: 8300000, guid: 2e2c8bc522f057645af3d7cf0831c903, type: 3}
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: 0fceb0e410c292b489a4ebbc25222826, type: 3}
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: b4de79317554ffb44b7fb4e9ca6784fc, type: 3}
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: 71f5288e88d82c64b98536d9f939a8ff, type: 3}
+  - sound: 0
+    audioClip: {fileID: 0}
+  - sound: 0
+    audioClip: {fileID: 0}
+  - sound: 0
+    audioClip: {fileID: 0}
+  - sound: 0
+    audioClip: {fileID: 0}
+  - sound: 0
+    audioClip: {fileID: 0}
   particles: []
   healthArray:
   - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}

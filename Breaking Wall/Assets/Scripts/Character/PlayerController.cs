@@ -272,6 +272,7 @@ public class PlayerController : MonoBehaviour
             currentState = (int)State.JUMPING;
             //Debug.Log("¡Entering Jump State!");
             isGrounded = false;
+            SoundManager.PlaySound(SoundManager.Sound.WWJUMP, 0.3F);
         }
 
     }
@@ -283,6 +284,7 @@ public class PlayerController : MonoBehaviour
         //If jumping -> Dive and enter dive state
         if (currentState == (int)State.JUMPING)
         {
+            SoundManager.PlaySound(SoundManager.Sound.WWISHIT2, 0.4f);
             StartCoroutine(DiveRoutine());
             currentState = (int)State.DIVING;
             //Debug.Log("¡Entering Diving State!");
@@ -407,13 +409,14 @@ public class PlayerController : MonoBehaviour
     public void Interact() {
 
         if (canArrowInteract && !hasVirote) {
-
             hasVirote = true;
+            myHud.SetVirote(hasVirote);
         }
 
         if (canBallestaInteract && !ballestaLoaded && hasVirote)
         {
           ballestaLoaded = true;
+          myHud.SetVirote(false);
         }
 
     }

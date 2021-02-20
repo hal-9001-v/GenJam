@@ -7,7 +7,11 @@ public static class SoundManager {
 
     public enum Sound {
 
-      
+      WWHITS,
+      WWDIES,
+      WWISHIT,
+      WWISHIT2,
+      WWJUMP,
 
 
     }

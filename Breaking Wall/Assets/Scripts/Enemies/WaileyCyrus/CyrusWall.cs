@@ -36,6 +36,7 @@ public class CyrusWall : MonoBehaviour
     private bool busy;
     private bool jattacking;
 
+    private HUDRenderer myHudRenderer;
     //State
     public enum State
     {
@@ -55,15 +56,17 @@ public class CyrusWall : MonoBehaviour
 
         //Gos
         if (myRb == null) myRb = GetComponent<Rigidbody>();
+        if (myHudRenderer== null) myHudRenderer= FindObjectOfType<HUDRenderer>();
         myCucho.GetComponent<Collider>().gameObject.SetActive(false);
-
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
+        
         //Variable Initialization
         movementSpeed = 50f;
         groundMovementSpeed = 7.5f;
         airMovementSpeed = groundMovementSpeed / 2;
         jumpForce = 10f;
-        hp = 10;
+        hp = 10; myHudRenderer.InitBossHudHealth(hp);
+
         inmunity = 0.2f;
         canAI = false;
     }
@@ -271,12 +274,23 @@ public class CyrusWall : MonoBehaviour
             busy = true;
             currentCombatState = (int)CombatState.HIT;
             hp--;
+            if (hp <= 0) {
+                StartCoroutine(Die());
+            }
+            myHudRenderer.SetBossHudHealth(hp);
             Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
             myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
         }
 
     }
+    private IEnumerator Die()
+    {
 
+        yield return new WaitForSeconds(inmunity + 0.2f);
+
+        Destroy(gameObject); //Die
+
+    }
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Bolso")

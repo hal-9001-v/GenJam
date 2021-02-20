@@ -27,8 +27,7 @@ public class BaloonScript : MonoBehaviour
     {
         if (col.gameObject.tag == "Bolso") {
 
-            myWall.hp--;
-            Debug.Log("Pipo");
+            myWall.TakeDamage();
             Destroy(gameObject);
 
         }
