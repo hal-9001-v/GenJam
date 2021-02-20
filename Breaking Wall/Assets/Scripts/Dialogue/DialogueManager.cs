@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class DialogueManager : InputComponent
 {
     [Header("Objects")]
+    public TextMeshProUGUI speakerText;
     public TextMeshProUGUI dialogueText;
     public Image image;
     public Transform boxTransform;
+    public Transform defaultPosition;
+    public Animator animator;
 
     static DialogueManager instance;
     AudioSource source;
@@ -23,14 +28,18 @@ public class DialogueManager : InputComponent
     [Range(0, 1)]
     public float volume = 0.5f;
 
+    [Header("Time Line")]
+    public PlayableDirector director;
+
+    public Dialogue[] timelineDialogues;
+    int currentDialogue = 0;
+
     bool busy;
 
     bool interactionPressed;
 
-
     void Awake()
     {
-
         if (instance == null)
         {
             instance = this;
@@ -51,7 +60,9 @@ public class DialogueManager : InputComponent
                 Debug.LogWarning("No Box Transform in DialogueManager!");
             }
 
-            hide();
+            image.enabled = false;
+            dialogueText.enabled = false;
+
         }
     }
 
@@ -71,19 +82,34 @@ public class DialogueManager : InputComponent
 
             }
         }
-        else {
+        else
+        {
             instance.startDialogue(dialogue);
         }
-        
+
 
     }
 
     IEnumerator TypeText(Dialogue dialogue)
     {
 
-        if (boxTransform != null && dialogue.talkingPivot != null)
+        if (boxTransform != null)
         {
-            boxTransform.position = Camera.main.WorldToScreenPoint(dialogue.talkingPivot.position);
+            if (dialogue.talkingPivot != null)
+                boxTransform.position = Camera.main.WorldToScreenPoint(dialogue.talkingPivot.position);
+            else if (defaultPosition != null)
+                boxTransform.position = defaultPosition.position;
+        }
+
+        if (director != null)
+        {
+            director.playableGraph.GetRootPlayable(0).SetSpeed(0);
+        }
+
+        if (speakerText != null)
+        {
+            speakerText.text = dialogue.speakerName;
+
         }
 
         interactionPressed = false;
@@ -135,6 +161,11 @@ public class DialogueManager : InputComponent
             hide();
             CameraController.FreeCamera();
             busy = false;
+
+            if (director != null)
+            {
+                director.playableGraph.GetRootPlayable(0).SetSpeed(1);
+            }
         }
 
 
@@ -142,11 +173,10 @@ public class DialogueManager : InputComponent
 
     void hide()
     {
-        if (image != null)
-            image.enabled = false;
-        if (dialogueText != null)
-            dialogueText.enabled = false;
 
+        if (animator != null)
+            animator.SetTrigger("Hide Box");
+        
     }
 
     void playSound()
@@ -165,12 +195,24 @@ public class DialogueManager : InputComponent
 
     void show()
     {
+
+
+        if (animator != null)
+            animator.SetTrigger("Show Box");
+        
         if (image != null)
+        {
             image.enabled = true;
+        }
+
         if (dialogueText != null)
+        {
             dialogueText.enabled = true;
+        }
+
 
     }
+
 
     public override void setPlayerControls(PlayerControls inputs)
     {
@@ -183,5 +225,28 @@ public class DialogueManager : InputComponent
 
     }
 
-    
+    public void setDirector(PlayableDirector d)
+    {
+        director = d;
+    }
+
+    public void playNextDialogue()
+    {
+
+        if (instance == this)
+        {
+            Debug.Log("Playing Dialogue in Timeline");
+            if (timelineDialogues != null && timelineDialogues.Length > currentDialogue)
+            {
+                startDialogue(timelineDialogues[currentDialogue]);
+            }
+        }
+        else
+        {
+            instance.startDialogue(timelineDialogues[currentDialogue]);
+        }
+
+        currentDialogue++;
+
+    }
 }

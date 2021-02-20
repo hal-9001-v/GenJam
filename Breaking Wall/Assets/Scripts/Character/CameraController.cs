@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 [RequireComponent(typeof(PlayerController))]
 public class CameraController : InputComponent
 {
@@ -12,6 +11,7 @@ public class CameraController : InputComponent
 
     private void Awake()
     {
+
         if (instance == null)
         {
             instance = this;
