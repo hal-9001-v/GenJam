@@ -9,7 +9,7 @@ public class HUDRenderer : MonoBehaviour
     public Image virote;
     private PlayerController myPlayer;
     public Slider slider;
-    
+    int bossMaxHp;
     private void Awake()
     {
         if (health == null) health = GameObject.Find("HealthImage");
@@ -21,6 +21,9 @@ public class HUDRenderer : MonoBehaviour
     }
 
 
+    private void Start()
+    {
+    }
     // Update is called once per frame
     public void UpdateHUD()
     {
@@ -31,10 +34,10 @@ public class HUDRenderer : MonoBehaviour
  
     public void SetBossHudHealth(int bossHp)
     {
-        slider.value = bossHp;
+        slider.value = (float)bossHp/bossMaxHp;
 
     }
-
+    
     public void SetVirote(bool b) {
         if (!b)
         {
@@ -45,9 +48,9 @@ public class HUDRenderer : MonoBehaviour
     public void InitBossHudHealth(int bossStartHp)
     {
 
-        
-        slider.maxValue = bossStartHp;
-        slider.value = bossStartHp;
+        bossMaxHp = bossStartHp;
+        slider.maxValue = 1;
+        slider.value = bossStartHp/bossMaxHp;
     }
 }
 

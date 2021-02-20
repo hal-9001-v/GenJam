@@ -29,7 +29,8 @@ public class BateriaScript : MonoBehaviour
     {
         if (col.gameObject.tag == "Bolso" && !bigBattery.activeSelf )
         {
-
+            
+            SoundManager.PlaySound(SoundManager.Sound.PUNCHHITS, 0.4f);
             myBadGyal.shieldHP--;
            Destroy(gameObject);
 

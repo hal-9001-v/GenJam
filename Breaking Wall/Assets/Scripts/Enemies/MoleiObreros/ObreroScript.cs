@@ -133,7 +133,6 @@ public class ObreroScript : MonoBehaviour
 
     public void ManageAI()
     {
-        if (hp <= 0) Destroy(gameObject);
 
         currentPos = gameObject.transform.position;
         if (canShoot) {
@@ -150,7 +149,7 @@ public class ObreroScript : MonoBehaviour
 
         /////////////////////////////////////////////////////////////////////////
         
-        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 30 &&canShoot)
+        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 100 &&canShoot)
         {
             if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
             int i = Random.Range(1, 200);
@@ -180,6 +179,8 @@ public class ObreroScript : MonoBehaviour
         busy = true;
         moveInput = Vector2.zero;
         myBrick.gameObject.SetActive(true);
+        SoundManager.PlaySound(SoundManager.Sound.BULLTHROWS, 0.4f);
+        SoundManager.PlaySound(SoundManager.Sound.SWINGSPUNCH, 0.2f);
         myBrick.transform.parent = null;
         myBrick.GetComponent<Rigidbody>().velocity = playerDirection.normalized * distanceToPlayer*2;
         yield return new WaitForSeconds(2f);
@@ -209,9 +210,24 @@ public class ObreroScript : MonoBehaviour
         busy = true;
         currentCombatState = (int)CombatState.HIT;
         hp--;
+        SoundManager.PlaySound(SoundManager.Sound.PUNCHHITS, 0.4f);
+        if (hp <= 0)
+        {
+
+            StartCoroutine(Die());
+
+        }
         Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
         myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
-        if (hp <= 0) Destroy(gameObject);
+    }
+
+    private IEnumerator Die()
+    {
+
+        SoundManager.PlaySound(SoundManager.Sound.BULLDIES, 0.8f);
+        yield return new WaitForSeconds(inmunity + 0.2f);
+        Destroy(gameObject); //Die
+
     }
 
     private void OnTriggerEnter(Collider col)

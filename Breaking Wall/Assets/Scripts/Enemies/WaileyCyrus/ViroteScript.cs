@@ -15,8 +15,8 @@ public class ViroteScript : MonoBehaviour
         if (other.gameObject.tag == "Tick") {
 
             Destroy(myLr);
+            SoundManager.PlaySound(SoundManager.Sound.BREAKROPE, 0.4f);
             Destroy(myCube.GetComponent<SpringJoint>());
-        
             
         }
 
@@ -27,6 +27,7 @@ public class ViroteScript : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             falling = false;
+            SoundManager.PlaySound(SoundManager.Sound.SMASHFLOOR, 0.4f);
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             GameObject.Instantiate(gameObject, myCube.transform, true) ;

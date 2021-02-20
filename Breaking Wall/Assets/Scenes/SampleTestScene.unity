@@ -188,6 +188,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obrero (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 951750908261403756, guid: efa2dedc655d6cd41beca634406d553b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efa2dedc655d6cd41beca634406d553b, type: 3}
 --- !u!1001 &43203310
@@ -201,6 +206,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BassFans (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627397258599512960, guid: 38ab180500951b94f90d21add8739009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6627397258599512961, guid: 38ab180500951b94f90d21add8739009,
         type: 3}
@@ -488,16 +498,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1253685705674933012, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
+    - target: {fileID: 286480763675590082, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
         type: 3}
-      propertyPath: m_Value
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1260686404037341214, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 117077071}
     - target: {fileID: 1628093279882704503, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
         type: 3}
       propertyPath: m_RootOrder
@@ -558,26 +563,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1628093279882704504, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1890850217404423420, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108212359884564904, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108212359884564904, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
-      objectReference: {fileID: 0}
     - target: {fileID: 2482561032660296889, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -587,66 +572,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968058800476686427, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2968058800476686427, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466267633813411191, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466267633813411191, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466267633813411191, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466267633813411191, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466267633813411191, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466267633813411191, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466267633813411191, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -50
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466267633813411191, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6149051775544879225, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: Damping.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7384703244464228927, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
-        type: 3}
-      propertyPath: m_Mass
-      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2eb2dcee8afc3a41abf054fc90f5d5e, type: 3}
@@ -854,6 +779,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BassFans (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6627397258599512960, guid: 38ab180500951b94f90d21add8739009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6627397258599512961, guid: 38ab180500951b94f90d21add8739009,
         type: 3}
       propertyPath: m_RootOrder
@@ -922,6 +852,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BassFans (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627397258599512960, guid: 38ab180500951b94f90d21add8739009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6627397258599512961, guid: 38ab180500951b94f90d21add8739009,
         type: 3}
@@ -1091,6 +1026,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BassFans
       objectReference: {fileID: 0}
+    - target: {fileID: 6627397258599512960, guid: 38ab180500951b94f90d21add8739009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6627397258599512961, guid: 38ab180500951b94f90d21add8739009,
         type: 3}
       propertyPath: m_RootOrder
@@ -1159,6 +1099,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyCocinero (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916888225324655281, guid: 7ccf275f1321ec945919cd70ead5a544,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8001918155035869053, guid: 7ccf275f1321ec945919cd70ead5a544,
         type: 3}
@@ -1328,6 +1273,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Bater\xEDa (2)"
       objectReference: {fileID: 0}
+    - target: {fileID: 4144211784907599721, guid: 44afe1e50b5f27e4693e7922aafc0ca1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4144211784907599726, guid: 44afe1e50b5f27e4693e7922aafc0ca1,
         type: 3}
       propertyPath: m_RootOrder
@@ -1496,6 +1446,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BassFans (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 6627397258599512960, guid: 38ab180500951b94f90d21add8739009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6627397258599512961, guid: 38ab180500951b94f90d21add8739009,
         type: 3}
       propertyPath: m_RootOrder
@@ -1564,6 +1519,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BassFans (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627397258599512960, guid: 38ab180500951b94f90d21add8739009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6627397258599512961, guid: 38ab180500951b94f90d21add8739009,
         type: 3}
@@ -1770,6 +1730,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: "Bater\xEDa"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144211784907599721, guid: 44afe1e50b5f27e4693e7922aafc0ca1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144211784907599726, guid: 44afe1e50b5f27e4693e7922aafc0ca1,
         type: 3}
@@ -2035,6 +2000,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BassFans (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6627397258599512960, guid: 38ab180500951b94f90d21add8739009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6627397258599512961, guid: 38ab180500951b94f90d21add8739009,
         type: 3}
       propertyPath: m_RootOrder
@@ -2109,6 +2079,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BassFans (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627397258599512960, guid: 38ab180500951b94f90d21add8739009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6627397258599512961, guid: 38ab180500951b94f90d21add8739009,
         type: 3}
@@ -2352,6 +2327,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyCocinero (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7916888225324655281, guid: 7ccf275f1321ec945919cd70ead5a544,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8001918155035869053, guid: 7ccf275f1321ec945919cd70ead5a544,
         type: 3}
       propertyPath: m_RootOrder
@@ -2488,6 +2468,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obrero
       objectReference: {fileID: 0}
+    - target: {fileID: 951750908261403756, guid: efa2dedc655d6cd41beca634406d553b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efa2dedc655d6cd41beca634406d553b, type: 3}
 --- !u!1001 &1831017262
@@ -2501,6 +2486,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BassFans (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627397258599512960, guid: 38ab180500951b94f90d21add8739009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6627397258599512961, guid: 38ab180500951b94f90d21add8739009,
         type: 3}
@@ -2570,6 +2560,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BassFans (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627397258599512960, guid: 38ab180500951b94f90d21add8739009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6627397258599512961, guid: 38ab180500951b94f90d21add8739009,
         type: 3}
@@ -2645,6 +2640,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyCocinero (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916888225324655281, guid: 7ccf275f1321ec945919cd70ead5a544,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8001918155035869053, guid: 7ccf275f1321ec945919cd70ead5a544,
         type: 3}
@@ -2888,6 +2888,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyCocinero
       objectReference: {fileID: 0}
+    - target: {fileID: 7916888225324655281, guid: 7ccf275f1321ec945919cd70ead5a544,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8001918155035869053, guid: 7ccf275f1321ec945919cd70ead5a544,
         type: 3}
       propertyPath: m_RootOrder
@@ -2962,6 +2967,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: "Bater\xEDa (1)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144211784907599721, guid: 44afe1e50b5f27e4693e7922aafc0ca1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144211784907599726, guid: 44afe1e50b5f27e4693e7922aafc0ca1,
         type: 3}

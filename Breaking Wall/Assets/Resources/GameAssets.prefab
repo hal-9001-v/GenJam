@@ -48,22 +48,82 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 49e61766b441b4d4897612c956080703, type: 3}
   - sound: 1
     audioClip: {fileID: 8300000, guid: 2e2c8bc522f057645af3d7cf0831c903, type: 3}
-  - sound: 2
-    audioClip: {fileID: 8300000, guid: 0fceb0e410c292b489a4ebbc25222826, type: 3}
   - sound: 3
-    audioClip: {fileID: 8300000, guid: b4de79317554ffb44b7fb4e9ca6784fc, type: 3}
+    audioClip: {fileID: 8300000, guid: 0fceb0e410c292b489a4ebbc25222826, type: 3}
   - sound: 4
+    audioClip: {fileID: 8300000, guid: b4de79317554ffb44b7fb4e9ca6784fc, type: 3}
+  - sound: 5
     audioClip: {fileID: 8300000, guid: 71f5288e88d82c64b98536d9f939a8ff, type: 3}
-  - sound: 0
-    audioClip: {fileID: 0}
-  - sound: 0
-    audioClip: {fileID: 0}
-  - sound: 0
-    audioClip: {fileID: 0}
-  - sound: 0
-    audioClip: {fileID: 0}
-  - sound: 0
-    audioClip: {fileID: 0}
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: 78b463875bc4c0a4f818a4de258ed10b, type: 3}
+  - sound: 6
+    audioClip: {fileID: 8300000, guid: 9035ff0200d381748bb076fc70968f14, type: 3}
+  - sound: 7
+    audioClip: {fileID: 8300000, guid: 852cd66661ab54b4e934d8cf6c69a9e1, type: 3}
+  - sound: 9
+    audioClip: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
+  - sound: 8
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 10
+    audioClip: {fileID: 8300000, guid: 134da4875dc09ac45818c6e79f3b128c, type: 3}
+  - sound: 11
+    audioClip: {fileID: 8300000, guid: 40e843ea4cd8b034da7bf081012f305b, type: 3}
+  - sound: 12
+    audioClip: {fileID: 8300000, guid: b693b1391875d904bba0b8f0fc04efb3, type: 3}
+  - sound: 13
+    audioClip: {fileID: 8300000, guid: 61c3866b80a5fb247a32d47395b12987, type: 3}
+  - sound: 14
+    audioClip: {fileID: 8300000, guid: 24aec22311375894d9d0f7da56d8331c, type: 3}
+  - sound: 15
+    audioClip: {fileID: 8300000, guid: 46b7e908bf969c14885e89addf50e823, type: 3}
+  - sound: 16
+    audioClip: {fileID: 8300000, guid: c2f4d92e7d81e484a89f9baab860a28a, type: 3}
+  - sound: 17
+    audioClip: {fileID: 8300000, guid: b965691474d13e247a7b936c80948269, type: 3}
+  - sound: 18
+    audioClip: {fileID: 8300000, guid: 103e5d438025a3e42b6e249cef0ce3f6, type: 3}
+  - sound: 19
+    audioClip: {fileID: 8300000, guid: bbeaaaa2ed523a24088c1d6145d4743b, type: 3}
+  - sound: 20
+    audioClip: {fileID: 8300000, guid: 24b85b70d98024548b3d70c698f325f0, type: 3}
+  - sound: 21
+    audioClip: {fileID: 8300000, guid: 58d423a7759874149b205a75924cccd0, type: 3}
+  - sound: 22
+    audioClip: {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
+  - sound: 23
+    audioClip: {fileID: 8300000, guid: 0f7e2f4f03960424087c88b827c213ad, type: 3}
+  - sound: 24
+    audioClip: {fileID: 8300000, guid: 9b9660c2ee61ac046ace43eb1fe1a061, type: 3}
+  - sound: 25
+    audioClip: {fileID: 8300000, guid: d024dc778ac122445bb6d22eee7e7e8e, type: 3}
+  - sound: 26
+    audioClip: {fileID: 8300000, guid: 9e40b17b47f41d849815e06f43180d3b, type: 3}
+  - sound: 27
+    audioClip: {fileID: 8300000, guid: d8d04c6f80a1140db85ede568dab1f51, type: 3}
+  - sound: 28
+    audioClip: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+  - sound: 29
+    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
   particles: []
   healthArray:
   - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}

@@ -184,7 +184,6 @@ public class CyrusWall : MonoBehaviour
 
     public void ManageAI()
     {
-        if (hp <= 0) Destroy(gameObject);
         
         currentPos = gameObject.transform.position;
         currentPlayerPos = myPlayer.transform.position;
@@ -272,6 +271,7 @@ public class CyrusWall : MonoBehaviour
         if (!shield)
         {
             busy = true;
+            SoundManager.PlaySound(SoundManager.Sound.PUNCHHITS, 0.4f);
             currentCombatState = (int)CombatState.HIT;
             hp--;
             if (hp <= 0) {

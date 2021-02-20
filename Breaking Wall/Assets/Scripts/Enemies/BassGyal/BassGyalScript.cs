@@ -230,21 +230,21 @@ public class BassGyalScript : MonoBehaviour
 
         else if (distanceToPlayer < 5.0)
         {
-
             if (!jattacking) StartCoroutine(JumpAttack(direction));
-
-
         }
 
     }
 
     private IEnumerator Shoot()
     {
+
         canShoot = false;
         Vector3 playerDirection = currentPlayerPos = myPlayer.transform.position - gameObject.transform.position;
         busy = true;
         moveInput = Vector2.zero;
         yield return new WaitForSeconds(2f);
+        SoundManager.PlaySound(SoundManager.Sound.SYNTHTHROWS, 0.4f);
+        SoundManager.PlaySound(SoundManager.Sound.SWINGSPUNCH, 0.2f);
         myMicro.gameObject.SetActive(true);
         myMicro.transform.parent = null;
         myMicro.GetComponent<Rigidbody>().velocity = playerDirection.normalized * distanceToPlayer*1.5f;
@@ -269,10 +269,12 @@ public class BassGyalScript : MonoBehaviour
     private IEnumerator JumpAttack(Vector3 direction)
     {
         jattacking = true;
+        SoundManager.PlaySound(SoundManager.Sound.SYNTHJUMP, 0.4f);
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
         Jump();
         moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
         yield return new WaitForSeconds(2f);
+        SoundManager.PlaySound(SoundManager.Sound.SYNTHGRUNT, 0.4f);
         Hit();
         busy = true;
         moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
@@ -291,7 +293,9 @@ public class BassGyalScript : MonoBehaviour
             busy = true;
             currentCombatState = (int)CombatState.HIT;
             hp--;
-            if (hp <= 0) {
+            SoundManager.PlaySound(SoundManager.Sound.PUNCHHITS, 0.4f);
+            if (hp <= 0)
+            {
 
                 StartCoroutine(Die());
 
@@ -300,11 +304,14 @@ public class BassGyalScript : MonoBehaviour
             Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
             myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
         }
+        else {
+            SoundManager.PlaySound(SoundManager.Sound.SYNTHSHIELDHIT, 3f);
+        }
 
     }
     private IEnumerator Die()
     {
-
+        SoundManager.PlaySound(SoundManager.Sound.SYNTHDIES, 0.4f);
         yield return new WaitForSeconds(inmunity + 0.2f);
 
         Destroy(gameObject); //Die

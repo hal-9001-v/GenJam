@@ -28,6 +28,7 @@ public class BallestaScript : MonoBehaviour
     {
 
         if (other.gameObject.tag == "Bolso" && canShoot) {
+            SoundManager.PlaySound(SoundManager.Sound.BALLISTALAUNCH, 0.5f);
             myVirote.falling = true;
             myViroteRb.isKinematic = false;
             myViroteRb.constraints = RigidbodyConstraints.None;
@@ -53,6 +54,7 @@ public class BallestaScript : MonoBehaviour
     private void LoadBallesta()
     {
         Start();
+        SoundManager.PlaySound(SoundManager.Sound.LOADBALLISTA, 0.5f);
         myVirote.transform.localPosition = new Vector3(0, -2.1f, 0); 
         myVirote.gameObject.SetActive(true);
         myViroteRb.isKinematic = true;

@@ -18,6 +18,7 @@ public class BallScript : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
 
+            SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 1f);
             StartCoroutine(ChangePhase());
 
         }

@@ -230,6 +230,7 @@ public class EnemyCocinero : MonoBehaviour
 
     private IEnumerator JumpAttack(Vector3 direction)
     {
+        SoundManager.PlaySound(SoundManager.Sound.COOKATTACKS, 0.4f);
         jattacking = true;
         yield return new WaitForSeconds(Random.Range(0.1f,0.4f));
         Jump();
@@ -240,7 +241,7 @@ public class EnemyCocinero : MonoBehaviour
         moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
         yield return new WaitForSeconds(4f);
         jattacking = false;
-
+        
     }
 
 
@@ -248,9 +249,22 @@ public class EnemyCocinero : MonoBehaviour
     private void TakeDamage() {
         currentCombatState = (int)CombatState.HIT;
         hp--;
+        SoundManager.PlaySound(SoundManager.Sound.PUNCHHITS, 0.8f);
         Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
         myRb.velocity = new Vector3 (-direction.x*10,3, -direction.z*10);
-        if (hp <= 0) Destroy(gameObject);
+        if (hp <= 0)
+        {
+            StartCoroutine(Die());
+        }
+    }
+
+    private IEnumerator Die()
+    {
+        SoundManager.PlaySound(SoundManager.Sound.COOKDIES, 0.4f);
+        yield return new WaitForSeconds(inmunity + 0.2f);
+
+        Destroy(gameObject); //Die
+
     }
 
     private void OnTriggerEnter(Collider col)

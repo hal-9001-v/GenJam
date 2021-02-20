@@ -23,7 +23,19 @@ public class MicroScript : MonoBehaviour
         if (col.gameObject.tag == "Bateria") {
 
             col.GetComponent<BateriaScript>().bigBattery.SetActive(false);
+            SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.8f);
 
         }
     }
-}
+        private  void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag == "Ground")
+            {
+
+                SoundManager.PlaySound(SoundManager.Sound.BANGSOUND, 0.2f);
+
+            }
+        }
+
+    }
+
