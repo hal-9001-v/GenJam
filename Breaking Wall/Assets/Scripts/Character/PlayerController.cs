@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
     //private int level; //Actual level (scene)
     private float inmunity;
 
+    //Hud
+    HUDRenderer myHud;
+
     //State
     public enum State
     {
@@ -65,7 +68,7 @@ public class PlayerController : MonoBehaviour
         //if (ps == null) ps = FindObjectOfType<PlayerStats>();
         if (myBolso == null) myBolso = GameObject.Find("Bolso");
         if (myDiveHit == null) myDiveHit = GameObject.Find("DiveHit");
-
+        if (myHud== null) myHud= FindObjectOfType<HUDRenderer>();
         myBolso.GetComponent<Collider>().gameObject.SetActive(false);
         myDiveHit.GetComponent<Collider>().gameObject.SetActive(false);
 
@@ -114,6 +117,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         setPlayerControls(myPlayerControls);
+        myHud.UpdateHUD();
     }
 
     // Update is called once per frame
@@ -373,6 +377,7 @@ public class PlayerController : MonoBehaviour
 
         currentCombatState = (int)CombatState.HIT;
         hp--;
+        myHud.UpdateHUD();
         Vector3 direction = (transform.position - col.transform.position).normalized;
         myRb.AddRelativeForce(new Vector3((direction.x+0.1f) * force, 3, (direction.z+0.1f) * force), ForceMode.VelocityChange);
     }
