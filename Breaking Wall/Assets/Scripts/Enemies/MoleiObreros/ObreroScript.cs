@@ -30,7 +30,6 @@ public class ObreroScript : MonoBehaviour
     private Vector3 currentPos;
     private Vector3 currentPlayerPos;
     private bool busy;
-    private bool jattacking;
     //State
     public enum State
     {
@@ -151,7 +150,7 @@ public class ObreroScript : MonoBehaviour
 
         /////////////////////////////////////////////////////////////////////////
         
-        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 200.0&&canShoot)
+        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 30 &&canShoot)
         {
             if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
             int i = Random.Range(1, 200);

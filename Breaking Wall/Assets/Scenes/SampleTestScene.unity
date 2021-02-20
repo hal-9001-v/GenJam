@@ -568,6 +568,11 @@ PrefabInstance:
       propertyPath: Damping.y
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7384703244464228927, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
+        type: 3}
+      propertyPath: m_Mass
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2eb2dcee8afc3a41abf054fc90f5d5e, type: 3}
 --- !u!4 &231836161 stripped

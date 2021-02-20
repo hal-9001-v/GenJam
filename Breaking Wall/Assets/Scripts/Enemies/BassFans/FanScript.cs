@@ -55,7 +55,7 @@ public class FanScript : MonoBehaviour
         if (myRb == null) myRb = GetComponent<Rigidbody>();
 
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
-
+        if (myCucho != null) myCucho.gameObject.SetActive(false);
         //Variable Initialization
         movementSpeed = 10f;
         groundMovementSpeed = 5f;
@@ -194,12 +194,7 @@ public class FanScript : MonoBehaviour
         
         else if (distanceToPlayer <5.0)
         {
-            int i = Random.Range(1, 500);
             if (!jattacking )StartCoroutine(BackOff(direction));
-            if (i == 2) {
-                moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 5; 
-                
-            }
 
         }
 
@@ -208,10 +203,20 @@ public class FanScript : MonoBehaviour
     private IEnumerator BackOff(Vector3 direction)
     {
         jattacking = true;
-        yield return new WaitForSeconds(0.2f);
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
-        yield return new WaitForSeconds(0.2f);
+        int i = Random.Range(1, 10);
+        if (i == 2)
+        {
+            myCucho.gameObject.SetActive(true);
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 7.5F;
+        }
+        yield return new WaitForSeconds(0.3f);
+        moveInput = Vector3.zero;
+        myCucho.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1f);
         jattacking = false;
+        
+        yield return new WaitForSeconds(1f);
+        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
 
     }
 

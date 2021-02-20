@@ -17,7 +17,7 @@ public class EnemyCocinero : MonoBehaviour
     public int currentCombatState;
     private bool hitting;
     private bool takeDmg;
-    
+    private bool isIdling;
     //Player Stats
     private float movementSpeed; //Actual Movement Speed
     private float airMovementSpeed; //Movement  Speed When airborne
@@ -32,7 +32,6 @@ public class EnemyCocinero : MonoBehaviour
     private PlayerController myPlayer;
     private Vector3 currentPos;
     private Vector3 currentPlayerPos;
-    private bool busy;
     private bool jattacking;
     //State
     public enum State
@@ -59,11 +58,12 @@ public class EnemyCocinero : MonoBehaviour
 
         //Variable Initialization
         movementSpeed = 10f;
-        groundMovementSpeed = 5f;
-        airMovementSpeed = groundMovementSpeed / 2;
+        groundMovementSpeed = 5;
+        airMovementSpeed = 5;
         jumpForce = 5f;
         hp = 2;
         inmunity = 0.2f;
+        isIdling = false;
 
     }
 
@@ -109,7 +109,7 @@ public class EnemyCocinero : MonoBehaviour
     private void UpdateMovement(Vector2 M)
     {
 
-        if (!(currentCombatState == (int)CombatState.HIT)&& !busy )
+        if (!(currentCombatState == (int)CombatState.HIT)&& !jattacking )
         {
             myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
             Quaternion prevRotation = transform.rotation;
@@ -188,15 +188,14 @@ public class EnemyCocinero : MonoBehaviour
 
         Vector3 direction = currentPlayerPos - currentPos;
 
-        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 50.0)
+        if (distanceToPlayer > 10.0 && distanceToPlayer < 50.0)
         {
             if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
         }
         else if (distanceToPlayer > 4.0 && distanceToPlayer < 10.0)
         {
 
-            if (!(currentCombatState == (int)CombatState.HIT) && !busy) StartCoroutine(Idle(direction));
-            moveInput = Vector2.zero;
+            if (!(currentCombatState == (int)CombatState.HIT) && !isIdling) StartCoroutine(Idle(direction));
 
         }
         else if (distanceToPlayer < 4.0) {
@@ -209,20 +208,24 @@ public class EnemyCocinero : MonoBehaviour
     }
 
     private IEnumerator Idle(Vector3 direction) {
-
-        busy = true;
-        int i = Random.Range(1, 8);
+        isIdling = true;
+        int i = Random.Range(1, 3);
         float x = Random.Range(0, 0.5f);
         yield return new WaitForSeconds(x);
-        if (i == 1) moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
-        else moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
-        yield return new WaitForSeconds(0.2f);
-        busy = false;
-        yield return new WaitForSeconds(x);
-        busy = true;
-        yield return new WaitForSeconds(0.2f);
-        busy = false;
-
+        if (i == 1)
+        {
+           
+            moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
+        else
+        {
+        
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
+        }
+        yield return new WaitForSeconds(x+0.5f);
+        moveInput = Vector2.zero;
+        yield return new WaitForSeconds(0.1f);
+        isIdling = false;
     }
 
     private IEnumerator JumpAttack(Vector3 direction)
@@ -232,11 +235,10 @@ public class EnemyCocinero : MonoBehaviour
         Jump();
         moveInput = new Vector2(direction.normalized.x, direction.normalized.z) *2;
         yield return new WaitForSeconds(0.5f);
+        moveInput = Vector2.zero;
         Hit();
-        busy = true;
         moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
-        yield return new WaitForSeconds(2f);
-        busy = false;
+        yield return new WaitForSeconds(4f);
         jattacking = false;
 
     }
@@ -244,7 +246,6 @@ public class EnemyCocinero : MonoBehaviour
 
 
     private void TakeDamage() {
-        busy = true;
         currentCombatState = (int)CombatState.HIT;
         hp--;
         Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
@@ -273,7 +274,6 @@ public class EnemyCocinero : MonoBehaviour
         takeDmg = false;
         yield return new WaitForSeconds(2f);
         currentCombatState = (int)CombatState.HITTING;
-        busy = false;
     }
 
 

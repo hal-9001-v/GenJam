@@ -126,35 +126,37 @@ public class PlayerController : MonoBehaviour
 
 
     //Check if player grounded
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider col)
     {
 
-        if (other.tag == "Ground")
+        if (col.tag == "Ground")
         {
             isGrounded = true;
         }
 
 
-        if (other.tag == "Platform")
+        if (col.tag == "Platform")
         {
             isGrounded = true;
-            gameObject.transform.parent = other.transform;
+            gameObject.transform.parent = col.transform;
         }
 
         
-        if (other.tag == "Arrows") {
+        if (col.tag == "Arrows") {
 
             canArrowInteract = true;
 
         }
 
-        if (other.tag == "Ballesta")
+        if (col.tag == "Ballesta")
         {
 
             canBallestaInteract = true;
 
 
         }
+
+        
     }
 
     //Check when player leaves ground
@@ -330,26 +332,49 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Cucho" || col.gameObject.tag == "Micro")
+        int force;
+        if (col.gameObject.tag == "Cucho")
         {
-
+            force = 10;
             if (!takeDmg)
             {
-                TakeDamage(col);
+                TakeDamage(col, force);
+                StartCoroutine(Inmunity());
+            }
+        }
+        if (col.gameObject.tag == "FanCucho")
+        {
+            force = 10;
+            if (!takeDmg)
+            {
+
+                TakeDamage(col, force);
                 StartCoroutine(Inmunity());
             }
         }
 
+
+        if (col.gameObject.tag == "Micro")
+        {
+            force = 10;
+            if (!takeDmg)
+            {
+
+                TakeDamage(col, force);
+                StartCoroutine(Inmunity());
+            }
+        }
+
+
     }
 
-    private void TakeDamage(Collider col)
+    private void TakeDamage(Collider col, int force)
     {
 
         currentCombatState = (int)CombatState.HIT;
         hp--;
         Vector3 direction = (transform.position - col.transform.position).normalized;
-        myRb.velocity = new Vector3(direction.x * 10, 3, direction.z * 10);
-
+        myRb.AddRelativeForce(new Vector3((direction.x+0.1f) * force, 3, (direction.z+0.1f) * force), ForceMode.VelocityChange);
     }
 
     private IEnumerator Inmunity()

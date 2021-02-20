@@ -16,6 +16,7 @@ TagManager:
   - Tick
   - Ballesta
   - Arrows
+  - FanCucho
   layers:
   - Default
   - TransparentFX
