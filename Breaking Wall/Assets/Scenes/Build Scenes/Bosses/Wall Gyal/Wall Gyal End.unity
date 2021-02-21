@@ -442,7 +442,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117077068}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 0.96037006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 47.6, y: 3.98, z: 16.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1927,7 +1927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speakerName: Wonder Wall
   texts:
-  - Se ha hecho de rozar...
+  - Se ha hecho de rogar...
   - "Pero ya es m\xEDa, otra peluca en mi posesi\xF3n."
   - "Cada vez estoy mas ca\xF1ona paredona."
   nextDialogue: {fileID: 0}
