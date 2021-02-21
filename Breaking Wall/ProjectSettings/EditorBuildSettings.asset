@@ -33,7 +33,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal Intro.unity
     guid: 13e685d896408d344a9a66cf5dd1495f
   - enabled: 1
-    path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal FIght.unity
+    path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal Fight.unity
     guid: 325fd55cf8b05764d907ea11831f82d0
   - enabled: 1
     path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal End.unity
