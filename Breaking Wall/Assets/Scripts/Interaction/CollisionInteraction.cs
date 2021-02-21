@@ -42,7 +42,6 @@ public class CollisionInteraction : MonoBehaviour
         {
             if (other.tag == "Player")
             {
-                Debug.Log("HEY YOU");
                 if (done && onlyOnce)
                 {
                     return;

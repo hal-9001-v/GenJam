@@ -13,6 +13,9 @@ public class DialogueManager : InputComponent
     public TextMeshProUGUI speakerText;
     public TextMeshProUGUI dialogueText;
     public Image image;
+
+    public PlayerController player;
+
     public Transform boxTransform;
     public Transform defaultPosition;
     public Animator animator;
@@ -79,6 +82,16 @@ public class DialogueManager : InputComponent
                 StartCoroutine(TypeText(dialogue));
 
                 CameraController.LockCamera();
+
+                if (player != null)
+                    player.disableMove();
+                else
+                {
+                    player = FindObjectOfType<PlayerController>();
+
+                    if (player != null)
+                        player.disableMove();
+                }
 
             }
         }
@@ -162,6 +175,16 @@ public class DialogueManager : InputComponent
             CameraController.FreeCamera();
             busy = false;
 
+            if (player != null)
+                player.enableMove();
+            else
+            {
+                player = FindObjectOfType<PlayerController>();
+
+                if (player != null)
+                    player.enableMove();
+            }
+
             if (director != null)
             {
                 director.playableGraph.GetRootPlayable(0).SetSpeed(1);
@@ -176,7 +199,7 @@ public class DialogueManager : InputComponent
 
         if (animator != null)
             animator.SetTrigger("Hide Box");
-        
+
     }
 
     void playSound()
@@ -199,7 +222,7 @@ public class DialogueManager : InputComponent
 
         if (animator != null)
             animator.SetTrigger("Show Box");
-        
+
         if (image != null)
         {
             image.enabled = true;

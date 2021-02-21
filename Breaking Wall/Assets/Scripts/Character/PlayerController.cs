@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
     //private int level; //Actual level (scene)
     private float inmunity;
 
+    bool canMove = true;
+
     //State
     public enum State
     {
@@ -119,10 +121,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        CheckGrounded(isGrounded);
-        UpdateMovement(moveInput);
+        if (canMove) {
+            CheckGrounded(isGrounded);
+            UpdateMovement(moveInput);
+        }
     }
 
+    public void enableMove() {
+        canMove = true;
+    }
+    public void disableMove() {
+        canMove = false;
+    }
 
 
     //Check if player grounded
