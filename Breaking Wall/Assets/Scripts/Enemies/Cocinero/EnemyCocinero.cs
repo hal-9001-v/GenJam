@@ -240,7 +240,7 @@ public class EnemyCocinero : MonoBehaviour
         moveInput = Vector2.zero;
         Hit();
         moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(1f);
         jattacking = false;
         
     }

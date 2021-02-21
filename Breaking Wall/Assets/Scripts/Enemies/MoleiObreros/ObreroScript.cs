@@ -179,10 +179,10 @@ public class ObreroScript : MonoBehaviour
         busy = true;
         moveInput = Vector2.zero;
         myBrick.gameObject.SetActive(true);
-        SoundManager.PlaySound(SoundManager.Sound.BULLTHROWS, 0.4f);
+        SoundManager.PlaySound(SoundManager.Sound.BULLTHROWS, 0.6f);
         SoundManager.PlaySound(SoundManager.Sound.SWINGSPUNCH, 0.2f);
         myBrick.transform.parent = null;
-        myBrick.GetComponent<Rigidbody>().velocity = playerDirection.normalized * distanceToPlayer*2;
+        myBrick.GetComponent<Rigidbody>().velocity = playerDirection.normalized *30;
         yield return new WaitForSeconds(2f);
         busy = false;
     }
@@ -225,7 +225,7 @@ public class ObreroScript : MonoBehaviour
     private IEnumerator Die()
     {
 
-        SoundManager.PlaySound(SoundManager.Sound.BULLDIES, 0.8f);
+        SoundManager.PlaySound(SoundManager.Sound.BULLDIES, 0.7f);
         yield return new WaitForSeconds(inmunity + 0.2f);
         Destroy(gameObject); //Die
 
