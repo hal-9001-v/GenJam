@@ -104,7 +104,6 @@ public class DialogueManager : InputComponent
 
     IEnumerator TypeText(Dialogue dialogue)
     {
-
         if (boxTransform != null)
         {
             if (dialogue.talkingPivot != null)
