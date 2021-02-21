@@ -70,8 +70,8 @@ public class CameraController : InputComponent
             if (cfTransform != null)
             {
                 Quaternion nextRotation = cfTransform.rotation;
-                nextRotation *= Quaternion.AngleAxis(aim.y * verticalSens, Vector3.right);
-                nextRotation *= Quaternion.AngleAxis(aim.x * verticalSens, Vector3.up);
+                nextRotation *= Quaternion.AngleAxis(-aim.y * verticalSens, Vector3.right);
+                nextRotation *= Quaternion.AngleAxis(aim.x * horizontalSens, Vector3.up);
 
                 cfTransform.rotation = Quaternion.Lerp(cfTransform.rotation, nextRotation, Time.deltaTime * lerpFactor);
 

@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleTestScene.unity
-    guid: 33a0f48307d33fa40babbf9eed32eec5
-  - enabled: 1
     path: Assets/Scenes/Build Scenes/MenuScene.unity
     guid: b1fada7e90d28d546a4d16f70add5aa3
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/Intro Scene.unity
+    guid: e29f4a06b4604e94d90bd2ec25e3c5d2
   - enabled: 1
     path: Assets/Scenes/Build Scenes/Loading Scene.unity
     guid: f218a95cddb396949ae5f3cb7d142c63
@@ -33,14 +33,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal Intro.unity
     guid: 13e685d896408d344a9a66cf5dd1495f
   - enabled: 1
-    path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal FIght.unity
+    path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal Fight.unity
     guid: 325fd55cf8b05764d907ea11831f82d0
   - enabled: 1
     path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal End.unity
     guid: f99e8c49a1b99c24295f2a85460d806c
-  - enabled: 1
-    path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus/Wally Cyrus.unity
-    guid: abd72fce85e667246935209e285162d7
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1314ea1c2f034b14c9f92283a3ce757b,
       type: 2}
