@@ -394,9 +394,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private IEnumerator Die() {
+        
         SoundManager.PlaySound(SoundManager.Sound.WWDIES2, 0.2f);
-
         yield return new WaitForSeconds(1f);
+        
         SoundManager.PlaySound(SoundManager.Sound.WWDIES, 0.2f);
         Debug.Log("Is dead");
 
