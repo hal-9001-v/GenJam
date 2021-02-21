@@ -5,7 +5,8 @@ using UnityEngine;
 public class MicroScript : MonoBehaviour
 {
 
-   
+    public GameObject myParticles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,8 @@ public class MicroScript : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Bateria") {
-
+            myParticles = Instantiate(GameAssets.i.particles[1],col.transform.position, col.transform.rotation);
+            myParticles.transform.parent = col.transform.parent;
             col.GetComponent<BateriaScript>().bigBattery.SetActive(false);
             SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.8f);
 

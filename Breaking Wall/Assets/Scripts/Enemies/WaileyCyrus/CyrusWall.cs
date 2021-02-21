@@ -36,6 +36,9 @@ public class CyrusWall : MonoBehaviour
     private bool busy;
     private bool jattacking;
 
+
+    //Animator
+    
     private HUDRenderer myHudRenderer;
     //State
     public enum State
@@ -166,7 +169,7 @@ public class CyrusWall : MonoBehaviour
     private IEnumerator HitCoroutine()
     {
 
-        if (!hitting)
+        if (!hitting &&    (currentState == (int)State.JUMPING))
         {
             hitting = true;
             movementSpeed = airMovementSpeed * 0.5f;
@@ -197,20 +200,19 @@ public class CyrusWall : MonoBehaviour
             int i = Random.Range(1, 2000);
             if (i == 3)
             {
-                if (!jattacking) StartCoroutine(Frenzy(direction));
+                if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Frenzy(direction));
             }
             if (i == 432 || i == 4)
             {
                 {
-                    if (!jattacking) StartCoroutine(JumpAttack(direction));
-
+                    if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(JumpAttack(direction));
                 }
             }
         }
         else if (distanceToPlayer < 5.0)
         {
 
-            if (!jattacking) StartCoroutine(Frenzy(direction));
+            if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Frenzy(direction));
         }
     }
 
@@ -220,12 +222,19 @@ public class CyrusWall : MonoBehaviour
     {
         jattacking = true;
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
-        Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        if (currentState == (int)State.GROUNDED)
+        {
+            Jump();
+            SoundManager.PlaySound(SoundManager.Sound.WRECKINGJUMP, 2f);
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        }
         yield return new WaitForSeconds(2f);
-        Hit();
-        busy = true;
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        if (currentState == (int)State.JUMPING)
+        {
+            Hit();
+            busy = true;
+            moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
         yield return new WaitForSeconds(2f);
         busy = false;
         jattacking = false;
@@ -237,26 +246,54 @@ public class CyrusWall : MonoBehaviour
         jumpForce = 5;
         float t = 0.6f;
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
-        Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        if (currentState == (int)State.GROUNDED)
+        {
+            Jump();
+            SoundManager.PlaySound(SoundManager.Sound.WRECKINGFRENZY1, 2f);
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        }
+        
         yield return new WaitForSeconds(t+0.1f);
-        Hit();
-        busy = true;
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        if (currentState == (int)State.JUMPING)
+        {
+            Hit();
+            busy = true;
+            moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
+        
         yield return new WaitForSeconds(t);
-        Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        if (currentState == (int)State.GROUNDED)
+        {
+            Jump();
+            SoundManager.PlaySound(SoundManager.Sound.WRECKINGFRENZY2, 3f);
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        }
+
         yield return new WaitForSeconds(t+0.1f);
-        Hit();
-        busy = true;
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        if (currentState == (int)State.JUMPING)
+        {
+            Hit();
+            busy = true;
+            moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
+        
         yield return new WaitForSeconds(t);
-        busy = false; Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        if (currentState == (int)State.GROUNDED)
+        {
+            Jump();
+            SoundManager.PlaySound(SoundManager.Sound.WRECKINGFRENZY3, 3f);
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        }
+        busy = false;
+
         yield return new WaitForSeconds(t+0.1f);
-        Hit();
-        busy = true;
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        if (currentState == (int)State.JUMPING)
+        {
+            Hit();
+            busy = true;
+            moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
+        
         yield return new WaitForSeconds(2);
         busy = false;
         jattacking = false;
@@ -281,15 +318,12 @@ public class CyrusWall : MonoBehaviour
             Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
             myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
         }
-
     }
     private IEnumerator Die()
     {
-
+        SoundManager.PlaySound(SoundManager.Sound.WRECKINGDIE, 2f);
         yield return new WaitForSeconds(inmunity + 0.2f);
-
         Destroy(gameObject); //Die
-
     }
     private void OnTriggerEnter(Collider col)
     {
@@ -301,6 +335,13 @@ public class CyrusWall : MonoBehaviour
                 TakeDamage();
                 StartCoroutine(Inmunity());
             }
+        }
+
+        if (col.tag == "Ground" && jattacking && hitting)
+        {
+            SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
+            Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 3f, gameObject.transform.position.z), gameObject.transform.rotation);
+
         }
     }
 

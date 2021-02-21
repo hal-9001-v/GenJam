@@ -195,12 +195,13 @@ public class EnemyCocinero : MonoBehaviour
         else if (distanceToPlayer > 4.0 && distanceToPlayer < 10.0)
         {
 
-            if (!(currentCombatState == (int)CombatState.HIT) && !isIdling) StartCoroutine(Idle(direction));
+            if (!(currentCombatState == (int)CombatState.HIT) && !isIdling && currentState == (int)State.GROUNDED) StartCoroutine(Idle(direction));
 
         }
         else if (distanceToPlayer < 4.0) {
 
-            if(!jattacking) StartCoroutine(JumpAttack(direction));
+            if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(JumpAttack(direction));
+
 
 
         }

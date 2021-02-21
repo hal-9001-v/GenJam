@@ -124,7 +124,7 @@ public class BassGyalScript : MonoBehaviour
             myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
             Quaternion prevRotation = transform.rotation;
             Quaternion currentRot = Quaternion.LookRotation((currentPlayerPos - transform.position).normalized);
-            transform.rotation = new Quaternion(transform.rotation.x, Quaternion.Slerp(prevRotation, currentRot, 0.4f).y, transform.rotation.z, Quaternion.Slerp(prevRotation, currentRot, 0.4f).w);
+            transform.rotation = new Quaternion(transform.rotation.x, Quaternion.Slerp(prevRotation, currentRot, 0.4f).y, transform.rotation.z, transform.rotation.w);
         }
     }
 
@@ -214,13 +214,13 @@ public class BassGyalScript : MonoBehaviour
             int i = Random.Range(1, 500);
             if (i == 3) {
 
-                if (canShoot) StartCoroutine(Shoot());
+                if (canShoot && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Shoot());
 
             }
             if (i == 432)
             {
                 {
-                    if (!jattacking) StartCoroutine(JumpAttack(direction));
+                    if (!jattacking && currentState == (int) State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(JumpAttack(direction));
 
                 }
             }
@@ -230,7 +230,7 @@ public class BassGyalScript : MonoBehaviour
 
         else if (distanceToPlayer < 5.0)
         {
-            if (!jattacking) StartCoroutine(JumpAttack(direction));
+            if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(JumpAttack(direction));
         }
 
     }
@@ -241,13 +241,17 @@ public class BassGyalScript : MonoBehaviour
         canShoot = false;
         Vector3 playerDirection = currentPlayerPos = myPlayer.transform.position - gameObject.transform.position;
         busy = true;
-        moveInput = Vector2.zero;
-        yield return new WaitForSeconds(2f);
-        SoundManager.PlaySound(SoundManager.Sound.SYNTHTHROWS, 0.4f);
-        SoundManager.PlaySound(SoundManager.Sound.SWINGSPUNCH, 0.2f);
-        myMicro.gameObject.SetActive(true);
-        myMicro.transform.parent = null;
-        myMicro.GetComponent<Rigidbody>().velocity = playerDirection.normalized * distanceToPlayer*1.5f;
+        if (currentState == (int)State.GROUNDED)
+        {
+            moveInput = Vector2.zero;
+            yield return new WaitForSeconds(2f);
+            SoundManager.PlaySound(SoundManager.Sound.SYNTHTHROWS, 0.4f);
+            SoundManager.PlaySound(SoundManager.Sound.SWINGSPUNCH, 0.2f);
+            myMicro.gameObject.SetActive(true);
+            myMicro.transform.parent = null;
+            myMicro.GetComponent<Rigidbody>().velocity = playerDirection.normalized * distanceToPlayer * 1.5f;
+        }
+       
         yield return new WaitForSeconds(2f);
         busy = false;
     }
@@ -264,20 +268,27 @@ public class BassGyalScript : MonoBehaviour
             myMicro.gameObject.SetActive(false);
 
         }
+       
     }
 
     private IEnumerator JumpAttack(Vector3 direction)
     {
         jattacking = true;
-        SoundManager.PlaySound(SoundManager.Sound.SYNTHJUMP, 0.4f);
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
-        Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        if (currentState == (int)State.GROUNDED)
+        {
+            Jump();
+            SoundManager.PlaySound(SoundManager.Sound.SYNTHJUMP, 0.4f);
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        }
         yield return new WaitForSeconds(2f);
-        SoundManager.PlaySound(SoundManager.Sound.SYNTHGRUNT, 0.4f);
-        Hit();
-        busy = true;
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        if (currentState == (int)State.JUMPING)
+        {
+            SoundManager.PlaySound(SoundManager.Sound.SYNTHGRUNT, 0.4f);
+            Hit();
+            busy = true;
+            moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
         yield return new WaitForSeconds(2f);
         busy = false;
         jattacking = false;
@@ -328,6 +339,13 @@ public class BassGyalScript : MonoBehaviour
                 TakeDamage();
                 StartCoroutine(Inmunity());
             }
+        }
+
+        if (col.tag == "Ground" && jattacking)
+        {
+            SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.9f);
+            Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 3f, gameObject.transform.position.z), gameObject.transform.rotation);
+
         }
     }
 

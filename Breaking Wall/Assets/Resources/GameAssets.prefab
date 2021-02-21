@@ -103,7 +103,15 @@ MonoBehaviour:
   - sound: 28
     audioClip: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
   - sound: 29
-    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
+    audioClip: {fileID: 8300000, guid: 1567f41e1536b044bbbd282c682e15df, type: 3}
+  - sound: 30
+    audioClip: {fileID: 8300000, guid: 80b8e40646df1dc40b05d1992502043d, type: 3}
+  - sound: 31
+    audioClip: {fileID: 8300000, guid: 5a9575a281eea2c44a2d1e693fb3ec82, type: 3}
+  - sound: 32
+    audioClip: {fileID: 8300000, guid: b62261d7cf637ee44be10327f80fa85e, type: 3}
+  - sound: 33
+    audioClip: {fileID: 8300000, guid: 390d1313f54b4504c9ff7ca0634b2dce, type: 3}
   - sound: 29
     audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
   - sound: 29
@@ -116,15 +124,22 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
   - sound: 29
     audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
-  - sound: 29
-    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
-  - sound: 29
-    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
-  - sound: 29
-    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
-  - sound: 29
-    audioClip: {fileID: 8300000, guid: 48492a2b33b64c2408fb5f9dbcded11e, type: 3}
-  particles: []
+  particles:
+  - {fileID: 191186, guid: 5258ed7e527cab94a9de9d8dd4dfc54c, type: 3}
+  - {fileID: 168542, guid: 5702e2a6fea804b45b49b70d8feaf7ae, type: 3}
+  - {fileID: 120410, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+  - {fileID: 100000, guid: ab1112643ee572748b01dede71158272, type: 3}
+  - {fileID: 180128, guid: 6586ff0f14125534cae2f5d8f04b7871, type: 3}
+  - {fileID: 191186, guid: 2b992076282b36a4788d30d5c265bdc6, type: 3}
+  - {fileID: 5284192196896690077, guid: aa6ee6af6a85c7346ad581b22a4ad3f2, type: 3}
+  - {fileID: 194016, guid: 1b12fc00772c48145b7feb8882a783d2, type: 3}
+  - {fileID: 191186, guid: 079954accd64b32419ec069129c81273, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   healthArray:
   - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}

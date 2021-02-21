@@ -36,7 +36,11 @@ public static class SoundManager {
       BALLISTALAUNCH,
       LOADBALLISTA,
       BREAKROPE,
-      SMASHFLOOR,
+      WRECKINGJUMP,
+      WRECKINGFRENZY1,
+      WRECKINGFRENZY2,
+      WRECKINGFRENZY3,
+      WRECKINGDIE,
 
     }
 
