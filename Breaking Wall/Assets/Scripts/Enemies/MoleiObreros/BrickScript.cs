@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class BrickScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnCollisionEnter(Collision collision)
     {
-        
-    }
+        if (collision.gameObject.tag == "Ground") {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            SoundManager.PlaySound(SoundManager.Sound.BANGSOUND, 0.2f);
+
+        }
     }
 }

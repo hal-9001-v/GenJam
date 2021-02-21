@@ -36,6 +36,10 @@ public class CyrusWall : MonoBehaviour
     private bool busy;
     private bool jattacking;
 
+
+    //Animator
+    
+    private HUDRenderer myHudRenderer;
     //State
     public enum State
     {
@@ -55,15 +59,17 @@ public class CyrusWall : MonoBehaviour
 
         //Gos
         if (myRb == null) myRb = GetComponent<Rigidbody>();
+        if (myHudRenderer== null) myHudRenderer= FindObjectOfType<HUDRenderer>();
         myCucho.GetComponent<Collider>().gameObject.SetActive(false);
-
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
+        
         //Variable Initialization
         movementSpeed = 50f;
         groundMovementSpeed = 7.5f;
         airMovementSpeed = groundMovementSpeed / 2;
         jumpForce = 10f;
-        hp = 10;
+        hp = 10; myHudRenderer.InitBossHudHealth(hp);
+
         inmunity = 0.2f;
         canAI = false;
     }
@@ -163,7 +169,7 @@ public class CyrusWall : MonoBehaviour
     private IEnumerator HitCoroutine()
     {
 
-        if (!hitting)
+        if (!hitting &&    (currentState == (int)State.JUMPING))
         {
             hitting = true;
             movementSpeed = airMovementSpeed * 0.5f;
@@ -181,49 +187,75 @@ public class CyrusWall : MonoBehaviour
 
     public void ManageAI()
     {
-        if (hp <= 0) Destroy(gameObject);
         
         currentPos = gameObject.transform.position;
         currentPlayerPos = myPlayer.transform.position;
         distanceToPlayer = Vector3.Distance(myPlayer.transform.position, currentPos);
         Vector3 direction = currentPlayerPos - currentPos;
 
-        if (distanceToPlayer > 5.0 && !busy && distanceToPlayer < 50.0)
+        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 50.0)
         {
-            if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
+            if (!(currentCombatState == (int)CombatState.HIT) && !jattacking && currentState == (int)State.GROUNDED) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
 
             int i = Random.Range(1, 2000);
             if (i == 3)
             {
-                if (!jattacking) StartCoroutine(Frenzy(direction));
+                if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Frenzy(direction));
             }
             if (i == 432 || i == 4)
             {
                 {
-                    if (!jattacking) StartCoroutine(JumpAttack(direction));
-
+                    if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(JumpAttack(direction));
                 }
             }
+        }
+        else if (distanceToPlayer < 8.0 && distanceToPlayer > 5.0)
+        {
+
+            if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Frenzy(direction));
         }
         else if (distanceToPlayer < 5.0)
         {
 
-            if (!jattacking) StartCoroutine(Frenzy(direction));
+            if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT))
+            {
+
+                StartCoroutine(BackOff(direction));
+            }
         }
+
+
+    }
+    private IEnumerator BackOff(Vector3 direction) {
+
+        jattacking = true;
+        moveInput = -new Vector2(direction.normalized.x, direction.normalized.z);
+        yield return new WaitForSeconds(Random.Range(0.3f, 1f));
+        jattacking = false;
+        moveInput = Vector2.zero;
+
     }
 
 
-    
+
+
     private IEnumerator JumpAttack(Vector3 direction)
     {
         jattacking = true;
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
-        Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        if (currentState == (int)State.GROUNDED)
+        {
+            Jump();
+            SoundManager.PlaySound(SoundManager.Sound.WRECKINGJUMP, 2f);
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        }
         yield return new WaitForSeconds(2f);
-        Hit();
-        busy = true;
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        if (currentState == (int)State.JUMPING)
+        {
+            Hit();
+            busy = true;
+            moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
         yield return new WaitForSeconds(2f);
         busy = false;
         jattacking = false;
@@ -234,27 +266,56 @@ public class CyrusWall : MonoBehaviour
         jattacking = true;
         jumpForce = 5;
         float t = 0.6f;
+        moveInput = Vector2.zero;
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
-        Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        if (currentState == (int)State.GROUNDED)
+        {
+            Jump();
+            SoundManager.PlaySound(SoundManager.Sound.WRECKINGFRENZY1, 2f);
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        }
+        
         yield return new WaitForSeconds(t+0.1f);
-        Hit();
-        busy = true;
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        if (currentState == (int)State.JUMPING)
+        {
+            Hit();
+            busy = true;
+            moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
+        
         yield return new WaitForSeconds(t);
-        Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        if (currentState == (int)State.GROUNDED)
+        {
+            Jump();
+            SoundManager.PlaySound(SoundManager.Sound.WRECKINGFRENZY2, 3f);
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        }
+
         yield return new WaitForSeconds(t+0.1f);
-        Hit();
-        busy = true;
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        if (currentState == (int)State.JUMPING)
+        {
+            Hit();
+            busy = true;
+            moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
+        
         yield return new WaitForSeconds(t);
-        busy = false; Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        if (currentState == (int)State.GROUNDED)
+        {
+            Jump();
+            SoundManager.PlaySound(SoundManager.Sound.WRECKINGFRENZY3, 3f);
+            moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
+        }
+        busy = false;
+
         yield return new WaitForSeconds(t+0.1f);
-        Hit();
-        busy = true;
-        moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        if (currentState == (int)State.JUMPING)
+        {
+            Hit();
+            busy = true;
+            moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        }
+        
         yield return new WaitForSeconds(2);
         busy = false;
         jattacking = false;
@@ -269,14 +330,24 @@ public class CyrusWall : MonoBehaviour
         if (!shield)
         {
             busy = true;
+            SoundManager.PlaySound(SoundManager.Sound.PUNCHHITS, 0.4f);
             currentCombatState = (int)CombatState.HIT;
             hp--;
+            Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);
+            if (hp <= 0) {
+                StartCoroutine(Die());
+            }
+            myHudRenderer.SetBossHudHealth(hp);
             Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
             myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
         }
-
     }
-
+    private IEnumerator Die()
+    {
+        SoundManager.PlaySound(SoundManager.Sound.WRECKINGDIE, 2f);
+        yield return new WaitForSeconds(inmunity + 0.2f);
+        Destroy(gameObject); //Die
+    }
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Bolso")
@@ -287,6 +358,13 @@ public class CyrusWall : MonoBehaviour
                 TakeDamage();
                 StartCoroutine(Inmunity());
             }
+        }
+
+        if (col.tag == "Ground" && jattacking && hitting)
+        {
+            SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
+            Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 3f, gameObject.transform.position.z), gameObject.transform.rotation);
+
         }
     }
 

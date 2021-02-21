@@ -28,6 +28,9 @@ public class BallestaScript : MonoBehaviour
     {
 
         if (other.gameObject.tag == "Bolso" && canShoot) {
+            Quaternion lol = Quaternion.Euler(0, -90, 0);
+            Instantiate(GameAssets.i.particles[8], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y+1 , gameObject.transform.position.z), lol) ;
+            SoundManager.PlaySound(SoundManager.Sound.BALLISTALAUNCH, 0.5f);
             myVirote.falling = true;
             myViroteRb.isKinematic = false;
             myViroteRb.constraints = RigidbodyConstraints.None;
@@ -53,6 +56,7 @@ public class BallestaScript : MonoBehaviour
     private void LoadBallesta()
     {
         Start();
+        SoundManager.PlaySound(SoundManager.Sound.LOADBALLISTA, 0.5f);
         myVirote.transform.localPosition = new Vector3(0, -2.1f, 0); 
         myVirote.gameObject.SetActive(true);
         myViroteRb.isKinematic = true;
