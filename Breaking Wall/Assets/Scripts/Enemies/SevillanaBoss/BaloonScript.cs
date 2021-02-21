@@ -17,18 +17,15 @@ public class BaloonScript : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Bolso") {
 
-            myWall.hp--;
-            Debug.Log("Pipo");
+            SoundManager.PlaySound(SoundManager.Sound.ILLOBALLOON, 0.8f);
+            Instantiate(GameAssets.i.particles[4], gameObject.transform.position,gameObject.transform.rotation);
+            myWall.TakeDamage();
+         
             Destroy(gameObject);
 
         }

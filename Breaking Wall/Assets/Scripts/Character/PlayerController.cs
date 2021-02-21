@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
 
     //ControlVars
-    private bool isGrounded;
+    public bool isGrounded;
     private int currentState;
     public int currentCombatState;
     private bool moving; //Is moving?
@@ -40,7 +40,11 @@ public class PlayerController : MonoBehaviour
     //private int level; //Actual level (scene)
     private float inmunity;
 
+
     bool canMove = true;
+
+    //Hud
+    HUDRenderer myHud;
 
     //State
     public enum State
@@ -67,7 +71,7 @@ public class PlayerController : MonoBehaviour
         //if (ps == null) ps = FindObjectOfType<PlayerStats>();
         if (myBolso == null) myBolso = GameObject.Find("Bolso");
         if (myDiveHit == null) myDiveHit = GameObject.Find("DiveHit");
-
+        if (myHud== null) myHud= FindObjectOfType<HUDRenderer>();
         myBolso.GetComponent<Collider>().gameObject.SetActive(false);
         myDiveHit.GetComponent<Collider>().gameObject.SetActive(false);
 
@@ -116,6 +120,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         setPlayerControls(myPlayerControls);
+        myHud.UpdateHUD();
     }
 
     // Update is called once per frame
@@ -278,6 +283,7 @@ public class PlayerController : MonoBehaviour
             currentState = (int)State.JUMPING;
             //Debug.Log("¡Entering Jump State!");
             isGrounded = false;
+            SoundManager.PlaySound(SoundManager.Sound.WWJUMP, 0.3F);
         }
 
     }
@@ -289,6 +295,7 @@ public class PlayerController : MonoBehaviour
         //If jumping -> Dive and enter dive state
         if (currentState == (int)State.JUMPING)
         {
+            SoundManager.PlaySound(SoundManager.Sound.WWISHIT2, 0.4f);
             StartCoroutine(DiveRoutine());
             currentState = (int)State.DIVING;
             //Debug.Log("¡Entering Diving State!");
@@ -331,7 +338,8 @@ public class PlayerController : MonoBehaviour
             hitting = true;
             movementSpeed = airMovementSpeed * 0.5f;
             myBolso.GetComponent<Collider>().gameObject.SetActive(true);
-
+            SoundManager.PlaySound(SoundManager.Sound.WWHITS, 0.4f);
+            SoundManager.PlaySound(SoundManager.Sound.SWINGSPUNCH, 0.4f);
             yield return new WaitForSeconds(0.5f);
 
             myBolso.GetComponent<Collider>().gameObject.SetActive(false);
@@ -342,6 +350,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
+
+
         int force;
         if (col.gameObject.tag == "Cucho")
         {
@@ -383,10 +393,28 @@ public class PlayerController : MonoBehaviour
 
         currentCombatState = (int)CombatState.HIT;
         hp--;
+        Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);
+
+        SoundManager.PlaySound(SoundManager.Sound.WWISHIT, 0.4f);
+        if (hp <= 0) {
+
+            StartCoroutine(Die());
+
+        }
+        myHud.UpdateHUD();
         Vector3 direction = (transform.position - col.transform.position).normalized;
         myRb.AddRelativeForce(new Vector3((direction.x+0.1f) * force, 3, (direction.z+0.1f) * force), ForceMode.VelocityChange);
     }
 
+    private IEnumerator Die() {
+        
+        SoundManager.PlaySound(SoundManager.Sound.WWDIES2, 0.2f);
+        yield return new WaitForSeconds(1f);
+        
+        SoundManager.PlaySound(SoundManager.Sound.WWDIES, 0.2f);
+        Debug.Log("Is dead");
+
+    }
     private IEnumerator Inmunity()
     {
         currentCombatState = (int)CombatState.HIT;
@@ -412,13 +440,15 @@ public class PlayerController : MonoBehaviour
     public void Interact() {
 
         if (canArrowInteract && !hasVirote) {
-
             hasVirote = true;
+            myHud.SetVirote(hasVirote);
+            SoundManager.PlaySound(SoundManager.Sound.GETVIROTE, 1.5f);
         }
 
         if (canBallestaInteract && !ballestaLoaded && hasVirote)
         {
           ballestaLoaded = true;
+          myHud.SetVirote(false);
         }
 
     }

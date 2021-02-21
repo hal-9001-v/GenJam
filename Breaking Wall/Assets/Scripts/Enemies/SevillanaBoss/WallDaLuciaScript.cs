@@ -24,7 +24,7 @@ public class WallDaLuciaScript : MonoBehaviour
     private float jumpForce; //pretty self explanatory, really
     public int hp; //Life points
     private float inmunity;
-
+    private bool sleepAudio;
 
     //AI Components
     private float distanceToPlayer;
@@ -33,6 +33,7 @@ public class WallDaLuciaScript : MonoBehaviour
     private Vector3 currentPlayerPos;
     private bool busy;
     private bool sleeping;
+    private HUDRenderer myHudRenderer;
     //State
     public enum State
     {
@@ -53,6 +54,7 @@ public class WallDaLuciaScript : MonoBehaviour
         //Gos
         if (myRb == null) myRb = GetComponent<Rigidbody>();
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
+        if (myHudRenderer == null) myHudRenderer = FindObjectOfType<HUDRenderer>();
 
         //Variable Initialization
         movementSpeed = 10f;
@@ -70,6 +72,16 @@ public class WallDaLuciaScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myHudRenderer.InitBossHudHealth(hp);
+
+    }
+
+    private IEnumerator SleepAudio() {
+        int i = Random.Range(4, 7);
+        sleepAudio = true;
+        SoundManager.PlaySound(SoundManager.Sound.SLEEPAUDIO, 4f);
+        yield return new WaitForSeconds(i);
+        sleepAudio = false;
     }
 
     // Update is called once per frame
@@ -77,6 +89,7 @@ public class WallDaLuciaScript : MonoBehaviour
     {
         CheckGrounded(isGrounded);
         UpdateMovement(moveInput);
+        if(!sleepAudio && sleeping) StartCoroutine(SleepAudio());
         ManageAI();
 
     }
@@ -199,23 +212,31 @@ public class WallDaLuciaScript : MonoBehaviour
 
     }
 
-    private void TakeDamage()
+    public void TakeDamage()
     {
         busy = true;
         currentCombatState = (int)CombatState.HIT;
         hp--;
+        Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);
         Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
         myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
-        StartCoroutine(Die());
+        if (hp <= 1)
+        {
+            hp = 0;
+            StartCoroutine(Die());
+        }
+        myHudRenderer.SetBossHudHealth(hp);
     }
-
-    private IEnumerator Die()
+  private IEnumerator Die()
     {
 
         yield return new WaitForSeconds(inmunity+0.2f);
-        if (hp <= 1) Destroy(gameObject); //Die
+        SoundManager.PlaySound(SoundManager.Sound.ILLODIE, 0.8f);
 
+        Destroy(gameObject); //Die
+        
     }
+  
 
     private void OnTriggerEnter(Collider col)
     {
@@ -235,6 +256,7 @@ public class WallDaLuciaScript : MonoBehaviour
 
         takeDmg = true;
         yield return new WaitForSeconds(inmunity);
+        SoundManager.PlaySound(SoundManager.Sound.ILLO, 0.8f);
         takeDmg = false;
         yield return new WaitForSeconds(2f);
         currentCombatState = (int)CombatState.HITTING;

@@ -3,7 +3,22 @@ guid: 1ca3a6c77813f9b4f92674890ca971aa
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: ea01f47e131582546a68b3d7020edd46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mango_pintador_azul
+    second: {fileID: 2100000, guid: 93c3558f3c3ab4a4ba0607f0cf2be2c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_pintador
+    second: {fileID: 2100000, guid: 6dde3876783606149bd95a6e58c67c21, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

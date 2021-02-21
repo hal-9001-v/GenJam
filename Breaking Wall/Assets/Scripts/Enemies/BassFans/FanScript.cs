@@ -207,6 +207,7 @@ public class FanScript : MonoBehaviour
         if (i == 2)
         {
             myCucho.gameObject.SetActive(true);
+            SoundManager.PlaySound(SoundManager.Sound.FANHITS, 0.4f);
             moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 7.5F;
         }
         yield return new WaitForSeconds(0.3f);
@@ -228,9 +229,23 @@ public class FanScript : MonoBehaviour
         busy = true;
         currentCombatState = (int)CombatState.HIT;
         hp--;
+        Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);
+        SoundManager.PlaySound(SoundManager.Sound.PUNCHHITS, 0.4f);
         Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
         myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
-        if (hp <= 0) Destroy(gameObject);
+        if (hp <= 0)
+        {
+            StartCoroutine(Die());
+        }
+    }
+
+    private IEnumerator Die()
+    {
+        SoundManager.PlaySound(SoundManager.Sound.FANDIES, 0.4f);
+        yield return new WaitForSeconds(inmunity + 0.2f);
+
+        Destroy(gameObject); //Die
+
     }
 
     private void OnTriggerEnter(Collider col)
