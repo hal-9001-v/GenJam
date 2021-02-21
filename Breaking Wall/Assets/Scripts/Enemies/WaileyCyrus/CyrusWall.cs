@@ -193,9 +193,9 @@ public class CyrusWall : MonoBehaviour
         distanceToPlayer = Vector3.Distance(myPlayer.transform.position, currentPos);
         Vector3 direction = currentPlayerPos - currentPos;
 
-        if (distanceToPlayer > 5.0 && !busy && distanceToPlayer < 50.0)
+        if (distanceToPlayer > 10.0 && !busy && distanceToPlayer < 50.0)
         {
-            if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
+            if (!(currentCombatState == (int)CombatState.HIT) && !jattacking && currentState == (int)State.GROUNDED) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
 
             int i = Random.Range(1, 2000);
             if (i == 3)
@@ -209,15 +209,36 @@ public class CyrusWall : MonoBehaviour
                 }
             }
         }
-        else if (distanceToPlayer < 5.0)
+        else if (distanceToPlayer < 8.0 && distanceToPlayer > 5.0)
         {
 
             if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Frenzy(direction));
         }
+        else if (distanceToPlayer < 5.0)
+        {
+
+            if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT))
+            {
+
+                StartCoroutine(BackOff(direction));
+            }
+        }
+
+
+    }
+    private IEnumerator BackOff(Vector3 direction) {
+
+        jattacking = true;
+        moveInput = -new Vector2(direction.normalized.x, direction.normalized.z);
+        yield return new WaitForSeconds(Random.Range(0.3f, 1f));
+        jattacking = false;
+        moveInput = Vector2.zero;
+
     }
 
 
-    
+
+
     private IEnumerator JumpAttack(Vector3 direction)
     {
         jattacking = true;
@@ -245,6 +266,7 @@ public class CyrusWall : MonoBehaviour
         jattacking = true;
         jumpForce = 5;
         float t = 0.6f;
+        moveInput = Vector2.zero;
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
         if (currentState == (int)State.GROUNDED)
         {
@@ -311,6 +333,7 @@ public class CyrusWall : MonoBehaviour
             SoundManager.PlaySound(SoundManager.Sound.PUNCHHITS, 0.4f);
             currentCombatState = (int)CombatState.HIT;
             hp--;
+            Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);
             if (hp <= 0) {
                 StartCoroutine(Die());
             }

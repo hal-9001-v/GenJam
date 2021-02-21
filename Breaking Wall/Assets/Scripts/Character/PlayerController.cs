@@ -382,6 +382,8 @@ public class PlayerController : MonoBehaviour
 
         currentCombatState = (int)CombatState.HIT;
         hp--;
+        Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);
+
         SoundManager.PlaySound(SoundManager.Sound.WWISHIT, 0.4f);
         if (hp <= 0) {
 

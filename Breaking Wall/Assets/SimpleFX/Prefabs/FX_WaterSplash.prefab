@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 429128}
   - component: {fileID: 19898698}
   - component: {fileID: 19915498}
+  - component: {fileID: 8399183635922039736}
   m_Layer: 0
   m_Name: FX_WaterSplash
   m_TagString: Untagged
@@ -4685,3 +4686,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &8399183635922039736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eafdf95e850f7347a52398572823516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

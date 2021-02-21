@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 468624}
   - component: {fileID: 19832148}
   - component: {fileID: 19947442}
+  - component: {fileID: 1733233736677252270}
   m_Layer: 0
   m_Name: FX_Dust_Prefab_01
   m_TagString: Untagged
@@ -4663,3 +4664,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &1733233736677252270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eafdf95e850f7347a52398572823516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -217,6 +217,7 @@ public class WallDaLuciaScript : MonoBehaviour
         busy = true;
         currentCombatState = (int)CombatState.HIT;
         hp--;
+        Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);
         Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
         myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
         if (hp <= 1)

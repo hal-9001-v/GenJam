@@ -27,7 +27,27 @@ public class BallScript : MonoBehaviour
     private IEnumerator ChangePhase() {
 
         //Cinemática
-        yield return new WaitForSeconds(5f);
+
+        SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
+        Quaternion lol = Quaternion.Euler(-90, 0, 0);
+        Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), lol);
+        yield return new WaitForSeconds(1f);
+        SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
+        Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), lol);
+        yield return new WaitForSeconds(1f);
+        SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
+        Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), lol);
+        yield return new WaitForSeconds(1f);
+        SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
+        Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), lol);
+        yield return new WaitForSeconds(1f);
+        SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
+        Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), lol);
+        yield return new WaitForSeconds(1f);
+        SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
+        Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), lol);
+        SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
+        Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), lol);
         myCyrus.gameObject.SetActive(true);
         myCyrus.canAI = true;
         myCyrus.shield = false;

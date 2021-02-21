@@ -9480,8 +9480,9 @@ GameObject:
   - component: {fileID: 402300}
   - component: {fileID: 19821056}
   - component: {fileID: 19943340}
+  - component: {fileID: -1296917938382525355}
   m_Layer: 0
-  m_Name: FX_Explosion_Rubble
+  m_Name: FX_Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14147,3 +14148,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-1296917938382525355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eafdf95e850f7347a52398572823516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
