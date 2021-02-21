@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9206795699081600441}
   - component: {fileID: 9206795699081600440}
   m_Layer: 0
-  m_Name: Globos
+  m_Name: GloboScript
   m_TagString: Globos
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
