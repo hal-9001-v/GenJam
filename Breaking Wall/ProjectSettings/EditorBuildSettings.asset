@@ -21,13 +21,25 @@ EditorBuildSettings:
     path: Assets/Scenes/Build Scenes/Restart Scene.unity
     guid: e39c6f9851d4f034eaf95cdbbae1caf3
   - enabled: 1
-    path: Assets/Scenes/Build Scenes/Bosses/Walll dalucia.unity
+    path: Assets/Scenes/Build Scenes/Bosses/WalldaLucia/Walll dalucia Intro.unity
     guid: edb3f84fbc12ec749ba0d96d1e98462c
   - enabled: 1
-    path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal.unity
+    path: Assets/Scenes/Build Scenes/Bosses/WalldaLucia/Walll dalucia Fight.unity
+    guid: 0883c442b360ccd4a89bd2e67f69a9d7
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/Bosses/WalldaLucia/Walll dalucia End.unity
+    guid: b8649cdc371bf364da20ba778a809243
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal Intro.unity
+    guid: 13e685d896408d344a9a66cf5dd1495f
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal FIght.unity
     guid: 325fd55cf8b05764d907ea11831f82d0
   - enabled: 1
-    path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus.unity
+    path: Assets/Scenes/Build Scenes/Bosses/Wall Gyal/Wall Gyal End.unity
+    guid: f99e8c49a1b99c24295f2a85460d806c
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus/Wally Cyrus.unity
     guid: abd72fce85e667246935209e285162d7
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1314ea1c2f034b14c9f92283a3ce757b,

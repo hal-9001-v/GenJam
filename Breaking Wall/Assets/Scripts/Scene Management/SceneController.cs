@@ -10,7 +10,9 @@ public class SceneController : MonoBehaviour
 
     const float fadeTime = 2;
 
+    const int menuSceneIndex = 0;
     const int loadingSceneIndex = 1;
+    const int lobbySceneIndex = 3;
     const int restartSceneIndex = 4;
 
     public Animator screenAnimator;
@@ -136,4 +138,25 @@ public class SceneController : MonoBehaviour
         }
     }
 
+
+    public void loadLobby() {
+        if (instance == this)
+        {
+            loadSceneAsynch(lobbySceneIndex);
+        }
+        else {
+            instance.loadLobby();
+        }
+    }
+
+    public void loadMenu() {
+        if (instance == this)
+        {
+            loadSceneAsynch(menuSceneIndex);
+        }
+        else
+        {
+            instance.loadLobby();
+        }
+    }
 }

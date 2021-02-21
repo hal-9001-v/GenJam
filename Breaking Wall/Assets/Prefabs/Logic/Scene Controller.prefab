@@ -194,7 +194,7 @@ RectTransform:
   - {fileID: 1863063448598336865}
   - {fileID: 6773957571152308251}
   m_Father: {fileID: 2206471729741466866}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -645,7 +645,7 @@ RectTransform:
   m_Children:
   - {fileID: 7262492445875883467}
   - {fileID: 4660457477509698500}
-  m_Father: {fileID: 2206471729741466866}
+  m_Father: {fileID: 6722007615815792284}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -807,6 +807,7 @@ MonoBehaviour:
   speakerText: {fileID: 3020114618594925579}
   dialogueText: {fileID: 7262492446271943968}
   image: {fileID: 7262492446673557412}
+  player: {fileID: 0}
   boxTransform: {fileID: 7262492445875883467}
   defaultPosition: {fileID: 4660457477509698500}
   animator: {fileID: 1949520378}
@@ -1215,7 +1216,7 @@ RectTransform:
   m_Children:
   - {fileID: 6722007615090492595}
   m_Father: {fileID: 2206471729741466866}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1294,6 +1295,7 @@ Transform:
   m_LocalPosition: {x: -0.012999177, y: 1.4752855, z: 0.4859981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 3437548841721005862}
   - {fileID: 2206471729741466866}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1328,7 +1330,49 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: 120182b94a405914bbb385034cc88ac3, type: 2}
+    - {fileID: 11400000, guid: 6a7350e78f9c9f340897bdeaf518f754, type: 2}
+    - {fileID: 11400000, guid: d9cd1c94324d11141a079e7b44e583a8, type: 2}
+    - {fileID: 11400000, guid: 49214f315d595d94dad71ccefebe90a3, type: 2}
     m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6722007615815792287}
+          m_MethodName: loadNextScene
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6722007615815792287}
+          m_MethodName: loadLobby
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6722007615815792287}
+          m_MethodName: loadMenu
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6722007615815792287}
@@ -1697,11 +1741,10 @@ Transform:
   m_LocalPosition: {x: 960.0019, y: 540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3437548841721005862}
   - {fileID: 7788459652959793830}
   - {fileID: 6722007615117650095}
   m_Father: {fileID: 6722007615815792284}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8244325307433858108
 GameObject:
