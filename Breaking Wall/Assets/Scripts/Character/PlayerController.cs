@@ -123,7 +123,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         setPlayerControls(myPlayerControls);
-        myHud.UpdateHUD();
+
+        if (myHud != null)
+            myHud.UpdateHUD();
     }
 
     // Update is called once per frame
