@@ -8,7 +8,6 @@ public class AndaluzAnimator : MonoBehaviour
     public Animator anim;
     private WallDaLuciaScript myWall;
     bool awoken = false;
-    bool awoken2 = false;
     int currentState;
     private void Awake()
     {

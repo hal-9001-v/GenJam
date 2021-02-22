@@ -237,6 +237,7 @@ if(sleeping) anim.transform.position = new Vector3(anim.transform.position.x, an
     }
   private IEnumerator Die()
     {
+        isHit = true;
         anim.SetBool("Hit", true);
         yield return new WaitForSeconds(inmunity+0.2f);
         SoundManager.PlaySound(SoundManager.Sound.ILLODIE, 0.8f);
