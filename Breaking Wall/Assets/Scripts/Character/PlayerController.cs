@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public Transform bodyTransform;
     public Transform followTransform;
 
+    public GameObject[] pelucas;
 
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
@@ -98,6 +99,7 @@ public class PlayerController : MonoBehaviour
         {
             ic.setPlayerControls(myPlayerControls);
         }
+
     }
 
     /*

@@ -23,6 +23,7 @@ public class BaloonScript : MonoBehaviour
         if (col.gameObject.tag == "Bolso") {
 
             SoundManager.PlaySound(SoundManager.Sound.ILLOBALLOON, 0.8f);
+            SoundManager.PlaySound(SoundManager.Sound.ILLO, 0.8f);
             Instantiate(GameAssets.i.particles[4], gameObject.transform.position,gameObject.transform.rotation);
             myWall.TakeDamage();
          
