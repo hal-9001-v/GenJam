@@ -5,17 +5,17 @@ using UnityEngine;
 public class BassGyalScript : MonoBehaviour
 {
     //GOs
-    private Rigidbody myRb; //My Rigidbody
+    public Rigidbody myRb; //My Rigidbody
     public GameObject myCucho; //Meele hit
 
     //MovementVals
-    private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
+    public Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
 
     //ControlVars
-    private bool isGrounded;
+    public bool isGrounded;
     public int currentState;
     public int currentCombatState;
-    private bool hitting;
+    public bool hitting;
     private bool takeDmg;
     public bool shield = true;
     public int shieldHP;
@@ -37,10 +37,12 @@ public class BassGyalScript : MonoBehaviour
     private Vector3 currentPlayerPos;
     private bool busy;
     private bool jattacking;
-    private bool canShoot;
+    public bool canShoot;
     bool facePlayer;
     private HUDRenderer myHudRenderer;
 
+    public bool shooting;
+    public bool isHit;
     //State
     public enum State
     {
@@ -248,6 +250,7 @@ public class BassGyalScript : MonoBehaviour
 
         if (canShoot)
         {
+            shooting = true;
             Vector3 playerDirection = currentPlayerPos = myPlayer.transform.position - gameObject.transform.position;
             canShoot = false;
             moveInput = Vector2.zero;
@@ -259,10 +262,12 @@ public class BassGyalScript : MonoBehaviour
             myMicro.transform.parent = null;
             myMicro.GetComponent<Rigidbody>().velocity = playerDirection.normalized * 20;
             moveInput = Vector2.zero;
+            shooting = false;
             yield return new WaitForSeconds(2f);
             moveInput = Vector2.zero;
             facePlayer = false;
             busy = false;
+
         }
     }
 
@@ -314,6 +319,7 @@ public class BassGyalScript : MonoBehaviour
     {
         if (!shield)
         {
+            isHit = true;
             busy = true;
             currentCombatState = (int)CombatState.HIT;
             hp--;
@@ -371,6 +377,7 @@ public class BassGyalScript : MonoBehaviour
         yield return new WaitForSeconds(inmunity);
         takeDmg = false;
         yield return new WaitForSeconds(2f);
+        isHit = false;
         currentCombatState = (int)CombatState.HITTING;
         busy = false;
     }

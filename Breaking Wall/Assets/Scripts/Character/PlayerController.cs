@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     //GOs
     PlayerControls myPlayerControls; //Player Input Action Asset
-    private Rigidbody myRb; //My Rigidbody
+    public Rigidbody myRb; //My Rigidbody
     //private PlayerStats ps; //My player stats
     private GameObject myBolso; //Meele hit
     private GameObject myDiveHit; //Meele hit
@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
 
     //ControlVars
     public bool isGrounded;
-    private int currentState;
+    public int currentState;
     public int currentCombatState;
     private bool moving; //Is moving?
-    private bool hitting;
+    public bool hitting;
     private bool takeDmg;
     public bool hasVirote;
     public bool ballestaLoaded;
@@ -61,6 +61,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //Animator
+    public bool isMoving;
+    public bool diving;
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -258,7 +261,6 @@ public class PlayerController : MonoBehaviour
         if (grounded)
         {
             myDiveHit.GetComponent<Collider>().gameObject.SetActive(false);
-
             currentState = (int)State.GROUNDED;
             if (!hitting) movementSpeed = groundMovementSpeed;
             //Debug.Log("¡Entering Grounded State!");
@@ -296,6 +298,7 @@ public class PlayerController : MonoBehaviour
         if (currentState == (int)State.JUMPING)
         {
             SoundManager.PlaySound(SoundManager.Sound.WWISHIT2, 0.4f);
+            diving = true;
             StartCoroutine(DiveRoutine());
             currentState = (int)State.DIVING;
             //Debug.Log("¡Entering Diving State!");
@@ -314,7 +317,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         myRb.velocity = new Vector3(bodyTransform.forward.x * 2, bodyTransform.forward.y - 0.4f, bodyTransform.forward.z * 2) * groundMovementSpeed;
         yield return new WaitForSeconds(0.3f);
+        groundMovementSpeed = 1f;
+        yield return new WaitForSeconds(1f);
+        groundMovementSpeed = 10f;
         takeDmg = false;
+        yield return new WaitForSeconds(0.4f);
+        diving = false;
 
     }
 
@@ -333,15 +341,16 @@ public class PlayerController : MonoBehaviour
     private IEnumerator HitCourutine()
     {
 
-        if (!hitting)
+        if (!hitting && !diving)
         {
             hitting = true;
-            movementSpeed = airMovementSpeed * 0.5f;
-            myBolso.GetComponent<Collider>().gameObject.SetActive(true);
+            movementSpeed = airMovementSpeed * 0.25f;
+            yield return new WaitForSeconds(0.3f);
             SoundManager.PlaySound(SoundManager.Sound.WWHITS, 0.4f);
             SoundManager.PlaySound(SoundManager.Sound.SWINGSPUNCH, 0.4f);
-            yield return new WaitForSeconds(0.5f);
-
+            yield return new WaitForSeconds(0.1f);
+            myBolso.GetComponent<Collider>().gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.8f);
             myBolso.GetComponent<Collider>().gameObject.SetActive(false);
             movementSpeed = groundMovementSpeed;
             hitting = false;
@@ -390,7 +399,7 @@ public class PlayerController : MonoBehaviour
 
     private void TakeDamage(Collider col, int force)
     {
-
+        
         currentCombatState = (int)CombatState.HIT;
         hp--;
         Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);

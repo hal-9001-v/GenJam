@@ -32,7 +32,7 @@ public class WallDaLuciaScript : MonoBehaviour
     private Vector3 currentPos;
     private Vector3 currentPlayerPos;
     private bool busy;
-    private bool sleeping;
+    public bool sleeping;
     private HUDRenderer myHudRenderer;
     //State
     public enum State
@@ -47,6 +47,10 @@ public class WallDaLuciaScript : MonoBehaviour
         HIT = 1,
 
     }
+    //Anim
+    public bool isHit;
+    
+
 
     private void Awake()
     {
