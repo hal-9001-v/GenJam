@@ -16,7 +16,7 @@ public class WallDaLuciaScript : MonoBehaviour
     public int currentCombatState;
     private bool hitting;
     private bool takeDmg;
-
+    public Animator anim;
     //Player Stats
     private float movementSpeed; //Actual Movement Speed
     private float airMovementSpeed; //Movement  Speed When airborne
@@ -192,8 +192,12 @@ public class WallDaLuciaScript : MonoBehaviour
     public void ManageAI()
     {
 
-        if (hp <= 2) sleeping = false;
+        if (hp <= 2)
+        {
+if(sleeping) anim.transform.position = new Vector3(anim.transform.position.x, anim.transform.position.y + 7, anim.transform.position.z);
+            sleeping = false;
 
+        }
         //Behaviour
         if (!sleeping) {
 
@@ -232,7 +236,8 @@ public class WallDaLuciaScript : MonoBehaviour
     }
   private IEnumerator Die()
     {
-
+        isHit = true;
+        anim.SetBool("Hit", true);
         yield return new WaitForSeconds(inmunity+0.2f);
         SoundManager.PlaySound(SoundManager.Sound.ILLODIE, 0.8f);
 
