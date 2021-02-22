@@ -102,6 +102,9 @@ public class DialogueManager : InputComponent
 
     }
 
+    public void goToBlack() { 
+        
+    }
     IEnumerator TypeText(Dialogue dialogue)
     {
         if (boxTransform != null)
