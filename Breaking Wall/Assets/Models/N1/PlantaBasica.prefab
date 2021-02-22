@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 2464323814973427057}
   - component: {fileID: 1557351436131091156}
   - component: {fileID: 3636698105524074014}
+  - component: {fileID: 8655946999988952689}
   m_Layer: 0
   m_Name: PlantaBasica
   m_TagString: Untagged
@@ -161,6 +162,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &8655946999988952689
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2988377877075367883}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 12.864079, y: 12.978936, z: 11.863372}
+  m_Center: {x: -0.07154528, y: -0.000008526092, z: 2.8752005}
 --- !u!1 &3396954903096784862
 GameObject:
   m_ObjectHideFlags: 0
