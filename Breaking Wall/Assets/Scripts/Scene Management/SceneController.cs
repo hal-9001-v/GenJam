@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Timeline;
 
 public class SceneController : MonoBehaviour
 {
@@ -51,6 +52,7 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
+        
         enableInteraction();
     }
 

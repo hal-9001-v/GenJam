@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private float inmunity;
 
 
-    bool canMove = true;
+    public bool canMove = true;
 
     //Hud
     HUDRenderer myHud;
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         //if (ps == null) ps = FindObjectOfType<PlayerStats>();
         if (myBolso == null) myBolso = GameObject.Find("Bolso");
         if (myDiveHit == null) myDiveHit = GameObject.Find("DiveHit");
-        if (myHud== null) myHud= FindObjectOfType<HUDRenderer>();
+        if (myHud == null) myHud = FindObjectOfType<HUDRenderer>();
         myBolso.GetComponent<Collider>().gameObject.SetActive(false);
         myDiveHit.GetComponent<Collider>().gameObject.SetActive(false);
 
@@ -129,16 +129,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canMove) {
+        canMove = true;
+        if (canMove)
+        {
             CheckGrounded(isGrounded);
             UpdateMovement(moveInput);
         }
     }
 
-    public void enableMove() {
+    public void enableMove()
+    {
         canMove = true;
     }
-    public void disableMove() {
+    public void disableMove()
+    {
         canMove = false;
     }
 
@@ -159,8 +163,9 @@ public class PlayerController : MonoBehaviour
             gameObject.transform.parent = col.transform;
         }
 
-        
-        if (col.tag == "Arrows") {
+
+        if (col.tag == "Arrows")
+        {
 
             canArrowInteract = true;
 
@@ -174,7 +179,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        
+
     }
 
     //Check when player leaves ground
@@ -244,7 +249,7 @@ public class PlayerController : MonoBehaviour
                 Quaternion prevRotation = bodyTransform.transform.rotation;
                 Quaternion actualRot = Quaternion.LookRotation(myRb.velocity);
 
-                var rot =  Quaternion.Lerp(prevRotation, actualRot, Time.deltaTime * lerpFactor).eulerAngles;
+                var rot = Quaternion.Lerp(prevRotation, actualRot, Time.deltaTime * lerpFactor).eulerAngles;
 
                 rot.z = 0;
                 rot.x = 0;
@@ -399,27 +404,29 @@ public class PlayerController : MonoBehaviour
 
     private void TakeDamage(Collider col, int force)
     {
-        
+
         currentCombatState = (int)CombatState.HIT;
         hp--;
         Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);
 
         SoundManager.PlaySound(SoundManager.Sound.WWISHIT, 0.4f);
-        if (hp <= 0) {
+        if (hp <= 0)
+        {
 
             StartCoroutine(Die());
 
         }
         myHud.UpdateHUD();
         Vector3 direction = (transform.position - col.transform.position).normalized;
-        myRb.AddRelativeForce(new Vector3((direction.x+0.1f) * force, 3, (direction.z+0.1f) * force), ForceMode.VelocityChange);
+        myRb.AddRelativeForce(new Vector3((direction.x + 0.1f) * force, 3, (direction.z + 0.1f) * force), ForceMode.VelocityChange);
     }
 
-    private IEnumerator Die() {
-        
+    private IEnumerator Die()
+    {
+
         SoundManager.PlaySound(SoundManager.Sound.WWDIES2, 0.2f);
         yield return new WaitForSeconds(1f);
-        
+
         SoundManager.PlaySound(SoundManager.Sound.WWDIES, 0.2f);
         Debug.Log("Is dead");
 
@@ -446,9 +453,11 @@ public class PlayerController : MonoBehaviour
         myPlayerControls.Disable();
     }
 
-    public void Interact() {
+    public void Interact()
+    {
 
-        if (canArrowInteract && !hasVirote) {
+        if (canArrowInteract && !hasVirote)
+        {
             hasVirote = true;
             myHud.SetVirote(hasVirote);
             SoundManager.PlaySound(SoundManager.Sound.GETVIROTE, 1.5f);
@@ -456,8 +465,8 @@ public class PlayerController : MonoBehaviour
 
         if (canBallestaInteract && !ballestaLoaded && hasVirote)
         {
-          ballestaLoaded = true;
-          myHud.SetVirote(false);
+            ballestaLoaded = true;
+            myHud.SetVirote(false);
         }
 
     }
