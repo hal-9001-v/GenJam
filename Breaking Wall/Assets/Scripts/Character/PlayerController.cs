@@ -129,7 +129,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        canMove = true;
         if (canMove)
         {
             CheckGrounded(isGrounded);
@@ -335,7 +334,7 @@ public class PlayerController : MonoBehaviour
     {
 
         //HitAnim
-        if (currentState == (int)State.GROUNDED)
+        if (currentState == (int)State.GROUNDED && canMove)
         {
             StartCoroutine(HitCourutine());
         }

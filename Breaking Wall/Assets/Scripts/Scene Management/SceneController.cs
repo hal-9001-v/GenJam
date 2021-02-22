@@ -88,6 +88,14 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    public void freeCursor() {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void lockCursor() {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
 
     IEnumerator SceneLoader(int index)
     {
@@ -149,10 +157,10 @@ public class SceneController : MonoBehaviour
         }
     }
 
-
     public void loadLobby() {
         if (instance == this)
         {
+            Cursor.lockState = CursorLockMode.Locked;
             loadSceneAsynch(lobbySceneIndex);
         }
         else {
