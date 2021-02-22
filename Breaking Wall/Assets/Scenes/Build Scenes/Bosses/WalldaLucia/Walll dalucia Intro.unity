@@ -660,7 +660,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117077068}
-  m_LocalRotation: {x: 0, y: -0.7412637, z: 0, w: 0.6901351}
+  m_LocalRotation: {x: 0, y: -0.76215947, z: 0, w: 0.6473894}
   m_LocalPosition: {x: 59.968277, y: 3.7600002, z: 12.037742}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -891,7 +891,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speakerName: Wonder Wall
   texts:
-  - "Est\xE1s acabada. Esa melena casta\xF1a va ser m\xEDa. Necesito m\xE1s rizos. "
+  - "Est\xE1s acabada. Esa melena casta\xF1a va ser m\xEDa."
+  - "Necesito m\xE1s rizos."
   nextDialogue: {fileID: 0}
   typeDelay: 0.05
   atStartEvent:
@@ -1059,8 +1060,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speakerName: "WalldaLuc\xEDa"
   texts:
-  - "Mi ni\xF1a, ni siquiera he ganado yo. D\xE9jame en paz que el yeso est\xE1 que
-    te derrumbas. Creo que me voy a dormir un rato."
+  - "Mi ni\xF1a, ni siquiera he ganado yo. "
+  - "D\xE9jame en paz que el yeso est\xE1 que te derrumbas. "
+  - Creo que me voy a dormir un rato.
   nextDialogue: {fileID: 0}
   typeDelay: 0.05
   atStartEvent:
@@ -1610,6 +1612,8 @@ PlayableDirector:
     value: {fileID: 429736612}
   - key: {fileID: -8473183006344974255, guid: 9d124b19bf2033b459bb8ca41cc675fa, type: 2}
     value: {fileID: 1949520377}
+  - key: {fileID: -8682011964491278344, guid: 9d124b19bf2033b459bb8ca41cc675fa, type: 2}
+    value: {fileID: 770624235}
   m_ExposedReferences:
     m_References:
     - a1d6f673550e45d439cd002fd573b0a7: {fileID: 582992557}
@@ -2152,6 +2156,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2eb2dcee8afc3a41abf054fc90f5d5e, type: 3}
+--- !u!114 &770624235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6633635711253320468, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 770624234}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &802933042
 GameObject:
   m_ObjectHideFlags: 0
@@ -4229,8 +4245,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speakerName: Wonder Wall
   texts:
-  - "Esa peluvca va a ser m\xEDa. Demostrar\xE9 a todo el mundo que yo soy la verdadera
-    ganadora."
+  - "Esa peluca va a ser m\xEDa."
+  - "Demostrar\xE9 a todo el mundo que yo soy la verdadera ganadora."
   nextDialogue: {fileID: 0}
   typeDelay: 0.05
   atStartEvent:

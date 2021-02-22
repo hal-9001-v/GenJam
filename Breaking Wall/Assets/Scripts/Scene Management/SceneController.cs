@@ -11,9 +11,9 @@ public class SceneController : MonoBehaviour
     const float fadeTime = 2;
 
     const int menuSceneIndex = 0;
-    const int loadingSceneIndex = 1;
+    const int loadingSceneIndex = 2;
     const int lobbySceneIndex = 3;
-    const int restartSceneIndex = 4;
+    const int restartSceneIndex = 12;
 
     public Animator screenAnimator;
     const string goToBlackTrigger = "Go Black";
@@ -45,7 +45,7 @@ public class SceneController : MonoBehaviour
             if (rootDestroy != null)
                 Destroy(rootDestroy);
 
-            gameObject.SetActive(false);
+            enabled = false;
         }
     }
 
@@ -121,6 +121,15 @@ public class SceneController : MonoBehaviour
             levelCounter++;
         }
 
+    }
+
+    public void blackScreen() {
+        if (instance == this) {
+            screenAnimator.SetTrigger(goToBlackTrigger);
+        }
+        else {
+            instance.blackScreen();
+        }
     }
 
     public void exit()

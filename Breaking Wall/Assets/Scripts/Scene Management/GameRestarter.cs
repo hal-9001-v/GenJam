@@ -8,6 +8,8 @@ public class GameRestarter : MonoBehaviour
     public GameObject container;
     private void Awake()
     {
+
+        Cursor.lockState = CursorLockMode.None;
         foreach (GameObject go in FindObjectsOfType<GameObject>()) {
             if(go != container)
                 Destroy (go);

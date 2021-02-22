@@ -76,7 +76,6 @@ public class DialogueManager : InputComponent
         {
             if (!busy)
             {
-
                 show();
                 busy = true;
                 StartCoroutine(TypeText(dialogue));
@@ -103,9 +102,11 @@ public class DialogueManager : InputComponent
 
     }
 
+    public void goToBlack() { 
+        
+    }
     IEnumerator TypeText(Dialogue dialogue)
     {
-
         if (boxTransform != null)
         {
             if (dialogue.talkingPivot != null)
@@ -266,6 +267,7 @@ public class DialogueManager : InputComponent
         }
         else
         {
+            instance.director = director;
             instance.startDialogue(timelineDialogues[currentDialogue]);
         }
 
