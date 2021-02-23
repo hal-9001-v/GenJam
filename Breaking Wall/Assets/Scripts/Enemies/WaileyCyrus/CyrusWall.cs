@@ -65,7 +65,7 @@ public class CyrusWall : MonoBehaviour
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
         
         //Variable Initialization
-        movementSpeed = 50f;
+        movementSpeed = 15f;
         groundMovementSpeed = 7.5f;
         airMovementSpeed = groundMovementSpeed / 2;
         jumpForce = 10f;
