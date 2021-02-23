@@ -90,10 +90,13 @@ public class SceneController : MonoBehaviour
 
     public void freeCursor() {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
     }
 
     public void lockCursor() {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
 

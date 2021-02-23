@@ -2564,6 +2564,7 @@ MonoBehaviour:
   ballestaLoaded: 0
   hp: 0
   canMove: 0
+  cinematickLock: 0
   isMoving: 0
   diving: 0
 --- !u!4 &1628093279163856002
