@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObreroScript : MonoBehaviour
 {
     //GOs
-    private Rigidbody myRb; //My Rigidbody
+    public Rigidbody myRb; //My Rigidbody
     public BrickScript myBrick; 
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
@@ -15,7 +15,8 @@ public class ObreroScript : MonoBehaviour
     public int currentState;
     public int currentCombatState;
     private bool takeDmg;
-    private bool canShoot;
+    public bool canShoot;
+    public bool shotAnim;
     //Player Stats
     private float movementSpeed; //Actual Movement Speed
     private float airMovementSpeed; //Movement  Speed When airborne
@@ -175,8 +176,12 @@ public class ObreroScript : MonoBehaviour
     private IEnumerator Shoot()
     {
         canShoot = false;
-        Vector3 playerDirection = myPlayer.transform.position - gameObject.transform.position;
         busy = true;
+        shotAnim = true;
+        moveInput = Vector2.zero;
+        yield return new WaitForSeconds(1.4f);
+        Vector3 playerDirection = myPlayer.transform.position - gameObject.transform.position;
+        yield return new WaitForSeconds(0.4f);
         moveInput = Vector2.zero;
         myBrick.gameObject.SetActive(true);
         SoundManager.PlaySound(SoundManager.Sound.BULLTHROWS, 0.6f);
@@ -184,6 +189,7 @@ public class ObreroScript : MonoBehaviour
         myBrick.transform.parent = null;
         myBrick.GetComponent<Rigidbody>().velocity = playerDirection.normalized *30;
         yield return new WaitForSeconds(2f);
+        shotAnim = false;
         busy = false;
     }
 
@@ -250,7 +256,7 @@ public class ObreroScript : MonoBehaviour
         takeDmg = true;
         yield return new WaitForSeconds(inmunity);
         takeDmg = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.2f);
         currentCombatState = (int)CombatState.HITTING;
         busy = false;
     }

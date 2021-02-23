@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
 
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private float jumpForce; //pretty self explanatory, really
     public int hp; //Life points
     private float inmunity;
-
+    private bool dead;
 
     public bool canMove = true;
 
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         groundMovementSpeed = 10f;
         airMovementSpeed = groundMovementSpeed / 2;
         jumpForce = 6f;
-        hp = 10;
+        hp = 5;
         inmunity = 0.5f;
         hasVirote = false;
         ballestaLoaded = false;
@@ -349,7 +349,6 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
 
-
         int force;
         if (col.gameObject.tag == "Cucho")
         {
@@ -397,7 +396,7 @@ public class PlayerController : MonoBehaviour
         if (hp <= 0)
         {
 
-            StartCoroutine(Die());
+          if(!dead)  StartCoroutine(Die());
 
         }
         myHud.UpdateHUD();
@@ -407,13 +406,15 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Die()
     {
-
-        SoundManager.PlaySound(SoundManager.Sound.WWDIES2, 0.2f);
+        dead = true;
+        disableMove();
+        SoundManager.PlaySound(SoundManager.Sound.WWDIES2, 0.5f);
         yield return new WaitForSeconds(1f);
 
-        SoundManager.PlaySound(SoundManager.Sound.WWDIES, 0.2f);
-        Debug.Log("Is dead");
-
+        SoundManager.PlaySound(SoundManager.Sound.WWDIES, 0.5f);
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
     }
     private IEnumerator Inmunity()
     {

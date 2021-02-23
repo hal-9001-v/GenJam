@@ -5,17 +5,17 @@ using UnityEngine;
 public class EnemyCocinero : MonoBehaviour
 {
     //GOs
-    private Rigidbody myRb; //My Rigidbody
+    public Rigidbody myRb; //My Rigidbody
     public GameObject myCucho; //Meele hit
 
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
 
     //ControlVars
-    private bool isGrounded;
+    public bool isGrounded;
     public int currentState;
     public int currentCombatState;
-    private bool hitting;
+    public bool hitting;
     private bool takeDmg;
     private bool isIdling;
     //Player Stats
@@ -52,7 +52,7 @@ public class EnemyCocinero : MonoBehaviour
 
         //Gos
         if (myRb == null) myRb = GetComponent<Rigidbody>();
-        myCucho.GetComponent<Collider>().gameObject.SetActive(false);
+        myCucho.GetComponent<Collider>().gameObject.SetActive(true);
 
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
 
@@ -166,11 +166,12 @@ public class EnemyCocinero : MonoBehaviour
         {
             hitting = true;
             movementSpeed = airMovementSpeed * 0.5f;
-            myCucho.GetComponent<Collider>().gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.3f);
+            myCucho.gameObject.tag = "Cucho"; 
 
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.8f);
 
-            myCucho.GetComponent<Collider>().gameObject.SetActive(false);
+            myCucho.gameObject.tag = "Untagged";
             movementSpeed = groundMovementSpeed;
             hitting = false;
             
@@ -231,16 +232,16 @@ public class EnemyCocinero : MonoBehaviour
 
     private IEnumerator JumpAttack(Vector3 direction)
     {
-        SoundManager.PlaySound(SoundManager.Sound.COOKATTACKS, 0.4f);
+        SoundManager.PlaySound(SoundManager.Sound.COOKATTACKS, 0.3f);
         jattacking = true;
         yield return new WaitForSeconds(Random.Range(0.1f,0.4f));
         Jump();
-        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) *2;
+        moveInput = new Vector2(direction.normalized.x, direction.normalized.z) ;
         yield return new WaitForSeconds(0.5f);
         moveInput = Vector2.zero;
         Hit();
         moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         jattacking = false;
         
     }
@@ -253,7 +254,7 @@ public class EnemyCocinero : MonoBehaviour
         Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);
         SoundManager.PlaySound(SoundManager.Sound.PUNCHHITS, 0.8f);
         Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
-        myRb.velocity = new Vector3 (-direction.x*10,3, -direction.z*10);
+        myRb.velocity = new Vector3 (-direction.x*5,3, -direction.z*5);
         if (hp <= 0)
         {
             StartCoroutine(Die());
@@ -262,7 +263,7 @@ public class EnemyCocinero : MonoBehaviour
 
     private IEnumerator Die()
     {
-        SoundManager.PlaySound(SoundManager.Sound.COOKDIES, 0.4f);
+        SoundManager.PlaySound(SoundManager.Sound.COOKDIES, 1f);
         yield return new WaitForSeconds(inmunity + 0.2f);
 
         Destroy(gameObject); //Die
@@ -288,7 +289,7 @@ public class EnemyCocinero : MonoBehaviour
         takeDmg = true;
         yield return new WaitForSeconds(inmunity);
         takeDmg = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         currentCombatState = (int)CombatState.HITTING;
     }
 
