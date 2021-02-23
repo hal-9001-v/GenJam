@@ -811,9 +811,9 @@ MonoBehaviour:
   boxTransform: {fileID: 7262492445875883467}
   defaultPosition: {fileID: 4660457477509698500}
   animator: {fileID: 1949520378}
-  typingSound: {fileID: 0}
+  typingSound: {fileID: 8300000, guid: 6246f3a9af868424b89daccfada8b4fd, type: 3}
   pitch: 1
-  volume: 0.5
+  volume: 0.2
   director: {fileID: 0}
   timelineDialogues:
   - {fileID: 0}
