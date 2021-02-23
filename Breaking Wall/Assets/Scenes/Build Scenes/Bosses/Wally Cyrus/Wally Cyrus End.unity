@@ -232,7 +232,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117077068}
-  m_LocalRotation: {x: 0.083157964, y: -0.25274175, z: -0.022963703, w: -0.9860101}
+  m_LocalRotation: {x: 0.08721359, y: -0.265068, z: -0.024083644, w: -0.95997536}
   m_LocalPosition: {x: -72.7502, y: 13.67173, z: -78.12437}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1905,6 +1905,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5177759887672709697, guid: b29f944208192a0469ea2aa583fd9a06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5411762142053079978, guid: b29f944208192a0469ea2aa583fd9a06,
         type: 3}
       propertyPath: m_RootOrder
@@ -1964,6 +1969,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Escenario
+      objectReference: {fileID: 0}
+    - target: {fileID: 8359960800418272425, guid: b29f944208192a0469ea2aa583fd9a06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b29f944208192a0469ea2aa583fd9a06, type: 3}
