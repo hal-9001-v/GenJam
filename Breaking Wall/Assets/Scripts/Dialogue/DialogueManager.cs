@@ -99,7 +99,7 @@ public class DialogueManager : InputComponent
 
                 CameraController.LockCamera();
 
-                if (player != null)
+                if (player != null && director ==null)
                     player.disableMove();
                 else
                 {
@@ -194,7 +194,7 @@ public class DialogueManager : InputComponent
             CameraController.FreeCamera();
             busy = false;
 
-            if (player != null)
+            if (player != null && director==null)
                 player.enableMove();
             else
             {

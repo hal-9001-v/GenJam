@@ -619,6 +619,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5375580639335109198, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6149051775544879225, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
         type: 3}
       propertyPath: Damping.y
@@ -643,6 +648,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070409873423276544, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9126036644703668561, guid: c2eb2dcee8afc3a41abf054fc90f5d5e,
         type: 3}
@@ -1613,6 +1623,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9123525783939450567, guid: 4e46a9e7ed002b8458296cfd3d9ace48,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.45063785
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123525783939450567, guid: 4e46a9e7ed002b8458296cfd3d9ace48,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.45063785
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123525783939450567, guid: 4e46a9e7ed002b8458296cfd3d9ace48,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.267364
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e46a9e7ed002b8458296cfd3d9ace48, type: 3}
 --- !u!1001 &960894456
@@ -2242,6 +2267,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Escenario
       objectReference: {fileID: 0}
+    - target: {fileID: 967354544130769228, guid: 8c530e56ba5322c479a82c39eb5e157a,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 9703700ea509f5946b77b7c22e188622,
+        type: 2}
     - target: {fileID: 1410615565374225171, guid: 8c530e56ba5322c479a82c39eb5e157a,
         type: 3}
       propertyPath: m_LocalPosition.x
