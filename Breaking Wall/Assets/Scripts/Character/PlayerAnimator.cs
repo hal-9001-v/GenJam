@@ -60,5 +60,11 @@ public class PlayerAnimator : MonoBehaviour
 
         }
         else anim.SetBool("Hit", false);
+
+        if (myPlayerController.hp <= 0) {
+
+            anim.SetBool("Dead", true);
+
+        } 
     }
 }

@@ -69,7 +69,7 @@ public class CyrusWall : MonoBehaviour
         groundMovementSpeed = 7.5f;
         airMovementSpeed = groundMovementSpeed / 2;
         jumpForce = 10f;
-        hp = 10; myHudRenderer.InitBossHudHealth(hp);
+        hp = 4; myHudRenderer.InitBossHudHealth(hp);
 
         inmunity = 0.2f;
         canAI = false;
@@ -201,9 +201,9 @@ public class CyrusWall : MonoBehaviour
             int i = Random.Range(1, 2000);
             if (i == 3)
             {
-                if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Frenzy(direction));
+                if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Frenzy());
             }
-            if (i == 432 || i == 4)
+            if (i == 432 || i == 4 || i == 745 ||i == 21)
             {
                 {
                     if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(JumpAttack(direction));
@@ -213,7 +213,7 @@ public class CyrusWall : MonoBehaviour
         else if (distanceToPlayer < 8.0 && distanceToPlayer > 5.0)
         {
 
-            if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Frenzy(direction));
+            if (!jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Frenzy());
         }
         else if (distanceToPlayer < 5.0)
         {
@@ -264,7 +264,7 @@ public class CyrusWall : MonoBehaviour
         jattacking = false;
 
     }
-    private IEnumerator Frenzy(Vector3 direction)
+    private IEnumerator Frenzy()
     {
         jattacking = true;
         jumpForce = 5;
@@ -273,6 +273,7 @@ public class CyrusWall : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
         if (currentState == (int)State.GROUNDED)
         {
+            Vector3 direction = currentPlayerPos - currentPos;
             frenzy = true;
             Jump();
             SoundManager.PlaySound(SoundManager.Sound.WRECKINGFRENZY1, 2f);
@@ -283,6 +284,7 @@ public class CyrusWall : MonoBehaviour
         if (currentState == (int)State.JUMPING)
         {
             Hit();
+            Vector3 direction = currentPlayerPos - currentPos;
             busy = true;
             moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
         }
@@ -291,6 +293,7 @@ public class CyrusWall : MonoBehaviour
         if (currentState == (int)State.GROUNDED)
         {
             Jump();
+            Vector3 direction = currentPlayerPos - currentPos;
             SoundManager.PlaySound(SoundManager.Sound.WRECKINGFRENZY2, 3f);
             moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
         }
@@ -300,6 +303,7 @@ public class CyrusWall : MonoBehaviour
         {
             Hit();
             busy = true;
+            Vector3 direction = currentPlayerPos - currentPos;
             moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
         }
         
@@ -307,6 +311,7 @@ public class CyrusWall : MonoBehaviour
         if (currentState == (int)State.GROUNDED)
         {
             Jump();
+            Vector3 direction = currentPlayerPos - currentPos;
             SoundManager.PlaySound(SoundManager.Sound.WRECKINGFRENZY3, 3f);
             moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
         }
@@ -317,6 +322,7 @@ public class CyrusWall : MonoBehaviour
         {
             Hit();
             busy = true;
+            Vector3 direction = currentPlayerPos - currentPos;
             moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
         }
         frenzy = false;
@@ -380,7 +386,7 @@ public class CyrusWall : MonoBehaviour
         takeDmg = true;
         yield return new WaitForSeconds(inmunity);
         takeDmg = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         currentCombatState = (int)CombatState.HITTING;
         busy = false;
     }

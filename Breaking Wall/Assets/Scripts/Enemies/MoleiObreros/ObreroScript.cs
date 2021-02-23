@@ -179,16 +179,16 @@ public class ObreroScript : MonoBehaviour
         busy = true;
         shotAnim = true;
         moveInput = Vector2.zero;
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(1.4f);
+        Vector3 playerDirection = myPlayer.transform.position - gameObject.transform.position;
+        yield return new WaitForSeconds(0.4f);
         moveInput = Vector2.zero;
         myBrick.gameObject.SetActive(true);
         SoundManager.PlaySound(SoundManager.Sound.BULLTHROWS, 0.6f);
         SoundManager.PlaySound(SoundManager.Sound.SWINGSPUNCH, 0.2f);
         myBrick.transform.parent = null;
-        Vector3 playerDirection = myPlayer.transform.position - gameObject.transform.position;
         myBrick.GetComponent<Rigidbody>().velocity = playerDirection.normalized *30;
         yield return new WaitForSeconds(2f);
-
         shotAnim = false;
         busy = false;
     }
@@ -256,7 +256,7 @@ public class ObreroScript : MonoBehaviour
         takeDmg = true;
         yield return new WaitForSeconds(inmunity);
         takeDmg = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.2f);
         currentCombatState = (int)CombatState.HITTING;
         busy = false;
     }

@@ -169,7 +169,7 @@ public class EnemyCocinero : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             myCucho.gameObject.tag = "Cucho"; 
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.8f);
 
             myCucho.gameObject.tag = "Untagged";
             movementSpeed = groundMovementSpeed;
@@ -232,7 +232,7 @@ public class EnemyCocinero : MonoBehaviour
 
     private IEnumerator JumpAttack(Vector3 direction)
     {
-        SoundManager.PlaySound(SoundManager.Sound.COOKATTACKS, 0.4f);
+        SoundManager.PlaySound(SoundManager.Sound.COOKATTACKS, 0.3f);
         jattacking = true;
         yield return new WaitForSeconds(Random.Range(0.1f,0.4f));
         Jump();
@@ -254,7 +254,7 @@ public class EnemyCocinero : MonoBehaviour
         Instantiate(GameAssets.i.particles[10], gameObject.transform.position, gameObject.transform.rotation);
         SoundManager.PlaySound(SoundManager.Sound.PUNCHHITS, 0.8f);
         Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
-        myRb.velocity = new Vector3 (-direction.x*10,3, -direction.z*10);
+        myRb.velocity = new Vector3 (-direction.x*5,3, -direction.z*5);
         if (hp <= 0)
         {
             StartCoroutine(Die());
@@ -263,7 +263,7 @@ public class EnemyCocinero : MonoBehaviour
 
     private IEnumerator Die()
     {
-        SoundManager.PlaySound(SoundManager.Sound.COOKDIES, 0.4f);
+        SoundManager.PlaySound(SoundManager.Sound.COOKDIES, 1f);
         yield return new WaitForSeconds(inmunity + 0.2f);
 
         Destroy(gameObject); //Die
@@ -289,7 +289,7 @@ public class EnemyCocinero : MonoBehaviour
         takeDmg = true;
         yield return new WaitForSeconds(inmunity);
         takeDmg = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         currentCombatState = (int)CombatState.HITTING;
     }
 

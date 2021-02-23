@@ -27,7 +27,7 @@ public class HUDRenderer : MonoBehaviour
     // Update is called once per frame
     public void UpdateHUD()
     {
-        healthImage.sprite = GameAssets.i.healthArray[myPlayer.hp-1];
+        if(myPlayer.hp >= 0) healthImage.sprite = GameAssets.i.healthArray[myPlayer.hp];
 
     }
 
