@@ -59,7 +59,6 @@ public class SceneController : MonoBehaviour
         if (instance == this)
         {
             Debug.Log("Loading scene " + SceneManager.GetSceneByBuildIndex(index).name);
-
             StartCoroutine(SceneLoader(index));
         }
         else

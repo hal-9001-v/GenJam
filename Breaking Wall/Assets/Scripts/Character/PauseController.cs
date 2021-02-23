@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class PauseController : InputComponent
 {
+    private AudioSource[] allAudioSources ;
 
     static PauseController instance;
     public Canvas pauseCanvas;
-
     public bool canPauseGame = true;
 
     bool pauseDisplayed;
-
+    private void Awake()
+    {
+        allAudioSources = FindObjectsOfType<AudioSource>();
+    }
 
     void Start()
     {
@@ -42,18 +45,37 @@ public class PauseController : InputComponent
         if (canPauseGame)
         {
             Time.timeScale = 0;
-
+            StopAllAudio();
             pauseDisplayed = true;
             show();
         }
 
     }
 
+    private void StopAllAudio() {
+    
+        foreach (AudioSource a in allAudioSources)
+        {
+           if(a!=null)  a.Pause();
+        }
+    
+    }
+
+    private void ResumeAllAudio() {
+
+        foreach (AudioSource a in allAudioSources)
+        {
+        if(a!=null)    a.UnPause();
+        }
+
+    }
+
+    
     public void resumeGame()
     {
         pauseDisplayed = false;
         Time.timeScale = 1;
-
+        ResumeAllAudio();
         hide();
     }
 

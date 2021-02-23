@@ -41,7 +41,7 @@ public static class SoundManager {
       WRECKINGFRENZY2,
       WRECKINGFRENZY3,
       WRECKINGDIE,
-
+      DOOR,
     }
 
     private static GameObject oneShotGameObject;
