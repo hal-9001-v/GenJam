@@ -277,21 +277,21 @@ MonoBehaviour:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1628093280467383929}
-          m_MethodName: disableMove
-          m_Mode: 1
+          m_MethodName: setCinematicLock
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1628093280467383929}
-          m_MethodName: enableMove
-          m_Mode: 1
+          m_MethodName: setCinematicLock
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -365,6 +365,7 @@ MonoBehaviour:
   ballestaLoaded: 0
   hp: 0
   canMove: 1
+  cinematickLock: 0
   isMoving: 0
   diving: 0
 --- !u!114 &2233467809486111231
@@ -912,6 +913,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075239876361619108, guid: efe25e6641e0377488a34f22bf05e3e2,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075239876361619108, guid: efe25e6641e0377488a34f22bf05e3e2,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6405242293964279158, guid: efe25e6641e0377488a34f22bf05e3e2,
         type: 3}
