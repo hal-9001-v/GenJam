@@ -2308,7 +2308,7 @@ MonoBehaviour:
   - Lo sentimos Wonder Wall, has quedado cuarta.
   - Al jurado no le han gustado tus rizos y BUCLES.
   nextDialogue: {fileID: 0}
-  typeDelay: 0.1
+  typeDelay: 0.05
   atStartEvent:
     m_PersistentCalls:
       m_Calls: []
