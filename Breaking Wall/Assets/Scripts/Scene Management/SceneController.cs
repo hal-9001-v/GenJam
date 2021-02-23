@@ -143,6 +143,17 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    public void whiteScreen() {
+        if (instance == this)
+        {
+            screenAnimator.SetTrigger(goToWhiteTrigger);
+        }
+        else
+        {
+            instance.blackScreen();
+        }
+    }
+
     public void exit()
     {
         Application.Quit();

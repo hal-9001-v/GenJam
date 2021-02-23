@@ -72,6 +72,7 @@ public class EnemyCocinero : MonoBehaviour
         }
         else {
             enabled = false;
+            
             StartCoroutine(Idle(transform.eulerAngles));
         }
 
