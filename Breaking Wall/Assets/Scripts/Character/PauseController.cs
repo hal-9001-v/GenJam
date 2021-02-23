@@ -44,6 +44,8 @@ public class PauseController : InputComponent
     {
         if (canPauseGame)
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
             StopAllAudio();
             pauseDisplayed = true;
@@ -73,6 +75,8 @@ public class PauseController : InputComponent
     
     public void resumeGame()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         pauseDisplayed = false;
         Time.timeScale = 1;
         ResumeAllAudio();

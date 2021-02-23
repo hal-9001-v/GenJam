@@ -2175,6 +2175,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2136032114084228908, guid: e05eccf690c098447abd89684951275f,
         type: 3}
+      propertyPath: events.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2136032114084228908, guid: e05eccf690c098447abd89684951275f,
+        type: 3}
       propertyPath: events.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
