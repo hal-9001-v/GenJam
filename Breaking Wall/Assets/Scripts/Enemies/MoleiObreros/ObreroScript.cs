@@ -57,7 +57,7 @@ public class ObreroScript : MonoBehaviour
         movementSpeed = 10f;
         groundMovementSpeed = 5f;
         airMovementSpeed = groundMovementSpeed / 2;
-        hp = 2;
+        hp = 4;
         inmunity = 0.2f;
         canShoot = true;
     }

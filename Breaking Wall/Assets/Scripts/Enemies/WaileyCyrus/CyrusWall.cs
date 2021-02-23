@@ -9,6 +9,7 @@ public class CyrusWall : MonoBehaviour
     public GameObject myCucho; //Meele hit
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
+    public SceneController mySceneC;
 
     //ControlVars
     public bool isGrounded;
@@ -16,7 +17,7 @@ public class CyrusWall : MonoBehaviour
     public int currentCombatState;
     private bool hitting;
     private bool takeDmg;
-    public bool shield = true;
+    public bool shield = false;
     public bool canAI;
 
     //Player Stats
@@ -63,16 +64,17 @@ public class CyrusWall : MonoBehaviour
         if (myHudRenderer== null) myHudRenderer= FindObjectOfType<HUDRenderer>();
         myCucho.GetComponent<Collider>().gameObject.SetActive(false);
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
-        
+        if (mySceneC == null) mySceneC = FindObjectOfType<SceneController>();
+
         //Variable Initialization
         movementSpeed = 15f;
         groundMovementSpeed = 7.5f;
         airMovementSpeed = groundMovementSpeed / 2;
         jumpForce = 10f;
-        hp = 4; myHudRenderer.InitBossHudHealth(hp);
+        hp = 10; myHudRenderer.InitBossHudHealth(hp);
 
         inmunity = 0.2f;
-        canAI = false;
+        canAI = true;
     }
 
 
@@ -81,6 +83,7 @@ public class CyrusWall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (canAI) JumpAttack(currentPlayerPos-currentPos );
     }
 
     // Update is called once per frame
@@ -351,12 +354,15 @@ public class CyrusWall : MonoBehaviour
             myHudRenderer.SetBossHudHealth(hp);
             Vector3 direction = (myPlayer.transform.position - transform.position).normalized;
             myRb.velocity = new Vector3(-direction.x * 10, 3, -direction.z * 10);
+            busy = false;
         }
     }
     private IEnumerator Die()
     {
         SoundManager.PlaySound(SoundManager.Sound.WRECKINGDIE, 2f);
+        
         yield return new WaitForSeconds(inmunity + 0.2f);
+        mySceneC.loadNextScene();
         Destroy(gameObject); //Die
     }
     private void OnTriggerEnter(Collider col)
