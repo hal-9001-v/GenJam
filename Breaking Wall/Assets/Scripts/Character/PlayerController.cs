@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     private bool dead;
 
     public bool canMove = true;
+    public bool cinematickLock = false;
 
     //Hud
     HUDRenderer myHud;
@@ -59,6 +60,10 @@ public class PlayerController : MonoBehaviour
         HITTING = 0,
         HIT = 1,
 
+    }
+
+    public void setCinematicLock(bool b) {
+        cinematickLock = b;
     }
 
     //Animator
@@ -114,11 +119,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canMove)
-        {
-            CheckGrounded(isGrounded);
-            UpdateMovement(moveInput);
+        if (!cinematickLock) {
+            if (canMove)
+            {
+                CheckGrounded(isGrounded);
+                UpdateMovement(moveInput);
+            }
         }
+        
     }
 
     public void enableMove()
@@ -319,7 +327,7 @@ public class PlayerController : MonoBehaviour
     {
 
         //HitAnim
-        if (currentState == (int)State.GROUNDED && canMove)
+        if (currentState == (int)State.GROUNDED && canMove && !cinematickLock)
         {
             StartCoroutine(HitCourutine());
         }

@@ -710,12 +710,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9404d84e4870dca42b4caf1148624a95, type: 3}
---- !u!1 &494566633 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6722007615815792286, guid: 8bf26eeb8bfd97945afde2136e42f03b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1750911131}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &504690996 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5750400065742832883, guid: 9404d84e4870dca42b4caf1148624a95,
@@ -2659,41 +2653,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 494566633}
+      objectReference: {fileID: 1750911132}
     - target: {fileID: 6722007615815792285, guid: 8bf26eeb8bfd97945afde2136e42f03b,
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 494566633}
+      objectReference: {fileID: 1750911132}
     - target: {fileID: 6722007615815792285, guid: 8bf26eeb8bfd97945afde2136e42f03b,
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 494566633}
+      objectReference: {fileID: 1750911132}
     - target: {fileID: 6722007615815792285, guid: 8bf26eeb8bfd97945afde2136e42f03b,
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 494566633}
+      objectReference: {fileID: 1750911132}
     - target: {fileID: 6722007615815792285, guid: 8bf26eeb8bfd97945afde2136e42f03b,
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: blackScreen
       objectReference: {fileID: 0}
     - target: {fileID: 6722007615815792285, guid: 8bf26eeb8bfd97945afde2136e42f03b,
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: loadLobby
       objectReference: {fileID: 0}
     - target: {fileID: 6722007615815792285, guid: 8bf26eeb8bfd97945afde2136e42f03b,
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: loadMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6722007615815792285, guid: 8bf26eeb8bfd97945afde2136e42f03b,
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: loadNextScene
       objectReference: {fileID: 0}
     - target: {fileID: 6722007615815792286, guid: 8bf26eeb8bfd97945afde2136e42f03b,
         type: 3}
@@ -2723,7 +2717,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1750911131}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 494566633}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fefb76bb5a339c488223ef7554caecc, type: 3}
