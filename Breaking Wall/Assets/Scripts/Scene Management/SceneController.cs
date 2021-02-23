@@ -14,7 +14,7 @@ public class SceneController : MonoBehaviour
     const int menuSceneIndex = 0;
     const int loadingSceneIndex = 2;
     const int lobbySceneIndex = 3;
-    const int restartSceneIndex = 12;
+    const int restartSceneIndex = 15;
 
     public Animator screenAnimator;
     const string goToBlackTrigger = "Go Black";
@@ -45,6 +45,8 @@ public class SceneController : MonoBehaviour
         {
             if (rootDestroy != null)
                 Destroy(rootDestroy);
+
+            enabled = false;
         }
     }
 
@@ -147,6 +149,7 @@ public class SceneController : MonoBehaviour
         }
         else
         {
+
             instance.whiteScreen();
         }
     }
