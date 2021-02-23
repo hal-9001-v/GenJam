@@ -363,41 +363,6 @@ PrefabInstance:
       propertyPath: myCube
       value: 
       objectReference: {fileID: 4548350784341125923}
-    - target: {fileID: 8454885788549935489, guid: 9976cdaef0d1bf54587987b1c95f19aa,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454885788549935489, guid: 9976cdaef0d1bf54587987b1c95f19aa,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454885788549935489, guid: 9976cdaef0d1bf54587987b1c95f19aa,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454885788549935490, guid: 9976cdaef0d1bf54587987b1c95f19aa,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 3.0329576
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454885788549935490, guid: 9976cdaef0d1bf54587987b1c95f19aa,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 7.076497
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454885788549935490, guid: 9976cdaef0d1bf54587987b1c95f19aa,
-        type: 3}
-      propertyPath: m_Center.y
-      value: -0.08825612
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454885788549935490, guid: 9976cdaef0d1bf54587987b1c95f19aa,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 2.277905
-      objectReference: {fileID: 0}
     - target: {fileID: 8454885788549935502, guid: 9976cdaef0d1bf54587987b1c95f19aa,
         type: 3}
       propertyPath: myObjective
