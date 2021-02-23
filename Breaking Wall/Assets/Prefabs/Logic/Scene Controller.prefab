@@ -1047,7 +1047,6 @@ GameObject:
   - component: {fileID: 6722007615090492598}
   - component: {fileID: 6722007615090492593}
   - component: {fileID: 6722007615090492592}
-  - component: {fileID: 6722007615090492596}
   m_Layer: 5
   m_Name: Black Screen
   m_TagString: Untagged
@@ -1142,49 +1141,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &6722007615090492596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6722007615090492594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 120182b94a405914bbb385034cc88ac3, type: 2}
-    - {fileID: 11400000, guid: c571d3f49b28bde42a2e3ff9f5372f26, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6722007615090492593}
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Go Black
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6722007615090492593}
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Go White
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &6722007615117650094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,11 +1289,14 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 6a7350e78f9c9f340897bdeaf518f754, type: 2}
     - {fileID: 11400000, guid: d9cd1c94324d11141a079e7b44e583a8, type: 2}
     - {fileID: 11400000, guid: 49214f315d595d94dad71ccefebe90a3, type: 2}
+    - {fileID: 11400000, guid: c571d3f49b28bde42a2e3ff9f5372f26, type: 2}
+    - {fileID: 11400000, guid: b31c3176db9f50c4aa4502755cf1ffab, type: 2}
+    - {fileID: 11400000, guid: 958ba80e927097c45bf733d7d828de20, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 6722007615815792287}
-          m_MethodName: loadNextScene
+          m_MethodName: blackScreen
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1377,6 +1336,45 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 6722007615815792287}
           m_MethodName: loadNextScene
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6722007615815792287}
+          m_MethodName: whiteScreen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6722007615815792287}
+          m_MethodName: freeCursor
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6722007615815792287}
+          m_MethodName: lockCursor
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

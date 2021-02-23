@@ -45,8 +45,6 @@ public class SceneController : MonoBehaviour
         {
             if (rootDestroy != null)
                 Destroy(rootDestroy);
-
-            enabled = false;
         }
     }
 
@@ -150,7 +148,7 @@ public class SceneController : MonoBehaviour
         }
         else
         {
-            instance.blackScreen();
+            instance.whiteScreen();
         }
     }
 
