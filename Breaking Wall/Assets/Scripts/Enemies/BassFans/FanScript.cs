@@ -5,9 +5,9 @@ using UnityEngine;
 public class FanScript : MonoBehaviour
 {
     //GOs
-    private Rigidbody myRb; //My Rigidbody
+    public Rigidbody myRb; //My Rigidbody
     public GameObject myCucho; //Meele hit
-
+    private BassGyalScript myWall;
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
 
@@ -15,7 +15,7 @@ public class FanScript : MonoBehaviour
     private bool isGrounded;
     public int currentState;
     public int currentCombatState;
-    private bool hitting;
+    public bool hitting;
     private bool takeDmg;
 
     //Player Stats
@@ -34,6 +34,7 @@ public class FanScript : MonoBehaviour
     private Vector3 currentPlayerPos;
     private bool busy;
     private bool jattacking;
+    public bool attackAnim;
     //State
     public enum State
     {
@@ -55,6 +56,7 @@ public class FanScript : MonoBehaviour
         if (myRb == null) myRb = GetComponent<Rigidbody>();
 
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
+        if (myWall == null) myWall= FindObjectOfType<BassGyalScript>();
         if (myCucho != null) myCucho.gameObject.SetActive(false);
         //Variable Initialization
         movementSpeed = 10f;
@@ -112,7 +114,7 @@ public class FanScript : MonoBehaviour
         {
             myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
             Quaternion prevRotation = transform.rotation;
-            Quaternion currentRot = Quaternion.LookRotation((myPlayer.transform.position - transform.position).normalized);
+            Quaternion currentRot = Quaternion.LookRotation((currentPlayerPos - transform.position).normalized);
             transform.rotation = new Quaternion(transform.rotation.x, Quaternion.Slerp(prevRotation, currentRot, 0.4f).y, transform.rotation.z, Quaternion.Slerp(prevRotation, currentRot, 0.4f).w);
         }
     }
@@ -186,16 +188,24 @@ public class FanScript : MonoBehaviour
 
 
         Vector3 direction = currentPlayerPos - currentPos;
-
-        if (distanceToPlayer > 5 && !busy && distanceToPlayer < 50.0 && !jattacking)
+        
+         if (distanceToPlayer > 5 && !busy && distanceToPlayer < 50.0 && !jattacking)
         {
+            currentPlayerPos = myPlayer.transform.position;
+
             if (!(currentCombatState == (int)CombatState.HIT)) moveInput = new Vector2(direction.normalized.x, direction.normalized.z);
         }
         
         else if (distanceToPlayer <5.0)
         {
+            currentPlayerPos = myPlayer.transform.position;
+
             if (!jattacking )StartCoroutine(BackOff(direction));
 
+        } else if (distanceToPlayer > 50.0)
+        {
+            currentPlayerPos = myWall.transform.position;
+            moveInput = Vector2.zero;
         }
 
     }
@@ -203,21 +213,23 @@ public class FanScript : MonoBehaviour
     private IEnumerator BackOff(Vector3 direction)
     {
         jattacking = true;
-        int i = Random.Range(1, 10);
+        int i = Random.Range(0, 3);
         if (i == 2)
         {
+            attackAnim = true;
+            yield return new WaitForSeconds(0.3f);
             myCucho.gameObject.SetActive(true);
             SoundManager.PlaySound(SoundManager.Sound.FANHITS, 0.4f);
             moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 7.5F;
         }
         yield return new WaitForSeconds(0.3f);
-        moveInput = Vector3.zero;
+        attackAnim = false;
         myCucho.gameObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
-        jattacking = false;
-        
-        yield return new WaitForSeconds(1f);
         moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
+        yield return new WaitForSeconds(1f);
+        moveInput = Vector3.zero;
+        yield return new WaitForSeconds(3f);
+        jattacking = false;
 
     }
 
@@ -243,6 +255,7 @@ public class FanScript : MonoBehaviour
     {
         SoundManager.PlaySound(SoundManager.Sound.FANDIES, 0.4f);
         yield return new WaitForSeconds(inmunity + 0.2f);
+        if (myWall != null) myWall.fansKilled++;
 
         Destroy(gameObject); //Die
 

@@ -366,7 +366,6 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
 
-
         int force;
         if (col.gameObject.tag == "Cucho")
         {

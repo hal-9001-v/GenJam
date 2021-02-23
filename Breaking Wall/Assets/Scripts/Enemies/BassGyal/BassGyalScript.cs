@@ -44,6 +44,7 @@ public class BassGyalScript : MonoBehaviour
     public bool shooting;
     public bool isHit;
     //State
+    public int fansKilled = 0;
     public enum State
     {
         GROUNDED = 0,
@@ -93,12 +94,24 @@ public class BassGyalScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckGrounded(isGrounded);
-        UpdateMovement(moveInput);
-        ManageAI();
+        if (fansKilled >= 10)
+        {
+            CheckGrounded(isGrounded);
+            UpdateMovement(moveInput);
+            ManageAI();
+        }
+        else {
+
+            moveInput = Vector2.zero;
+            checkDeaths();        
+        }
+        
+    }
+    public void checkDeaths() { 
+    
+        
 
     }
-
 
     //Check if player grounded
     private void OnTriggerStay(Collider other)

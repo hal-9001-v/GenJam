@@ -5,13 +5,13 @@ using UnityEngine;
 public class CyrusWall : MonoBehaviour
 {
     //GOs
-    private Rigidbody myRb; //My Rigidbody
+    public Rigidbody myRb; //My Rigidbody
     public GameObject myCucho; //Meele hit
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
 
     //ControlVars
-    private bool isGrounded;
+    public bool isGrounded;
     public int currentState;
     public int currentCombatState;
     private bool hitting;
@@ -35,7 +35,8 @@ public class CyrusWall : MonoBehaviour
     private Vector3 currentPlayerPos;
     private bool busy;
     private bool jattacking;
-
+    public bool jumpAttack;
+    public bool frenzy;
 
     //Animator
     
@@ -245,6 +246,7 @@ public class CyrusWall : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
         if (currentState == (int)State.GROUNDED)
         {
+            jumpAttack = true;
             Jump();
             SoundManager.PlaySound(SoundManager.Sound.WRECKINGJUMP, 2f);
             moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
@@ -256,6 +258,7 @@ public class CyrusWall : MonoBehaviour
             busy = true;
             moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
         }
+        jumpAttack = false;
         yield return new WaitForSeconds(2f);
         busy = false;
         jattacking = false;
@@ -270,6 +273,7 @@ public class CyrusWall : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
         if (currentState == (int)State.GROUNDED)
         {
+            frenzy = true;
             Jump();
             SoundManager.PlaySound(SoundManager.Sound.WRECKINGFRENZY1, 2f);
             moveInput = new Vector2(direction.normalized.x, direction.normalized.z) * 2;
@@ -315,7 +319,8 @@ public class CyrusWall : MonoBehaviour
             busy = true;
             moveInput = new Vector2(-direction.normalized.x, -direction.normalized.z);
         }
-        
+        frenzy = false;
+
         yield return new WaitForSeconds(2);
         busy = false;
         jattacking = false;

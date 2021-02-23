@@ -49,7 +49,7 @@ public class BallestaScript : MonoBehaviour
         if (myVirote.falling)
         {
             myVirote.transform.forward =
-            Vector3.Slerp(myVirote.transform.forward, new Vector3(myViroteRb.velocity.normalized.x, myViroteRb.velocity.normalized.y-0.75f, myViroteRb.velocity.normalized.z), Time.deltaTime);
+            Vector3.Slerp(myVirote.transform.forward, new Vector3(myViroteRb.velocity.normalized.x, myViroteRb.velocity.normalized.y-0.2f, myViroteRb.velocity.normalized.z), Time.deltaTime);
         }
     }
 
