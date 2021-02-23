@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1295017956092091795}
   - component: {fileID: 8276566782673877733}
   - component: {fileID: 3392698102915193676}
+  - component: {fileID: 1938577960357896226}
   m_Layer: 0
   m_Name: Estructura
   m_TagString: Untagged
@@ -80,6 +81,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1938577960357896226
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230982279345034692}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.169966, y: 10.19291, z: 21.39488}
+  m_Center: {x: 0.1740675, y: -0.11442879, z: 24.763811}
 --- !u!1 &3154888490665585529
 GameObject:
   m_ObjectHideFlags: 0

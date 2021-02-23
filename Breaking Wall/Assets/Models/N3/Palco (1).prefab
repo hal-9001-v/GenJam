@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 7800992124231334445}
   - component: {fileID: 8184015226699808531}
   - component: {fileID: 8385375420882967808}
+  - component: {fileID: 6532120596086553148}
   m_Layer: 0
   m_Name: Barandilla
   m_TagString: Untagged
@@ -158,6 +159,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6532120596086553148
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3782111273779462992}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5615246462914313839, guid: abcbc597cb438a24c9827b7947ce8c22, type: 3}
 --- !u!1 &4959248663322277574
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,6 +184,7 @@ GameObject:
   - component: {fileID: 5735645075864022140}
   - component: {fileID: 8662323532272296921}
   - component: {fileID: 6904640631336343315}
+  - component: {fileID: 115944869727918180}
   m_Layer: 0
   m_Name: Palco (1)
   m_TagString: Untagged
@@ -239,3 +255,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &115944869727918180
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4959248663322277574}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5239179032588120943, guid: abcbc597cb438a24c9827b7947ce8c22, type: 3}
