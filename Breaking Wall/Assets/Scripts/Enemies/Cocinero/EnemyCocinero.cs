@@ -33,11 +33,14 @@ public class EnemyCocinero : MonoBehaviour
     private Vector3 currentPos;
     private Vector3 currentPlayerPos;
     private bool jattacking;
+
+    public bool cinematicIdle;
     //State
     public enum State
     {
         GROUNDED = 0,
         JUMPING = 1,
+        IDLE = 2
     }
 
     public enum CombatState
@@ -56,14 +59,23 @@ public class EnemyCocinero : MonoBehaviour
 
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
 
-        //Variable Initialization
-        movementSpeed = 10f;
-        groundMovementSpeed = 5;
-        airMovementSpeed = 5;
-        jumpForce = 5f;
-        hp = 2;
-        inmunity = 0.2f;
-        isIdling = false;
+        if (!cinematicIdle)
+        {
+            //Variable Initialization
+            movementSpeed = 10f;
+            groundMovementSpeed = 5;
+            airMovementSpeed = 5;
+            jumpForce = 5f;
+            hp = 2;
+            inmunity = 0.2f;
+            isIdling = false;
+        }
+        else {
+            enabled = false;
+            StartCoroutine(Idle(transform.eulerAngles));
+        }
+
+        
 
     }
 
