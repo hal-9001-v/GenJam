@@ -73,6 +73,7 @@ public class SceneController : MonoBehaviour
 
     public void loadNextScene()
     {
+        
         if (instance == this)
         {
             int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
