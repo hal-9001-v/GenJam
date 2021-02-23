@@ -44,12 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d3af24f6847e44896fc55f7ea15f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speakerText: {fileID: 0}
   dialogueText: {fileID: 0}
   image: {fileID: 0}
+  player: {fileID: 0}
   boxTransform: {fileID: 0}
-  typingSound: {fileID: 0}
+  defaultPosition: {fileID: 0}
+  animator: {fileID: 0}
+  typingSound: {fileID: 8300000, guid: 6246f3a9af868424b89daccfada8b4fd, type: 3}
   pitch: 1
   volume: 0.5
+  director: {fileID: 0}
+  timelineDialogues: []
 --- !u!82 &5992862547706744926
 AudioSource:
   m_ObjectHideFlags: 0

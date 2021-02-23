@@ -6,10 +6,12 @@ public class BallScript : MonoBehaviour
 {
     public CyrusWall myCyrus;
     public GameObject myPeluca;
+    public SceneController mySceneC;
     private void Awake()
     {
         if(myCyrus == null) myCyrus = GetComponentInChildren<CyrusWall>();
-        if(myCyrus !=null) myCyrus.gameObject.SetActive(false);
+        if (mySceneC == null) mySceneC = FindObjectOfType<SceneController>();
+        if (myCyrus !=null) myCyrus.gameObject.SetActive(false);
         
 
     }
@@ -50,6 +52,7 @@ public class BallScript : MonoBehaviour
         SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
         Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), lol);
         //ChangePhase
+        mySceneC.loadNextScene();
         myPeluca.SetActive(false);
         myCyrus.gameObject.SetActive(true);
         myCyrus.canAI = true;

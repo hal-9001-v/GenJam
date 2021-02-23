@@ -39,8 +39,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus/Wally Cyrus Intro.unity
     guid: 5dc7c17b8f4d7f344a4ebb1602fbca82
   - enabled: 1
+    path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus/Wally Cyrus Fight.unity
+    guid: ed5487db4de40254791f0ec96ee585f8
+  - enabled: 1
     path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus/Wally Cyrus Change Phase.unity
     guid: 241f088f2e5845f4da0a1477b78740dc
+  - enabled: 1
+    path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus/Wally Cyrus Figth 2.unity
+    guid: b47eebd6ce557fe4f917c65878430e54
   - enabled: 1
     path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus/Wally Cyrus End.unity
     guid: d101b78f836d4aa42a0619f4f654aa8d
