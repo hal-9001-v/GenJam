@@ -232,7 +232,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117077068}
-  m_LocalRotation: {x: 0.08721359, y: -0.265068, z: -0.024083644, w: -0.95997536}
+  m_LocalRotation: {x: 0.09289841, y: -0.2823459, z: -0.025653483, w: 0.94144994}
   m_LocalPosition: {x: -72.7502, y: 13.67173, z: -78.12437}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2992,7 +2992,7 @@ PlayableDirector:
   m_GameObject: {fileID: 254552879453104854}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: c1429647a98e1d84f9a116a8e53438e1, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: b1ae3bf8e7b23b244ad2d0fef49ef2e8, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
