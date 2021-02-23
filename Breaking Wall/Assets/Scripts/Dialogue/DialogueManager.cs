@@ -41,7 +41,7 @@ public class DialogueManager : InputComponent
 
     bool interactionPressed;
 
-    PlayerControls inputs;
+    static PlayerControls inputs;
 
     void Awake()
     {
@@ -69,18 +69,25 @@ public class DialogueManager : InputComponent
             dialogueText.enabled = false;
 
         }
+        else
+        {
+            Debug.Log("Not instance " + name);
+        }
     }
 
     private void Start()
     {
-        if (instance == this)
-        {
-            var pc = new PlayerControls();
-            pc.Enable(); 
-            setPlayerControls(pc);
+        createInput();
 
-        }
 
+    }
+
+    void createInput()
+    {
+
+        var pc = new PlayerControls();
+        pc.Enable();
+        setPlayerControls(pc);
 
 
 
@@ -99,7 +106,7 @@ public class DialogueManager : InputComponent
 
                 CameraController.LockCamera();
 
-                if (player != null && director ==null)
+                if (player != null && director == null)
                     player.disableMove();
                 else
                 {
@@ -113,14 +120,10 @@ public class DialogueManager : InputComponent
         }
         else
         {
+            Debug.Log("New");
             instance.startDialogue(dialogue);
         }
 
-
-    }
-
-    public void goToBlack()
-    {
 
     }
     IEnumerator TypeText(Dialogue dialogue)
@@ -142,6 +145,11 @@ public class DialogueManager : InputComponent
         {
             speakerText.text = dialogue.speakerName;
 
+        }
+
+        if (inputs == null)
+        {
+            createInput();
         }
 
         interactionPressed = false;
@@ -194,7 +202,7 @@ public class DialogueManager : InputComponent
             CameraController.FreeCamera();
             busy = false;
 
-            if (player != null && director==null)
+            if (player != null && director == null)
                 player.enableMove();
             else
             {
@@ -258,18 +266,15 @@ public class DialogueManager : InputComponent
 
     public override void setPlayerControls(PlayerControls inp)
     {
-        if (inputs == null)
+        inputs = inp;
+
+        inp.DefaultActionMap.Interaction.performed += ctx =>
         {
-            inputs = inp;
+            interactionPressed = true;
 
-            inp.DefaultActionMap.Interaction.performed += ctx =>
-            {
-                interactionPressed = true;
+        };
 
-            };
-
-            inp.DefaultActionMap.Interaction.canceled += ctx => interactionPressed = false;
-        }
+        inp.DefaultActionMap.Interaction.canceled += ctx => interactionPressed = false;
 
     }
 

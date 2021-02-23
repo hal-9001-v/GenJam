@@ -1827,6 +1827,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3779434973600591650, guid: 8bf26eeb8bfd97945afde2136e42f03b,
+        type: 3}
+      propertyPath: m_Name
+      value: Dialogue Canvas 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6722007615117650095, guid: 8bf26eeb8bfd97945afde2136e42f03b,
         type: 3}
       propertyPath: m_LocalPosition.z
