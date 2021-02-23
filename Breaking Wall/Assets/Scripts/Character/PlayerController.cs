@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
     private float groundMovementSpeed; //Movement speed when on ground, also launching speed
     private float jumpForce; //pretty self explanatory, really
     public int hp; //Life points
-    //private int level; //Actual level (scene)
     private float inmunity;
     private bool dead;
 
@@ -102,30 +101,14 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    /*
-    //PlayerStatsUpdate
-    private void UpdatePlayerStats()
-    {
-        ps.level = level;
-        ps.hp = hp;
-    }
-    */
-    //Load pertinent level
-    private void nextLevel()
-    {
-        //level++;
-        //UpdatePlayerStats();
-        Debug.Log("Loading Scene correspondiente");
-
-    }
-
-
 
     // Start is called before the first frame update
     void Start()
     {
         setPlayerControls(myPlayerControls);
-        myHud.UpdateHUD();
+
+        if (myHud != null)
+            myHud.UpdateHUD();
     }
 
     // Update is called once per frame

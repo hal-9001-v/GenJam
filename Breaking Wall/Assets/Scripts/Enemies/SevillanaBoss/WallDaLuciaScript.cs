@@ -67,7 +67,6 @@ public class WallDaLuciaScript : MonoBehaviour
         jumpForce = 5f;
         hp = 6;
         inmunity = 0.2f;
-        sleeping = true;
     }
 
 

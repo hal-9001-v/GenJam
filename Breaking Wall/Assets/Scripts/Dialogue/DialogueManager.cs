@@ -41,6 +41,8 @@ public class DialogueManager : InputComponent
 
     bool interactionPressed;
 
+    PlayerControls inputs;
+
     void Awake()
     {
         if (instance == null)
@@ -67,6 +69,21 @@ public class DialogueManager : InputComponent
             dialogueText.enabled = false;
 
         }
+    }
+
+    private void Start()
+    {
+        if (instance == this)
+        {
+            var pc = new PlayerControls();
+            pc.Enable(); 
+            setPlayerControls(pc);
+
+        }
+
+
+
+
     }
 
     public void startDialogue(Dialogue dialogue)
@@ -102,8 +119,9 @@ public class DialogueManager : InputComponent
 
     }
 
-    public void goToBlack() { 
-        
+    public void goToBlack()
+    {
+
     }
     IEnumerator TypeText(Dialogue dialogue)
     {
@@ -238,14 +256,20 @@ public class DialogueManager : InputComponent
     }
 
 
-    public override void setPlayerControls(PlayerControls inputs)
+    public override void setPlayerControls(PlayerControls inp)
     {
-        inputs.DefaultActionMap.Interaction.performed += ctx =>
+        if (inputs == null)
         {
-            interactionPressed = true;
-        };
+            inputs = inp;
 
-        inputs.DefaultActionMap.Interaction.canceled += ctx => interactionPressed = false;
+            inp.DefaultActionMap.Interaction.performed += ctx =>
+            {
+                interactionPressed = true;
+
+            };
+
+            inp.DefaultActionMap.Interaction.canceled += ctx => interactionPressed = false;
+        }
 
     }
 

@@ -99,11 +99,13 @@ public class CameraController : InputComponent
 
     public static void LockCamera()
     {
-        instance.enabled = false;
+        if(instance != null)
+            instance.enabled = false;
     }
 
     public static void FreeCamera()
     {
-        instance.enabled = true;
+        if (instance != null)
+            instance.enabled = true;
     }
 }
