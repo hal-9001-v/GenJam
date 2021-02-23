@@ -1205,7 +1205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21409eeb48aad05469d878a53625e59d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speakerName: Wailley Cyrus
+  speakerName: Wailly Cyrus
   texts:
   - SIEMPRE HE SIDO WALLA MONTANA.
   - "Ahora s\xED que no puedo dejarte ir."
@@ -1902,6 +1902,14 @@ PlayableDirector:
   - key: {fileID: -2295773125039716807, guid: b1ae3bf8e7b23b244ad2d0fef49ef2e8, type: 2}
     value: {fileID: 196247018}
   - key: {fileID: -6821129904007983522, guid: b1ae3bf8e7b23b244ad2d0fef49ef2e8, type: 2}
+    value: {fileID: 1199504736}
+  - key: {fileID: 4493943997939668374, guid: 37c9070f77459c44a9ca7a0ea109c68a, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 7714063077628837701, guid: 37c9070f77459c44a9ca7a0ea109c68a, type: 2}
+    value: {fileID: 1199504737}
+  - key: {fileID: -2295773125039716807, guid: 37c9070f77459c44a9ca7a0ea109c68a, type: 2}
+    value: {fileID: 196247018}
+  - key: {fileID: -6821129904007983522, guid: 37c9070f77459c44a9ca7a0ea109c68a, type: 2}
     value: {fileID: 1199504736}
   m_ExposedReferences:
     m_References:

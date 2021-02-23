@@ -56,7 +56,7 @@ public class PauseController : InputComponent
     
         foreach (AudioSource a in allAudioSources)
         {
-            a.Pause();
+           if(a!=null)  a.Pause();
         }
     
     }
@@ -65,7 +65,7 @@ public class PauseController : InputComponent
 
         foreach (AudioSource a in allAudioSources)
         {
-            a.UnPause();
+        if(a!=null)    a.UnPause();
         }
 
     }
