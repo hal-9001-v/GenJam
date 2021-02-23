@@ -17,9 +17,9 @@ public class RopeScript : MonoBehaviour
     public List<Vector3> allRopeSections = new List<Vector3>();
 
     //Rope data
-    private float ropeLength = 2f;
+    private float ropeLength = 5f;
     //Mass of what the rope is carrying
-    private float loadMass = 20f;
+    private float loadMass = 40f;
 
     //The joint we use to approximate the rope
     SpringJoint springJoint;

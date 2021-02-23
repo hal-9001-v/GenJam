@@ -18,7 +18,7 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myPlayerController.myRb.velocity.x != 0f || myPlayerController.myRb.velocity.z != 0f)
+        if (myPlayerController.myRb.velocity.x < -0.1f || myPlayerController.myRb.velocity.x > 0.1f || myPlayerController.myRb.velocity.z > 0.1f || myPlayerController.myRb.velocity.z < -0.1f )
         {
 
             anim.SetBool("Running", true);
