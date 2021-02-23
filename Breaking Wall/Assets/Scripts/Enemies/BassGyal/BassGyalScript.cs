@@ -7,6 +7,7 @@ public class BassGyalScript : MonoBehaviour
     //GOs
     public Rigidbody myRb; //My Rigidbody
     public GameObject myCucho; //Meele hit
+    private SceneController mySceneC;
 
     //MovementVals
     public Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
@@ -67,6 +68,8 @@ public class BassGyalScript : MonoBehaviour
         if (myHudRenderer == null) myHudRenderer = FindObjectOfType<HUDRenderer>();
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
         if (myMicro == null) myMicro = FindObjectOfType<MicroScript>();
+        if (mySceneC == null) mySceneC = FindObjectOfType<SceneController>();
+
         myMicro.gameObject.SetActive(false);
         //Variable Initialization
         movementSpeed = 10f;
@@ -358,7 +361,7 @@ public class BassGyalScript : MonoBehaviour
     {
         SoundManager.PlaySound(SoundManager.Sound.SYNTHDIES, 0.4f);
         yield return new WaitForSeconds(inmunity + 0.2f);
-
+        mySceneC.loadNextScene();
         Destroy(gameObject); //Die
 
     }

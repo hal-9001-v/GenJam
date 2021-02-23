@@ -7,7 +7,6 @@ public class GyalAnimator : MonoBehaviour
     // Start is called before the first frame update
     public Animator anim;
     private BassGyalScript myWall;
-
     private void Awake()
     {
         if (myWall == null) myWall = FindObjectOfType<BassGyalScript>();

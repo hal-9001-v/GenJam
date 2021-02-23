@@ -9,6 +9,7 @@ public class WallDaLuciaScript : MonoBehaviour
     public GameObject mySphere;
     //MovementVals
     private Vector2 moveInput; //Input Vector corresponding to WASD or JoyStick input
+    public SceneController mySceneC;
 
     //ControlVars
     private bool isGrounded;
@@ -59,6 +60,7 @@ public class WallDaLuciaScript : MonoBehaviour
         if (myRb == null) myRb = GetComponent<Rigidbody>();
         if (myPlayer == null) myPlayer = FindObjectOfType<PlayerController>();
         if (myHudRenderer == null) myHudRenderer = FindObjectOfType<HUDRenderer>();
+        if (mySceneC == null) mySceneC = FindObjectOfType<SceneController>();
 
         //Variable Initialization
         movementSpeed = 10f;
@@ -250,7 +252,7 @@ if(sleeping) anim.transform.position = new Vector3(anim.transform.position.x, an
         anim.SetBool("Hit", true);
         yield return new WaitForSeconds(inmunity+0.2f);
         SoundManager.PlaySound(SoundManager.Sound.ILLODIE, 0.8f);
-
+        mySceneC.loadNextScene();
         Destroy(gameObject); //Die
         
     }
