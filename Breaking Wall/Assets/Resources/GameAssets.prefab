@@ -142,8 +142,8 @@ MonoBehaviour:
   - {fileID: 0}
   healthArray:
   - {fileID: 21300000, guid: aca678284d53fd74f9f94fbe2df6ecac, type: 3}
-  - {fileID: 21300000, guid: 893404966983b5a4fa657fc4b9dfab9f, type: 3}
-  - {fileID: 21300000, guid: fea6483c77d239a4b9bd783b166c2aa8, type: 3}
-  - {fileID: 21300000, guid: 89df347d557932642a4e6855793704fd, type: 3}
-  - {fileID: 21300000, guid: 1857e183fc8d6dc4f86c3b6b4691ed2b, type: 3}
-  - {fileID: 21300000, guid: fb8153c40cf38e5459e7a4f954931584, type: 3}
+  - {fileID: 21300000, guid: 71ebc3518d1df6f429069b7ab38c2804, type: 3}
+  - {fileID: 21300000, guid: 49f9df8499d08de4ba79bd03a91e7c94, type: 3}
+  - {fileID: 21300000, guid: 081abfdb366c04140adc0c564522df9b, type: 3}
+  - {fileID: 21300000, guid: 80ccd6a8cdfbb2c43b035ad502259670, type: 3}
+  - {fileID: 21300000, guid: f7ae93d5da6cda4429f1d0b3ba0fa61f, type: 3}
