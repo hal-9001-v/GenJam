@@ -215,9 +215,19 @@ if(sleeping) anim.transform.position = new Vector3(anim.transform.position.x, an
 
     private IEnumerator WallRoutine() {
 
-        yield return new WaitForSeconds(1f);
-       if(mySphere != null)  Destroy(mySphere);
+        yield return new WaitForSeconds(0.5f);
+       if(mySphere!=null) mySphere.transform.position = Vector3.Lerp(mySphere.transform.position, new Vector3(mySphere.transform.position.x, mySphere.transform.position.y + 100, mySphere.transform.position.y), Time.deltaTime/4);
+        yield return new WaitForSeconds(10);
 
+        if (mySphere != null)  Destroy(mySphere);
+
+    }
+
+    private IEnumerator PuterioRoutine()
+    {
+
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 
     public void TakeDamage()

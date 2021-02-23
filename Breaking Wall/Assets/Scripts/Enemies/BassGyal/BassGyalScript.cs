@@ -77,6 +77,7 @@ public class BassGyalScript : MonoBehaviour
         canShoot = true;
         facePlayer = true;
         shieldHP = 3;
+       StartCoroutine(JumpAttack((myPlayer.transform.position - gameObject.transform.position)));
     }
 
 
@@ -127,8 +128,8 @@ public class BassGyalScript : MonoBehaviour
         {
             myRb.velocity = new Vector3(M.x * movementSpeed, myRb.velocity.y, M.y * movementSpeed);
             Quaternion prevRotation = transform.rotation;
-            Quaternion currentRot = Quaternion.LookRotation((currentPlayerPos - transform.position).normalized);
-            transform.rotation = new Quaternion(transform.rotation.x, Quaternion.Slerp(prevRotation, currentRot, 0.4f).y, transform.rotation.z, transform.rotation.w);
+            Quaternion currentRot = Quaternion.LookRotation((currentPlayerPos - currentPos).normalized);
+            transform.rotation = new Quaternion(transform.rotation.x, Quaternion.Slerp(prevRotation, currentRot, 0.4f).y, transform.rotation.z, Quaternion.Slerp(prevRotation, currentRot, 0.4f).w);
         }
     }
 
@@ -224,13 +225,13 @@ public class BassGyalScript : MonoBehaviour
             int i = Random.Range(1, 100);
             if (i == 3)
             {
-
+                
                 if (canShoot && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(Shoot());
 
             }
             else if ( i== 4)
                 {
-                    if (canShoot && !jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(JumpAttack(direction));
+                if (canShoot && !jattacking && currentState == (int)State.GROUNDED && !(currentCombatState == (int)CombatState.HIT)) StartCoroutine(JumpAttack(direction));
 
                 }
             
@@ -251,10 +252,10 @@ public class BassGyalScript : MonoBehaviour
         if (canShoot)
         {
             shooting = true;
-            Vector3 playerDirection = currentPlayerPos = myPlayer.transform.position - gameObject.transform.position;
             canShoot = false;
             moveInput = Vector2.zero;
             yield return new WaitForSeconds(2f);
+            Vector3 playerDirection = currentPlayerPos = myPlayer.transform.position - gameObject.transform.position;
             busy = true;
             SoundManager.PlaySound(SoundManager.Sound.SYNTHTHROWS, 0.4f);
             SoundManager.PlaySound(SoundManager.Sound.SWINGSPUNCH, 0.2f);
@@ -263,9 +264,9 @@ public class BassGyalScript : MonoBehaviour
             myMicro.GetComponent<Rigidbody>().velocity = playerDirection.normalized * 20;
             moveInput = Vector2.zero;
             shooting = false;
+            facePlayer = false;
             yield return new WaitForSeconds(2f);
             moveInput = Vector2.zero;
-            facePlayer = false;
             busy = false;
 
         }
@@ -376,7 +377,7 @@ public class BassGyalScript : MonoBehaviour
         takeDmg = true;
         yield return new WaitForSeconds(inmunity);
         takeDmg = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.7f);
         isHit = false;
         currentCombatState = (int)CombatState.HITTING;
         busy = false;

@@ -66,7 +66,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2584187872159286995}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -336,6 +336,7 @@ MonoBehaviour:
   hp: 0
   canShoot: 0
   shooting: 0
+  isHit: 0
 --- !u!136 &1150923514665184331
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -406,19 +407,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.67947096, y: 1.4941001, z: 0.466012}
   m_Center: {x: -0.0067792833, y: -0.24705005, z: 0.02646017}
---- !u!65 &6395332156297970632
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8227789662727045672}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3531482, y: 0.35824537, z: 1.9069004}
-  m_Center: {x: 0.17657399, y: 0.10844684, z: 0.12277126}
 --- !u!1001 &1221882401076145929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -486,42 +474,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Micro
       objectReference: {fileID: 0}
-    - target: {fileID: 7123010755352063271, guid: 5524630a207be004d84e197e852bf460,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 1.7681278
-      objectReference: {fileID: 0}
-    - target: {fileID: 7123010755352063271, guid: 5524630a207be004d84e197e852bf460,
-        type: 3}
-      propertyPath: m_Center.z
-      value: 0.10906391
-      objectReference: {fileID: 0}
-    - target: {fileID: 7956094507981072846, guid: 5524630a207be004d84e197e852bf460,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.32830688
-      objectReference: {fileID: 0}
-    - target: {fileID: 7956094507981072846, guid: 5524630a207be004d84e197e852bf460,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.32830688
-      objectReference: {fileID: 0}
-    - target: {fileID: 7956094507981072846, guid: 5524630a207be004d84e197e852bf460,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5501538
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5524630a207be004d84e197e852bf460, type: 3}
 --- !u!4 &8227789663871571281 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7123010754089056856, guid: 5524630a207be004d84e197e852bf460,
-    type: 3}
-  m_PrefabInstance: {fileID: 1221882401076145929}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8227789662727045672 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7123010755352063265, guid: 5524630a207be004d84e197e852bf460,
     type: 3}
   m_PrefabInstance: {fileID: 1221882401076145929}
   m_PrefabAsset: {fileID: 0}

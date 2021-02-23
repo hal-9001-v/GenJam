@@ -26,10 +26,10 @@ public class BaloonScript : MonoBehaviour
             SoundManager.PlaySound(SoundManager.Sound.ILLO, 0.8f);
             Instantiate(GameAssets.i.particles[4], gameObject.transform.position,gameObject.transform.rotation);
             myWall.TakeDamage();
-         
             Destroy(gameObject);
 
         }
     }
 
+  
 }

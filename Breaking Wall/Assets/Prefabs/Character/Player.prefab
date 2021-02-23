@@ -356,6 +356,7 @@ MonoBehaviour:
   myRb: {fileID: 0}
   bodyTransform: {fileID: 1115024182838203722}
   followTransform: {fileID: 773305721380887259}
+  pelucas: []
   isGrounded: 0
   currentState: 0
   currentCombatState: 0
@@ -363,6 +364,7 @@ MonoBehaviour:
   hasVirote: 0
   ballestaLoaded: 0
   hp: 0
+  canMove: 1
   isMoving: 0
   diving: 0
 --- !u!114 &2233467809486111231
@@ -408,10 +410,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 86bfa685ae0afab4087b6d81aced434d, type: 2}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.6755944
+  m_Radius: 1.2
   m_Height: 2.7206295
   m_Direction: 1
-  m_Center: {x: 0, y: 0.05614078, z: -0.0036659837}
+  m_Center: {x: 0, y: 0.05614078, z: 0}
 --- !u!82 &9092721478414412354
 AudioSource:
   m_ObjectHideFlags: 0
@@ -571,7 +573,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095914651480635125}
   m_LocalRotation: {x: 0.1943383, y: -0.39310795, z: 0.08538976, w: 0.8946549}
-  m_LocalPosition: {x: 0, y: 2.8999991, z: -10}
+  m_LocalPosition: {x: 0, y: 2.9, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3376223495594306655}
@@ -955,6 +957,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 3075239876361619108, guid: efe25e6641e0377488a34f22bf05e3e2,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075239876361619108, guid: efe25e6641e0377488a34f22bf05e3e2,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4694882849089481800, guid: efe25e6641e0377488a34f22bf05e3e2,
         type: 3}
       propertyPath: m_RenderMode
@@ -1089,6 +1101,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FillCenter
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7573259837355683524, guid: efe25e6641e0377488a34f22bf05e3e2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -772
+      objectReference: {fileID: 0}
+    - target: {fileID: 7573259837355683524, guid: efe25e6641e0377488a34f22bf05e3e2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 340
+      objectReference: {fileID: 0}
+    - target: {fileID: 7958713847682122643, guid: efe25e6641e0377488a34f22bf05e3e2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -675
       objectReference: {fileID: 0}
     - target: {fileID: 8387524169776375839, guid: efe25e6641e0377488a34f22bf05e3e2,
         type: 3}

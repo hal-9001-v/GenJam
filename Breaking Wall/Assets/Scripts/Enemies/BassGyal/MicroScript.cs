@@ -24,7 +24,7 @@ public class MicroScript : MonoBehaviour
         if (col.gameObject.tag == "Bateria") {
             myParticles = Instantiate(GameAssets.i.particles[1],col.transform.position, col.transform.rotation);
             myParticles.transform.parent = col.transform.parent;
-            if(col.GetComponent<BateriaScript>().bigBattery!=null) col.GetComponent<BateriaScript>().bigBattery.SetActive(false);
+            if(col.GetComponent<BateriaScript>()!=null) col.GetComponent<BateriaScript>().bigBattery.SetActive(false);
             SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.8f);
 
         }
