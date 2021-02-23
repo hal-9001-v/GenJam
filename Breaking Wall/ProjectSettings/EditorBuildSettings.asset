@@ -39,6 +39,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus/Wally Cyrus Intro.unity
     guid: 5dc7c17b8f4d7f344a4ebb1602fbca82
   - enabled: 1
+    path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus/Wally Cyrus Change Phase.unity
+    guid: 241f088f2e5845f4da0a1477b78740dc
+  - enabled: 1
     path: Assets/Scenes/Build Scenes/Bosses/Wally Cyrus/Wally Cyrus End.unity
     guid: d101b78f836d4aa42a0619f4f654aa8d
   - enabled: 1
