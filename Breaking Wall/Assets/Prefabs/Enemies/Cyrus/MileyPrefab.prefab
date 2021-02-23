@@ -322,6 +322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ae7c2fbf5a23b4ab2ab2c652b06995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCyrus: {fileID: 0}
+  myPeluca: {fileID: 1666430914179477015}
 --- !u!1 &8550245070837756707
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +749,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c68f5033f57085649967a147bab6d896, type: 3}
+--- !u!1 &1666430914179477015 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5626818354534598630, guid: c68f5033f57085649967a147bab6d896,
+    type: 3}
+  m_PrefabInstance: {fileID: 6428364471051971057}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7047658958459873255
 PrefabInstance:
   m_ObjectHideFlags: 0

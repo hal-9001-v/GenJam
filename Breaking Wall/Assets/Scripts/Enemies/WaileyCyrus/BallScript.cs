@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour
 {
-    CyrusWall myCyrus;
-
+    public CyrusWall myCyrus;
+    public GameObject myPeluca;
     private void Awake()
     {
-        myCyrus = GetComponentInChildren<CyrusWall>();
-        myCyrus.gameObject.SetActive(false);
+        if(myCyrus == null) myCyrus = GetComponentInChildren<CyrusWall>();
+        if(myCyrus !=null) myCyrus.gameObject.SetActive(false);
+        
 
     }
     // Start is called before the first frame update
@@ -48,6 +49,8 @@ public class BallScript : MonoBehaviour
         Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), lol);
         SoundManager.PlaySound(SoundManager.Sound.ELECTRICSOUND, 0.2f);
         Instantiate(GameAssets.i.particles[0], new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), lol);
+        //ChangePhase
+        myPeluca.SetActive(false);
         myCyrus.gameObject.SetActive(true);
         myCyrus.canAI = true;
         myCyrus.shield = false;
