@@ -271,7 +271,7 @@ RectTransform:
   - {fileID: 7282251801762176315}
   - {fileID: 1863063448598336865}
   - {fileID: 6773957571152308251}
-  m_Father: {fileID: 2206471729741466866}
+  m_Father: {fileID: 6722007615815792284}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -642,7 +642,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3203473563562051897}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -651,7 +651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00048828, y: 0.00024414}
+  m_AnchoredPosition: {x: -0.0005493164, y: 0.00024414062}
   m_SizeDelta: {x: 1919.999, y: 1079.9993}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &215786469094117505
@@ -1253,7 +1253,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 6722007615090492595}
-  m_Father: {fileID: 2206471729741466866}
+  m_Father: {fileID: 4949250281688735820}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1334,7 +1334,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3437548841721005862}
-  - {fileID: 2206471729741466866}
+  - {fileID: 7788459652959793830}
+  - {fileID: 4949250281688735820}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1802,7 +1803,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2206471729741466866}
+  - component: {fileID: 4949250281688735820}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -1810,7 +1811,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2206471729741466866
+--- !u!4 &4949250281688735820
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1822,9 +1823,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6722007615117650095}
-  - {fileID: 7788459652959793830}
   m_Father: {fileID: 6722007615815792284}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8244325307433858108
 GameObject:

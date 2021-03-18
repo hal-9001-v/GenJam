@@ -63,7 +63,7 @@ public class FanScript : MonoBehaviour
         groundMovementSpeed = 5f;
         airMovementSpeed = groundMovementSpeed / 2;
         jumpForce = 5f;
-        hp = 2;
+        hp = 1;
         inmunity = 0.2f;
 
     }
@@ -254,7 +254,7 @@ public class FanScript : MonoBehaviour
     private IEnumerator Die()
     {
         SoundManager.PlaySound(SoundManager.Sound.FANDIES, 0.4f);
-        yield return new WaitForSeconds(inmunity + 0.2f);
+        yield return new WaitForSeconds(inmunity + 1.2f);
         if (myWall != null) myWall.fansKilled++;
 
         Destroy(gameObject); //Die

@@ -108,7 +108,7 @@ public class SceneController : MonoBehaviour
 
         SceneManager.LoadScene(loadingSceneIndex);
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
 
         var operation = SceneManager.LoadSceneAsync(index);
 
